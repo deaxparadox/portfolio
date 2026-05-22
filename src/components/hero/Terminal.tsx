@@ -44,7 +44,7 @@ function colourDataLine(raw: string): string {
   return raw
 }
 
-export default function Terminal({ data }: { data: TerminalData }) {
+export default function Terminal({ data, maximized: _maximized }: { data: TerminalData; maximized?: boolean }) {
   const [lines, setLines]       = useState<Line[]>([])
   const [inputBuf, setInputBuf] = useState('')
   const [isTyping, setIsTyping] = useState(true)
