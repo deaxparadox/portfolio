@@ -51,14 +51,15 @@ function buildLsLines(): string[] {
 }
 
 function colourDataLine(raw: string): string {
-  if (raw.includes('Available for new projects')) {
-    return raw.replace('Available for new projects', green('● Available for new projects'))
+  const escaped = esc(raw)
+  if (escaped.includes('Available for new projects')) {
+    return escaped.replace('Available for new projects', green('● Available for new projects'))
   }
-  if (/^  \w[\w& ]+  \/\/ /.test(raw)) {
-    const idx = raw.indexOf('  //')
-    return gold(raw.slice(0, idx)) + muted(raw.slice(idx))
+  if (/^  \w[\w&; ]+  \/\/ /.test(escaped)) {
+    const idx = escaped.indexOf('  //')
+    return gold(escaped.slice(0, idx)) + muted(escaped.slice(idx))
   }
-  return raw
+  return escaped
 }
 
 interface TerminalProps { data: TerminalData; maximized?: boolean }
@@ -110,7 +111,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
       setIsTyping(false)
       if (state === 'MAXIMIZED') {
         transitionTo('FLOATING')
-        setTimeout(() => transitionTo('EMBEDDED'), 450)
+        setTimeout(() => transitionTo('EMBEDDED'), 700)
       } else {
         transitionTo('EMBEDDED')
       }
@@ -204,8 +205,8 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
   }
   const handleGreen  = () => {
     if (isTransitioning) return
-    if (state === 'EMBEDDED' || state === 'FLOATING') transitionTo('MAXIMIZED')
     if (state === 'MAXIMIZED') transitionTo('FLOATING')
+    else transitionTo('MAXIMIZED')
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
