@@ -4,6 +4,9 @@ import './globals.css'
 import CustomCursor from '@/components/ui/CustomCursor'
 import RevealInit   from '@/components/ui/RevealInit'
 import FramerProvider from '@/components/ui/FramerProvider'
+import { TerminalProvider } from '@/context/TerminalContext'
+import TerminalFloating  from '@/components/terminal/TerminalFloating'
+import TerminalMaximized from '@/components/terminal/TerminalMaximized'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/data/types'
 
@@ -40,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${dmSerif.variable} ${jetbrainsMono.variable} ${instrumentSans.variable}`}>
         <FramerProvider>
+          <TerminalProvider>
           <CustomCursor />
           <RevealInit />
 
@@ -74,6 +78,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
 
           <div className="relative z-[2]">{children}</div>
+          {/* Overlay terminal states — outside hero grid, always available */}
+          <TerminalFloating />
+          <TerminalMaximized />
+          </TerminalProvider>
         </FramerProvider>
       </body>
     </html>
