@@ -1,6 +1,9 @@
 'use client'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import type { TerminalData } from '@/data/types'
+import { useTerminal } from '@/context/TerminalContext'
+import { parseCommand } from '@/lib/terminalParser'
+import { SECTIONS } from '@/lib/sections'
 
 interface Line { id: number; html: string }
 
@@ -28,7 +31,21 @@ function buildHelpLines(): string[] {
     `  ${cyan('projects')}    ${dim('->')}  Selected work`,
     `  ${cyan('experience')}  ${dim('->')}  Work history`,
     `  ${cyan('contact')}     ${dim('->')}  Get in touch`,
+    `  ${cyan('ls')}          ${dim('->')}  List sections`,
+    `  ${cyan('mv')} ${dim('<section>')}  ${dim('->')}  Navigate to section`,
     `  ${cyan('clear')}       ${dim('->')}  Clear terminal`,
+    '',
+  ]
+}
+
+function buildLsLines(): string[] {
+  return [
+    '',
+    gold('  Navigable sections:'),
+    '',
+    ...SECTIONS.map(s => `  ${cyan(s)}`),
+    '',
+    dim('  usage: mv <section>'),
     '',
   ]
 }
@@ -44,7 +61,8 @@ function colourDataLine(raw: string): string {
   return raw
 }
 
-export default function Terminal({ data, maximized: _maximized }: { data: TerminalData; maximized?: boolean }) {
+interface TerminalProps { data: TerminalData; maximized?: boolean }
+export default function Terminal({ data, maximized = false }: TerminalProps) {
   const [lines, setLines]       = useState<Line[]>([])
   const [inputBuf, setInputBuf] = useState('')
   const [isTyping, setIsTyping] = useState(true)
@@ -52,6 +70,8 @@ export default function Terminal({ data, maximized: _maximized }: { data: Termin
   const bodyRef  = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const idRef    = useRef(0)
+
+  const { state, transitionTo, isTransitioning } = useTerminal()
 
   const addLine = useCallback((html: string) => {
     setLines(prev => [...prev, { id: ++idRef.current, html }])
@@ -61,21 +81,82 @@ export default function Terminal({ data, maximized: _maximized }: { data: Termin
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight
   }, [lines])
 
-  const executeCommand = useCallback((cmd: string) => {
-    const key = cmd.trim().toLowerCase()
+  useEffect(() => {
+    if (!maximized) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') transitionTo('FLOATING')
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [maximized, transitionTo])
+
+  const executeMv = useCallback((section: string) => {
+    if (section === 'unknown' || section === '') {
+      addLine(`  ${red('mv: missing or unknown section')}`)
+      addLine(`  ${dim('valid: ' + SECTIONS.join(', '))}`)
+      addLine('')
+      setIsTyping(false)
+      return
+    }
+    if (section === 'hero') {
+      if (state === 'EMBEDDED') {
+        addLine(`  ${dim('already here.')}`)
+        addLine('')
+        setIsTyping(false)
+        return
+      }
+      addLine(`  ${dim('→ reattaching to hero')}`)
+      addLine('')
+      setIsTyping(false)
+      if (state === 'MAXIMIZED') {
+        transitionTo('FLOATING')
+        setTimeout(() => transitionTo('EMBEDDED'), 450)
+      } else {
+        transitionTo('EMBEDDED')
+      }
+      return
+    }
+    addLine(`  ${dim(`→ navigating to #${section}`)}`)
+    addLine('')
+    setIsTyping(false)
+    document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' })
+    if (state !== 'FLOATING') transitionTo('FLOATING')
+  }, [state, transitionTo, addLine])
+
+  const executeCommand = useCallback((input: string) => {
+    const parsed = parseCommand(input)
     setIsTyping(true)
 
-    if (key === 'clear') {
-      setLines([]); setInputBuf(''); setIsTyping(false)
+    if (parsed.type === 'mv') {
+      executeMv(parsed.section)
       return
     }
 
+    if (parsed.type === 'unknown') {
+      const errLines = [
+        `  ${red('unknown command: ')}${white(esc(input))}`,
+        `  ${dim('AI chat is not available yet. type ')}${cyan('help')}${dim(' for commands.')}`,
+        '',
+      ]
+      let i = 0
+      const next = () => {
+        if (i >= errLines.length) { setIsTyping(false); setTimeout(() => inputRef.current?.focus(), 50); return }
+        addLine(errLines[i++])
+        setTimeout(next, 60)
+      }
+      next()
+      return
+    }
+
+    const key = parsed.name
+    if (key === 'clear') { setLines([]); setInputBuf(''); setIsTyping(false); return }
+
     const outputLines: string[] =
-      key === 'help'
-        ? buildHelpLines()
-        : key in data.commands
-          ? data.commands[key as keyof typeof data.commands].map(colourDataLine)
-          : [`  ${red('command not found: ')}${white(esc(cmd))}  ${dim('(type help)')}`, '']
+      key === 'help' ? buildHelpLines()
+      : key === 'ls'  ? buildLsLines()
+      : key in data.commands
+        ? (data.commands as unknown as Record<string, string[]>)[key].map(colourDataLine)
+        : []
 
     let i = 0
     const next = () => {
@@ -88,7 +169,7 @@ export default function Terminal({ data, maximized: _maximized }: { data: Termin
       setTimeout(next, Math.max(30, Math.min(100, (outputLines[i - 1] ?? '').length * 3)))
     }
     next()
-  }, [data.commands, addLine])
+  }, [data.commands, addLine, executeMv])
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -110,8 +191,25 @@ export default function Terminal({ data, maximized: _maximized }: { data: Termin
     return () => clearTimeout(t)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const dotDisabled = (dot: 'red' | 'yellow' | 'green') => {
+    if (dot === 'red')    return state !== 'FLOATING'
+    if (dot === 'yellow') return state === 'EMBEDDED'
+    return false
+  }
+  const handleRed    = () => { if (!isTransitioning && state === 'FLOATING') transitionTo('EMBEDDED') }
+  const handleYellow = () => {
+    if (isTransitioning) return
+    if (state === 'FLOATING')  transitionTo('EMBEDDED')
+    if (state === 'MAXIMIZED') transitionTo('FLOATING')
+  }
+  const handleGreen  = () => {
+    if (isTransitioning) return
+    if (state === 'EMBEDDED' || state === 'FLOATING') transitionTo('MAXIMIZED')
+    if (state === 'MAXIMIZED') transitionTo('FLOATING')
+  }
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (isTyping) return
+    if (isTyping || isTransitioning) return
     if (e.key === 'Enter') {
       const cmd = inputBuf
       addLine(gold('$ ') + `<span style="color:#a8d8ea">${esc(cmd)}</span>`)
@@ -133,7 +231,24 @@ export default function Terminal({ data, maximized: _maximized }: { data: Termin
   return (
     <div className="terminal-card" onClick={() => inputRef.current?.focus()}>
       <div className="terminal-bar">
-        <span className="t-dot r" /><span className="t-dot y" /><span className="t-dot g" />
+        <span
+          className="t-dot r"
+          onClick={(e) => { e.stopPropagation(); handleRed() }}
+          style={{ opacity: dotDisabled('red') ? 0.3 : 1, cursor: dotDisabled('red') ? 'default' : 'pointer' }}
+          title={state === 'FLOATING' ? 'reattach to hero' : ''}
+        />
+        <span
+          className="t-dot y"
+          onClick={(e) => { e.stopPropagation(); handleYellow() }}
+          style={{ opacity: dotDisabled('yellow') ? 0.3 : 1, cursor: dotDisabled('yellow') ? 'default' : 'pointer' }}
+          title={state === 'MAXIMIZED' ? 'minimize to float' : state === 'FLOATING' ? 'reattach to hero' : ''}
+        />
+        <span
+          className="t-dot g"
+          onClick={(e) => { e.stopPropagation(); handleGreen() }}
+          style={{ cursor: 'pointer' }}
+          title={state === 'MAXIMIZED' ? 'exit fullscreen' : 'maximize'}
+        />
         <span style={{
           fontFamily: 'var(--font-jetbrains-mono), monospace',
           fontSize: '0.68rem', color: 'var(--text-muted)',
@@ -143,7 +258,11 @@ export default function Terminal({ data, maximized: _maximized }: { data: Termin
         </span>
       </div>
 
-      <div ref={bodyRef} className="terminal-body">
+      <div
+        ref={bodyRef}
+        className="terminal-body"
+        style={{ height: maximized ? '70vh' : '360px' }}
+      >
         {lines.map(line => (
           <div
             key={line.id}
