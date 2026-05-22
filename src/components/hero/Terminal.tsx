@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 import type { TerminalData } from '@/data/types'
 import { useTerminal } from '@/context/TerminalContext'
 import { parseCommand } from '@/lib/terminalParser'
@@ -62,8 +62,9 @@ function colourDataLine(raw: string): string {
 
 interface TerminalProps { data: TerminalData; maximized?: boolean }
 export default function Terminal({ data, maximized = false }: TerminalProps) {
-  const bodyRef  = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const bodyRef    = useRef<HTMLDivElement>(null)
+  const inputRef   = useRef<HTMLInputElement>(null)
+  const [isFocused, setIsFocused] = useState(false)
 
   const {
     state, transitionTo, isTransitioning,
@@ -114,8 +115,10 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
       if (state === 'MAXIMIZED') {
         transitionTo('FLOATING')
         setTimeout(() => transitionTo('EMBEDDED'), 700)
+        setTimeout(() => inputRef.current?.focus(), 1100)
       } else {
         transitionTo('EMBEDDED')
+        setTimeout(() => inputRef.current?.focus(), 800)
       }
       return
     }
@@ -236,7 +239,18 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
   // User input (inputBuf) is rendered as a React text node — never via innerHTML.
   // When user commands are echoed back (addLine calls), they are sanitized via esc() first.
   return (
-    <div className="terminal-card" onClick={() => inputRef.current?.focus()}>
+    <div
+      className="terminal-card"
+      onFocus={() => setIsFocused(true)}
+      onClick={() => inputRef.current?.focus()}
+      style={{
+        transition: 'border-color 0.35s ease, box-shadow 0.35s ease',
+        borderColor: isFocused ? 'rgba(232,200,74,0.4)' : 'rgba(232,200,74,0.12)',
+        boxShadow: isFocused
+          ? '0 0 40px rgba(232,200,74,0.15), inset 0 1px 0 rgba(255,240,120,0.1)'
+          : '0 0 20px rgba(232,200,74,0.04), inset 0 1px 0 rgba(255,240,120,0.04)',
+      }}
+    >
       <div className="terminal-bar">
         <span
           className="t-dot r"
@@ -268,7 +282,11 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
       <div
         ref={bodyRef}
         className="terminal-body"
-        style={{ height: maximized ? '70vh' : '360px' }}
+        style={{
+          height: maximized ? '70vh' : '360px',
+          opacity: isFocused ? 1 : 0.45,
+          transition: 'opacity 0.35s ease',
+        }}
       >
         {lines.map(line => (
           <div
@@ -291,6 +309,8 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
         autoComplete="off"
         spellCheck={false}
         onKeyDown={handleKeyDown}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         onChange={() => {}}
         value=""
         style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 1, height: 1 }}
