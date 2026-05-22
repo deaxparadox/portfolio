@@ -24,7 +24,7 @@ Steps to run in next session:
 
 ## In Progress
 
-- All implementation tasks complete. Pending: final review + deployment.
+- All implementation tasks complete. Pending: deployment.
 - Note: `portfolio-app/` renamed to `src/` (repo itself is named `portfolio`)
 
 ---
@@ -54,7 +54,7 @@ Steps to run in next session:
 
 ## Backlog (UI / Polish)
 
-- [ ] **Framer Motion integration** — Replace manual `IntersectionObserver` + `requestAnimationFrame` scroll animations with Framer Motion. Deferred to keep current build stable. Revisit after v1 ships.
+- [x] **Framer Motion integration** — Pulled from backlog; powers terminal state transitions (embedded/floating/maximized spring animations).
 - [ ] **Mobile hamburger nav** — Nav links hidden at <900px but no hamburger menu. Add in a future iteration.
 - [ ] **Additional experience entries** — Currently 1 card (Excellence Technologies). Add more roles when available.
 - [ ] **Resume PDF** — Link a hosted resume PDF to the contact section's "Resume.pdf" social link.
@@ -86,3 +86,5 @@ Steps to run in next session:
 - [x] Task 10: Experience section / slide-in (implemented ✅, review pending) — commit 6d2c690
 - [x] Task 11: Contact + Footer (implemented ✅, review pending) — commit fc494e4
 - [x] Task 12: Compose page.tsx — full portfolio assembled (reviewed ✅) — commit 14af21a
+- [x] Smart Terminal v1 — 3 states (embedded/floating/maximized), mv navigation, mac dots, WiFi placeholder, Framer Motion spring transitions
+- [x] Framer Motion — pulled from backlog, powers terminal state transitions
