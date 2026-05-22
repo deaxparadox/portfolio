@@ -14,6 +14,10 @@ export default function TerminalFloating() {
       {state === 'FLOATING' && (
         <m.div
           key="terminal-floating"
+          drag
+          dragMomentum={false}
+          dragElastic={0.08}
+          whileDrag={{ cursor: 'grabbing' }}
           initial={{ opacity: 0, scale: 0.92, y: -8 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: -8 }}
@@ -21,9 +25,18 @@ export default function TerminalFloating() {
           style={{
             position: 'fixed', top: '80px', right: '24px',
             width: '360px', zIndex: 200,
+            cursor: 'grab',
           }}
         >
-          <m.div layoutId="terminal" layout transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
+          <m.div
+            layoutId="terminal"
+            layout
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            style={{
+              '--glass-bg': 'rgba(8, 7, 0, 0.93)',
+              '--glass-border': 'rgba(232, 200, 74, 0.35)',
+            } as React.CSSProperties}
+          >
             <Terminal data={data.terminal} />
           </m.div>
         </m.div>
