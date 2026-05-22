@@ -18,10 +18,10 @@ export default function TerminalFloating() {
           dragMomentum={false}
           dragElastic={0.08}
           whileDrag={{ cursor: 'grabbing' }}
-          initial={{ opacity: 0, scale: 0.92, y: -8 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.92, y: -8 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.18 }}
           style={{
             position: 'fixed', top: '80px', right: '24px',
             width: '360px', zIndex: 200,
