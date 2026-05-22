@@ -6,6 +6,7 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
+- [ ] Terminal focus UX — dim effect when unfocused + auto-focus after `mv hero` (next task)
 - Pending: push `dev` branch + PR to `main`, then deploy to Vercel
 - Note: `src/` is the Next.js app (was `portfolio-app/`, renamed since repo = `portfolio`)
 
@@ -36,43 +37,46 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Backlog (UI / Polish)
 
-- [ ] **Smart Terminal v2** — lift terminal line/input state to TerminalContext so history persists across EMBEDDED/FLOATING/MAXIMIZED transitions (v1 loses history on each transition — known, intentional for v1)
-- [ ] **Smart Terminal mobile** — floating terminal on mobile needs its own design pass (currently untested on small screens)
+- [ ] **Smart Terminal mobile** — floating terminal on mobile needs its own design pass
 - [ ] **Mobile hamburger nav** — Nav links hidden at <900px but no hamburger menu
-- [ ] **Additional experience entries** — Currently 1 card (Excellence Technologies). Add more roles when available.
-- [ ] **Resume PDF** — Link a hosted resume PDF to the contact section "Resume.pdf" social link.
-- [ ] **Project case study pages** — Each card links to "#". Add `/projects/[slug]` pages later.
-- [ ] **Open Graph / SEO metadata** — Add `og:image`, Twitter card, structured data after content is finalised.
-- [ ] **Analytics** — Consider Plausible or Vercel Analytics after deployment.
-- [ ] **Deployment** — Deploy to Vercel (connect GitHub repo, set up domain).
-- [ ] **Framer Motion scroll animations** — Replace manual IntersectionObserver + rAF animations with Framer Motion (now that FM is installed). Lower priority since current animations work.
+- [ ] **Additional experience entries** — Currently 1 card (Excellence Technologies)
+- [ ] **Resume PDF** — Link a hosted resume PDF to the contact section "Resume.pdf" social link
+- [ ] **Project case study pages** — Each card links to "#". Add `/projects/[slug]` pages later
+- [ ] **Open Graph / SEO metadata** — Add `og:image`, Twitter card, structured data
+- [ ] **Analytics** — Consider Plausible or Vercel Analytics after deployment
+- [ ] **Deployment** — Deploy to Vercel (connect GitHub repo, set up domain)
+- [ ] **Framer Motion scroll animations** — Replace manual IntersectionObserver + rAF with Framer Motion now that FM is installed
 
 ---
 
 ## Done
 
-- [x] Template reviewed (`template/template-yellow-theme.html`)
-- [x] Tech stack decided: Next.js 16.2.6, TypeScript, Tailwind CSS v4
-- [x] Architecture decided: Approach B — Server-first, client only where needed
-- [x] Data schema designed + portfolio.json populated with Nitish Kushwaha's real data
-- [x] AGENT.md written with 6 project rules
-- [x] Spec: `docs/superpowers/specs/2026-05-22-portfolio-nextjs-migration-design.md`
-- [x] Plan: `docs/superpowers/plans/2026-05-22-portfolio-nextjs-migration.md`
+- [x] Template reviewed + tech stack decided (Next.js 16.2.6, TypeScript, Tailwind CSS v4)
 - [x] Portfolio v1.0 — all sections built, reviewed, assembled (commit 14af21a)
-  - Scaffold, Jest, types, CSS, layout, Tag, Nav, Hero, Terminal, Stats, Skills, Projects, Experience, Contact, Footer
-- [x] **Smart Terminal v1** — spec + plan + implementation complete (commit ca81c90)
+- [x] **Smart Terminal v1** — spec + plan + implementation (commit ca81c90)
   - 3 states: EMBEDDED / FLOATING / MAXIMIZED
-  - Framer Motion `layoutId` spring transitions between states
-  - Functional mac dot buttons (red/yellow/green with per-state logic)
-  - `mv <section>` navigation command — scrolls + detaches terminal
-  - `ls` command — lists navigable sections
-  - `mv hero` — re-attaches terminal to hero (no scroll)
-  - Command parser (`parseCommand`) — routes to known commands or "AI chat not available yet" placeholder
-  - WiFi placeholder — animated signal arcs, "Wirelessly Connected", click to reattach
-  - Auto-detach via IntersectionObserver when hero scrolls out of view
-  - Escape key exits maximized state
-  - Backdrop click exits maximized state
-  - XSS safe throughout (`esc()` on all user input)
-  - 29 tests passing
-- [x] Framer Motion — installed + LazyMotion provider, powers terminal transitions
+  - Framer Motion `layoutId` spring transitions
+  - Functional mac dots (red/yellow/green per-state)
+  - `mv <section>` navigation, `mv hero` re-attach, `ls` list sections
+  - Command parser (`parseCommand`) with unknown → AI chat placeholder
+  - WiFi placeholder — animated arcs, "Wirelessly Connected"
+  - Auto-detach via IntersectionObserver
+  - Escape key + backdrop click exit maximized
+  - XSS safe throughout
+- [x] **Floating terminal improvements** — solid background + drag (commit 027cb0a)
+  - `rgba(8,7,0,0.93)` background in floating mode
+  - `drag` via Framer Motion overlay pattern (`position:absolute` inside fixed viewport container)
+- [x] **Bug fixes** (commits ecc38a9 → f3e4717)
+  - `domMax` instead of `domAnimation` — drag + layout animations were silently disabled
+  - Drag overlay pattern — `position:fixed` breaks Framer drag calculations
+  - `handleGreen` double-branch logic bug
+  - `mv hero` race condition (450ms → 700ms timeout)
+  - `colourDataLine` HTML escaping
+  - `<section>` HTML tag in buildHelpLines causing layout gap
+  - `mv hero` scroll to top added (history persistence removed boot-sequence as feedback)
+- [x] **Terminal history persistence** (commit 5bd262c)
+  - `lines`, `inputBuf`, `isTyping`, `termTitle`, `lineIdRef` lifted to `TerminalContext`
+  - History survives EMBEDDED/FLOATING/MAXIMIZED transitions
+  - Boot sequence guarded by `hasBooted` — runs once only
+- [x] Framer Motion — `domMax` provider, powers all terminal transitions
 - [x] Feature roadmap logged: `docs/superpowers/specs/2026-05-22-portfolio-roadmap.md`
