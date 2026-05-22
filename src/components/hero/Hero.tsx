@@ -1,10 +1,34 @@
+'use client'
+import { useEffect, useRef } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
+import { useTerminal } from '@/context/TerminalContext'
+import WifiPlaceholder from './WifiPlaceholder'
 import Terminal from './Terminal'
 import type { PortfolioData } from '@/data/types'
 
 export default function Hero({ data }: { data: PortfolioData }) {
   const { hero, terminal } = data
+  const { state, transitionTo } = useTerminal()
+  const heroRef = useRef<HTMLElement>(null)
+
+  // Auto-detach: when hero fully scrolls out of viewport, float the terminal
+  useEffect(() => {
+    const el = heroRef.current
+    if (!el || typeof window === 'undefined') return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) transitionTo('FLOATING')
+      },
+      { threshold: 0 },
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [transitionTo])
+
   return (
-    <section style={{
+    <section
+      ref={heroRef}
+      style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center',
       padding: '120px 60px 80px', position: 'relative',
     }}>
@@ -82,7 +106,20 @@ export default function Hero({ data }: { data: PortfolioData }) {
         </div>
 
         <div style={{ animation: 'fadeUp 0.8s ease 0.6s both' }}>
-          <Terminal data={terminal} />
+          <AnimatePresence mode="wait">
+            {state === 'EMBEDDED' ? (
+              <m.div
+                key="terminal-embedded"
+                layoutId="terminal"
+                layout
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              >
+                <Terminal data={terminal} />
+              </m.div>
+            ) : (
+              <WifiPlaceholder key="wifi-placeholder" />
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
