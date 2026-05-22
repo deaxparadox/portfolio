@@ -110,6 +110,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
       addLine(`  ${dim('→ reattaching to hero')}`)
       addLine('')
       setIsTyping(false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
       if (state === 'MAXIMIZED') {
         transitionTo('FLOATING')
         setTimeout(() => transitionTo('EMBEDDED'), 700)
