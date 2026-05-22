@@ -349,4 +349,4 @@ Tailwind custom breakpoint: `sm: '900px'` in config.
 
 ## 10. Folder Location
 
-The Next.js app lives at `portfolio-app/` inside this repo (sibling to `template/`).
+The Next.js app lives at `src/` inside this repo (sibling to `template/`). *(Originally scaffolded as `portfolio-app/`, renamed to `src/` since the repo itself is named `portfolio`.)*

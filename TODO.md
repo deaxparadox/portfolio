@@ -25,6 +25,7 @@ Steps to run in next session:
 ## In Progress
 
 - All implementation tasks complete. Pending: final review + deployment.
+- Note: `portfolio-app/` renamed to `src/` (repo itself is named `portfolio`)
 
 ---
 
