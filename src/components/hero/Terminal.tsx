@@ -32,7 +32,7 @@ function buildHelpLines(): string[] {
     `  ${cyan('experience')}  ${dim('->')}  Work history`,
     `  ${cyan('contact')}     ${dim('->')}  Get in touch`,
     `  ${cyan('ls')}          ${dim('->')}  List sections`,
-    `  ${cyan('mv')} ${dim('<section>')}  ${dim('->')}  Navigate to section`,
+    `  ${cyan('mv')} ${dim('&lt;section&gt;')}  ${dim('->')}  Navigate to section`,
     `  ${cyan('clear')}       ${dim('->')}  Clear terminal`,
     '',
   ]
@@ -45,7 +45,7 @@ function buildLsLines(): string[] {
     '',
     ...SECTIONS.map(s => `  ${cyan(s)}`),
     '',
-    dim('  usage: mv <section>'),
+    dim('  usage: mv &lt;section&gt;'),
     '',
   ]
 }
