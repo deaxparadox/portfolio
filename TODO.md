@@ -29,9 +29,32 @@ Steps to run in next session:
 
 ---
 
-## Backlog
+## Planned Features (in order)
 
-- [ ] **Framer Motion integration** — Replace manual `IntersectionObserver` + `requestAnimationFrame` scroll animations with Framer Motion for cleaner, more maintainable animation code. Deferred to keep current build stable. Revisit after v1 ships.
+### Subsystem 1 — Visual Improvements (NEXT)
+- [ ] Brainstorm + spec visual improvements (in progress)
+- [ ] Implement visual improvements
+
+### Subsystem 2 — Voice Agent Widget (LiveKit)
+- [ ] Spec: LiveKit voice agent frontend — dynamic config, portfolio navigation bridge
+- [ ] Implement voice agent widget
+- [ ] Blocked on: flagship backend token endpoint being ready (or mockable)
+- See: `docs/superpowers/specs/2026-05-22-portfolio-roadmap.md`
+
+### Subsystem 3 — Chatbot Widget
+- [ ] Spec: text chatbot with portfolio navigation
+- [ ] Implement chatbot widget
+- [ ] Blocked on: Subsystem 2 complete (shares navigation bridge)
+
+### Subsystem 4 — Combined Mode (Voice + Chat)
+- [ ] Spec + implement combined LiveKit voice+chat interface
+- [ ] Blocked on: Subsystems 2 + 3 complete
+
+---
+
+## Backlog (UI / Polish)
+
+- [ ] **Framer Motion integration** — Replace manual `IntersectionObserver` + `requestAnimationFrame` scroll animations with Framer Motion. Deferred to keep current build stable. Revisit after v1 ships.
 - [ ] **Mobile hamburger nav** — Nav links hidden at <900px but no hamburger menu. Add in a future iteration.
 - [ ] **Additional experience entries** — Currently 1 card (Excellence Technologies). Add more roles when available.
 - [ ] **Resume PDF** — Link a hosted resume PDF to the contact section's "Resume.pdf" social link.
