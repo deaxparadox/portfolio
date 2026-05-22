@@ -1,11 +1,9 @@
 'use client'
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import type { TerminalData } from '@/data/types'
 import { useTerminal } from '@/context/TerminalContext'
 import { parseCommand } from '@/lib/terminalParser'
 import { SECTIONS } from '@/lib/sections'
-
-interface Line { id: number; html: string }
 
 function esc(s: string): string {
   return s
@@ -64,19 +62,22 @@ function colourDataLine(raw: string): string {
 
 interface TerminalProps { data: TerminalData; maximized?: boolean }
 export default function Terminal({ data, maximized = false }: TerminalProps) {
-  const [lines, setLines]       = useState<Line[]>([])
-  const [inputBuf, setInputBuf] = useState('')
-  const [isTyping, setIsTyping] = useState(true)
-  const [title, setTitle]       = useState('~/nitish-kushwaha')
   const bodyRef  = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const idRef    = useRef(0)
 
-  const { state, transitionTo, isTransitioning } = useTerminal()
+  const {
+    state, transitionTo, isTransitioning,
+    lines, setLines,
+    inputBuf, setInputBuf,
+    isTyping, setIsTyping,
+    termTitle, setTermTitle,
+    lineIdRef,
+    hasBooted, setHasBooted,
+  } = useTerminal()
 
   const addLine = useCallback((html: string) => {
-    setLines(prev => [...prev, { id: ++idRef.current, html }])
-  }, [])
+    setLines(prev => [...prev, { id: ++lineIdRef.current, html }])
+  }, [setLines, lineIdRef])
 
   useEffect(() => {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight
@@ -172,9 +173,13 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     next()
   }, [data.commands, addLine, executeMv])
 
+  // Boot sequence — guarded by hasBooted so it only runs once,
+  // not on every mount when the terminal transitions between states
   useEffect(() => {
+    if (hasBooted) return
+    setHasBooted(true)
     const t = setTimeout(() => {
-      setTitle('~/nitish-kushwaha -- interactive')
+      setTermTitle('~/nitish-kushwaha -- interactive')
       data.intro.forEach((line, i) =>
         setTimeout(() => addLine(muted(line)), 100 + i * 60)
       )
@@ -255,7 +260,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
           fontSize: '0.68rem', color: 'var(--text-muted)',
           marginLeft: '8px', letterSpacing: '0.06em',
         }}>
-          {title}
+          {termTitle}
         </span>
       </div>
 
