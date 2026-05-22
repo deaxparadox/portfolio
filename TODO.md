@@ -24,8 +24,7 @@ Steps to run in next session:
 
 ## In Progress
 
-- [ ] Review Tasks 8–11 (code written, review interrupted — see RESUME POINT above)
-- [ ] Implement + review Task 12: compose page.tsx
+- All implementation tasks complete. Pending: final review + deployment.
 
 ---
 
@@ -62,3 +61,4 @@ Steps to run in next session:
 - [x] Task 9: Projects section / sticky stack (implemented ✅, review pending) — commit b72dcba
 - [x] Task 10: Experience section / slide-in (implemented ✅, review pending) — commit 6d2c690
 - [x] Task 11: Contact + Footer (implemented ✅, review pending) — commit fc494e4
+- [x] Task 12: Compose page.tsx — full portfolio assembled (reviewed ✅) — commit <sha>
