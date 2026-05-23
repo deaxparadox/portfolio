@@ -6,7 +6,8 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- Pending: push `dev` branch + PR to `main`, then deploy to Vercel
+- [ ] **Vercel deployment fix** — build succeeds but 404 on all domains. Likely cause: Framework Preset not set to Next.js in Vercel project settings. Fix: Settings → Build & Dev Settings → Framework Preset → Next.js → Save → Redeploy.
+- Pending: PR `dev` → `main` after deployment confirmed working
 - Note: `src/` is the Next.js app (was `portfolio-app/`, renamed since repo = `portfolio`)
 
 ---
