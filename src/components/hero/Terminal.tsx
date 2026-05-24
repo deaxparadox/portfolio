@@ -93,6 +93,8 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     return () => window.removeEventListener('keydown', onKey)
   }, [maximized, transitionTo])
 
+  const isMobileViewport = () => typeof window !== 'undefined' && window.innerWidth <= 480
+
   const executeMv = useCallback((section: string) => {
     if (section === 'unknown' || section === '') {
       addLine(`  ${red('mv: missing or unknown section')}`)
@@ -126,7 +128,9 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     addLine('')
     setIsTyping(false)
     document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' })
-    if (state !== 'FLOATING') transitionTo('FLOATING')
+    // On mobile: no floating window — scroll only, dismiss terminal if maximized
+    if (!isMobileViewport() && state !== 'FLOATING') transitionTo('FLOATING')
+    if (isMobileViewport() && state === 'MAXIMIZED') transitionTo('EMBEDDED')
   }, [state, transitionTo, addLine])
 
   const executeCommand = useCallback((input: string) => {
