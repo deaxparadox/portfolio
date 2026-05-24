@@ -4,6 +4,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { useTerminal } from '@/context/TerminalContext'
 import WifiPlaceholder from './WifiPlaceholder'
 import Terminal from './Terminal'
+import MobileTerminalPill from './MobileTerminalPill'
 import type { PortfolioData } from '@/data/types'
 
 export default function Hero({ data }: { data: PortfolioData }) {
@@ -17,7 +18,9 @@ export default function Hero({ data }: { data: PortfolioData }) {
     if (!el || typeof window === 'undefined') return
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) transitionTo('FLOATING')
+        if (!entry.isIntersecting && window.innerWidth > 480) {
+          transitionTo('FLOATING')
+        }
       },
       { threshold: 0 },
     )
@@ -106,20 +109,28 @@ export default function Hero({ data }: { data: PortfolioData }) {
         </div>
 
         <div style={{ animation: 'fadeUp 0.8s ease 0.6s both' }}>
-          <AnimatePresence mode="wait">
-            {state === 'EMBEDDED' ? (
-              <m.div
-                key="terminal-embedded"
-                layoutId="terminal"
-                layout
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              >
-                <Terminal data={terminal} />
-              </m.div>
-            ) : (
-              <WifiPlaceholder key="wifi-placeholder" />
-            )}
-          </AnimatePresence>
+          {/* Desktop: full terminal card or WiFi placeholder (CSS hides on mobile) */}
+          <div className="hero-terminal-col">
+            <AnimatePresence mode="wait">
+              {state === 'EMBEDDED' ? (
+                <m.div
+                  key="terminal-embedded"
+                  layoutId="terminal"
+                  layout
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                >
+                  <Terminal data={terminal} />
+                </m.div>
+              ) : (
+                <WifiPlaceholder key="wifi-placeholder" />
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Mobile: collapsed pill (CSS hides on desktop) */}
+          <div className="hero-terminal-pill-col">
+            <MobileTerminalPill />
+          </div>
         </div>
       </div>
     </section>
