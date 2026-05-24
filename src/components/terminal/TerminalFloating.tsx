@@ -30,7 +30,7 @@ export default function TerminalFloating() {
             transition={{ duration: 0.18 }}
             style={{
               position: 'absolute', top: '80px', right: '24px',
-              width: '360px',
+              width: 'min(360px, calc(100vw - 48px))',
               cursor: 'grab',
               pointerEvents: 'all',
             }}

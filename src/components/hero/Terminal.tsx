@@ -80,6 +80,9 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     setLines(prev => [...prev, { id: ++lineIdRef.current, html }])
   }, [setLines, lineIdRef])
 
+  // Safe to call in event handlers — not during render
+  const isMobileViewport = () => typeof window !== 'undefined' && window.innerWidth <= 480
+
   useEffect(() => {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight
   }, [lines])
@@ -87,13 +90,14 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
   useEffect(() => {
     if (!maximized) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') transitionTo('FLOATING')
+      if (e.key === 'Escape') {
+        // On mobile: dismiss to EMBEDDED (no floating window on small screens)
+        transitionTo(isMobileViewport() ? 'EMBEDDED' : 'FLOATING')
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [maximized, transitionTo])
-
-  const isMobileViewport = () => typeof window !== 'undefined' && window.innerWidth <= 480
 
   const executeMv = useCallback((section: string) => {
     if (section === 'unknown' || section === '') {
@@ -214,11 +218,13 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
   const handleYellow = () => {
     if (isTransitioning) return
     if (state === 'FLOATING')  transitionTo('EMBEDDED')
-    if (state === 'MAXIMIZED') transitionTo('FLOATING')
+    // On mobile: MAXIMIZED → EMBEDDED (skip FLOATING); on desktop: MAXIMIZED → FLOATING
+    if (state === 'MAXIMIZED') transitionTo(isMobileViewport() ? 'EMBEDDED' : 'FLOATING')
   }
   const handleGreen  = () => {
     if (isTransitioning) return
-    if (state === 'MAXIMIZED') transitionTo('FLOATING')
+    // On mobile: MAXIMIZED → EMBEDDED (skip FLOATING); on desktop: MAXIMIZED → FLOATING
+    if (state === 'MAXIMIZED') transitionTo(isMobileViewport() ? 'EMBEDDED' : 'FLOATING')
     else transitionTo('MAXIMIZED')
   }
 

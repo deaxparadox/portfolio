@@ -24,7 +24,14 @@ export default function TerminalMaximized() {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             padding: '40px',
           }}
-          onClick={(e) => { if (e.target === e.currentTarget) transitionTo('FLOATING') }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              // On mobile: go to EMBEDDED (no floating window on small screens)
+              const target = typeof window !== 'undefined' && window.innerWidth <= 480
+                ? 'EMBEDDED' : 'FLOATING'
+              transitionTo(target)
+            }
+          }}
         >
           <m.div
             layoutId="terminal"
