@@ -6,8 +6,9 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- [x] **Vercel deployment** — live ✅. Fix was: Framework Preset → Next.js (Vercel was treating it as generic build, not Next.js).
-- Pending: PR `dev` → `main` after deployment confirmed working
+- [x] **Vercel deployment** — live ✅. Fix was: Framework Preset → Next.js.
+- [ ] **Mobile responsiveness** — spec approved, plan + implementation next (see `docs/superpowers/specs/2026-05-23-mobile-responsiveness-design.md`)
+- Pending: PR `dev` → `main` after mobile responsiveness is done
 - Note: `src/` is the Next.js app (was `portfolio-app/`, renamed since repo = `portfolio`)
 
 ---
@@ -37,7 +38,8 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Backlog (UI / Polish)
 
-- [ ] **Smart Terminal mobile** — floating terminal on mobile needs its own design pass
+- [ ] **Smart Terminal mobile half-screen mode** — bottom sheet covering ~50% viewport, portfolio visible + scrollable in top half, `mv <section>` navigates background in real-time. Build after core mobile responsiveness ships.
+- [ ] **Smart Terminal mobile floating** — on mobile, floating top-right window is too small; needs design pass
 - [ ] **Mobile hamburger nav** — Nav links hidden at <900px but no hamburger menu
 - [ ] **Additional experience entries** — Currently 1 card (Excellence Technologies)
 - [ ] **Resume PDF** — Link a hosted resume PDF to the contact section "Resume.pdf" social link
