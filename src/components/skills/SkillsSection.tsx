@@ -13,9 +13,7 @@ export default function SkillsSection({ skills }: { skills: SkillItem[] }) {
         }}>
           What I Build
         </h2>
-        <div className="skills-grid" style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px',
-        }}>
+        <div className="skills-grid" style={{ display: 'grid', gap: '20px' }}>
           {skills.map(skill => <SkillCard key={skill.name} skill={skill} />)}
         </div>
       </div>

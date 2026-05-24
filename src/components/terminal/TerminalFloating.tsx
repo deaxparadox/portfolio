@@ -14,10 +14,10 @@ export default function TerminalFloating() {
       {state === 'FLOATING' && (
         /* Fixed full-viewport overlay — pointer-events:none so it doesn't
            block page interaction. The draggable child re-enables them. */
-        <div style={{
-          position: 'fixed', inset: 0,
-          zIndex: 200, pointerEvents: 'none',
-        }}>
+        <div
+          className="terminal-floating-viewport"
+          style={{ position: 'fixed', inset: 0, zIndex: 200, pointerEvents: 'none' }}
+        >
           <m.div
             key="terminal-floating"
             drag
