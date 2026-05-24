@@ -1067,3 +1067,96 @@ footer {
     text-align: center;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVENESS
+   ═══════════════════════════════════════════════ */
+
+/* Desktop defaults for mobile-only elements */
+.hero-terminal-col      { display: block; }
+.hero-terminal-pill-col { display: none; }
+.bottom-nav             { display: none; }
+
+/* ── Bottom nav: mobile + tablet (≤ 900px) ── */
+@media (max-width: 900px) {
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 150;
+    height: 56px;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(8, 7, 0, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(232, 200, 74, 0.15);
+  }
+  .bottom-nav-item {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    text-decoration: none; padding: 6px 20px;
+    transition: opacity 0.2s;
+  }
+  .bottom-nav-icon {
+    font-size: 1.1rem; color: var(--text-muted); transition: color 0.2s;
+  }
+  .bottom-nav-label {
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.5rem; color: var(--text-muted);
+    letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
+  }
+  .bottom-nav-item.active .bottom-nav-icon,
+  .bottom-nav-item.active .bottom-nav-label { color: var(--accent); }
+  main { padding-bottom: 70px; }
+}
+
+/* ── Tablet only (481px – 900px) ── */
+@media (min-width: 481px) and (max-width: 900px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ── Mobile only (≤ 480px) ── */
+@media (max-width: 480px) {
+  /* Show pill, hide full terminal card */
+  .hero-terminal-col      { display: none; }
+  .hero-terminal-pill-col { display: block; }
+
+  /* Mobile terminal pill */
+  .mobile-terminal-pill {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 12px;
+    background: rgba(255, 240, 120, 0.05);
+    border: 1px solid rgba(232, 200, 74, 0.2);
+    border-radius: 10px; padding: 14px 18px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .mobile-terminal-pill:active {
+    border-color: rgba(232, 200, 74, 0.4);
+    background: rgba(255, 240, 120, 0.08);
+  }
+  .mobile-terminal-pill-left {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mobile-terminal-pill-icon {
+    font-size: 1rem; color: var(--accent);
+  }
+  .mobile-terminal-pill-label {
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 0.04em;
+  }
+  .mobile-terminal-pill-hint {
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.6rem; color: var(--text-muted);
+    letter-spacing: 0.06em; white-space: nowrap;
+  }
+
+  /* Hide custom cursor on touch */
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+
+  /* Tighten top nav padding on mobile */
+  nav { padding: 14px 20px !important; }
+}
