@@ -7,7 +7,7 @@ Tracks in-progress work, backlog, and deferred decisions.
 ## In Progress
 
 - [x] **Vercel deployment** — live ✅. Fix was: Framework Preset → Next.js.
-- [ ] **Mobile responsiveness** — spec approved, plan + implementation next (see `docs/superpowers/specs/2026-05-23-mobile-responsiveness-design.md`)
+- [x] **Mobile responsiveness v1** — bottom nav (≤900px), terminal pill on mobile, 480px breakpoint, tablet 2-col skills, cursor hidden on touch ✅
 - Pending: PR `dev` → `main` after mobile responsiveness is done
 - Note: `src/` is the Next.js app (was `portfolio-app/`, renamed since repo = `portfolio`)
 
