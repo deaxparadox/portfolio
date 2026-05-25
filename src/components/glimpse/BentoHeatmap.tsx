@@ -24,12 +24,12 @@ export default function BentoHeatmap() {
       <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
         Open source journey &amp; contributions
       </div>
-      <div className="heatmap">
+      <div className="heatmap" style={{ overflow: 'hidden' }}>
         {cells.map((lv, i) => (
           <div key={i} className={`hm-cell${lv ? ` l${lv}` : ''}`} />
         ))}
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-jetbrains-mono), monospace', fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '.04em' }}>
+      <div className="hm-months" style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-jetbrains-mono), monospace', fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '.04em' }}>
         {MONTHS.map(m => <span key={m}>{m}</span>)}
       </div>
     </div>

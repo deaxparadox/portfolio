@@ -1435,3 +1435,80 @@ footer {
     grid-column: 1 / -1; grid-row: auto;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   GLIMPSE SECTION RESPONSIVENESS
+   ═══════════════════════════════════════════════ */
+
+/* ── Tablet (481–900px): 2-column bento ── */
+@media (min-width: 481px) and (max-width: 900px) {
+  /* Glimpse section padding */
+  #glimpse { padding: 80px 40px !important; }
+
+  /* 2-col bento on tablet */
+  .bento { grid-template-columns: 1fr 1fr !important; }
+
+  /* Reads: left col · Toolbox: full width */
+  .bc-reads    { grid-column: 1 / 2 !important; grid-row: auto !important; }
+  .bc-toolbox  { grid-column: 1 / -1 !important; grid-row: auto !important; }
+
+  /* Heatmap full width · Hobbies right col */
+  .bc-github   { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .bc-beyond   { grid-column: 1 / -1 !important; grid-row: auto !important; }
+
+  /* Location + Quote side by side */
+  .bc-location { grid-column: 1 / 2 !important; grid-row: auto !important; }
+  .bc-quote    { grid-column: 2 / 3 !important; grid-row: auto !important; }
+}
+
+/* ── Mobile (≤ 480px): single column, compact cells ── */
+@media (max-width: 480px) {
+  /* Glimpse section padding */
+  #glimpse { padding: 60px 20px !important; }
+
+  /* Compact cell padding */
+  .bc { padding: 20px 16px !important; border-radius: 12px !important; }
+
+  /* Heatmap: scale down to fit narrow viewport */
+  .heatmap {
+    grid-template-columns: repeat(26, 1fr) !important; /* half columns on mobile */
+    gap: 2px !important;
+  }
+
+  /* Reduce bento title size */
+  .bc-title { font-size: 14px !important; }
+
+  /* Reduce location map height */
+  .loc-map { height: 90px !important; }
+
+  /* Reduce quote font */
+  .bc-quote .quote-text { font-size: 16px !important; }
+}
+
+/* ── Ribbon responsive ── */
+@media (max-width: 900px) {
+  .ribbon-wrap { height: 130px; }
+  .ribbon-track {
+    /* Less rotation on smaller screens */
+    transform: rotate(-1deg);
+    width: calc(100% + 80px);
+    margin-left: -40px;
+  }
+  .ribbon-item-top { font-size: 13px; padding: 0 14px; gap: 14px; }
+}
+
+@media (max-width: 480px) {
+  .ribbon-wrap { height: 110px; }
+  .ribbon-track {
+    transform: rotate(-0.8deg);
+    width: calc(100% + 60px);
+    margin-left: -30px;
+  }
+  .ribbon-item-top { font-size: 12px; padding: 0 12px; gap: 10px; }
+  .ribbon-item-bottom { font-size: 9px; padding: 0 12px; gap: 12px; }
+}
+
+/* Hide month labels on mobile — too cramped with half-width heatmap */
+@media (max-width: 480px) {
+  .hm-months { display: none !important; }
+}
