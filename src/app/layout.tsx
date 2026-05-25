@@ -8,6 +8,8 @@ import {
 import './globals.css'
 import CustomCursor from '@/components/ui/CustomCursor'
 import RevealInit   from '@/components/ui/RevealInit'
+import AuroraBackground from '@/components/ui/AuroraBackground'
+import Particles from '@/components/ui/Particles'
 import FramerProvider from '@/components/ui/FramerProvider'
 import { TerminalProvider } from '@/context/TerminalContext'
 import TerminalFloating  from '@/components/terminal/TerminalFloating'
@@ -59,6 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <TerminalProvider>
           <CustomCursor />
           <RevealInit />
+          <AuroraBackground />
+          <Particles />
 
           {/* Ambient radial gradient */}
           <div
