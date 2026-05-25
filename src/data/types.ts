@@ -32,6 +32,8 @@ export interface StatItem {
 export interface SkillItem {
   icon: string
   name: string
+  kind: string
+  pct: number
   description: string
   tags: string[]
 }

@@ -25,36 +25,48 @@
     {
       "icon": "⚡",
       "name": "AI & GenAI",
+      "kind": "Agents · RAG · LLMs",
+      "pct": 92,
       "description": "LLM-driven workflows, document pipelines, and intelligent agents. Prompt engineering from few-shot to iterative refinement.",
       "tags": ["LangGraph", "LangChain", "OpenAI", "RAG", "Prompt Engineering"]
     },
     {
       "icon": "🐍",
       "name": "Backend APIs",
+      "kind": "Framework / REST / Python",
+      "pct": 90,
       "description": "RESTful APIs built for scale with authentication, caching, and clean architecture using Python frameworks.",
       "tags": ["FastAPI", "Django", "DRF", "Flask", "REST"]
     },
     {
       "icon": "🎙️",
       "name": "Voice & Realtime",
+      "kind": "Realtime / Voice / WebSocket",
+      "pct": 85,
       "description": "Real-time voice agents with session isolation, SIP telephony integration, and WebSocket-based low-latency communication.",
       "tags": ["LiveKit", "Twilio SIP", "WebSockets", "Django Channels"]
     },
     {
       "icon": "🗄️",
       "name": "Databases",
+      "kind": "Data / Storage / Caching",
+      "pct": 87,
       "description": "Schema design, query optimisation, and picking the right store — from relational to vector to in-memory.",
       "tags": ["PostgreSQL", "Redis", "Snowflake", "Supabase", "SQLite"]
     },
     {
       "icon": "☁️",
       "name": "DevOps & Cloud",
+      "kind": "Cloud / Infra / Containers",
+      "pct": 82,
       "description": "Containerised deployments across AWS, Azure, and GCP. Nginx reverse proxy, SSL, and Linux server management.",
       "tags": ["Docker", "Nginx", "AWS", "Azure", "GCP", "Linux"]
     },
     {
       "icon": "🔷",
       "name": "Frontend & Tools",
+      "kind": "Frontend / Automation / Testing",
+      "pct": 75,
       "description": "Full-stack capable — building interfaces and integrating tooling when the backend story requires it.",
       "tags": ["Next.js", "TypeScript", "TailwindCSS", "Git", "Selenium"]
     }
