@@ -6,8 +6,7 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- [ ] **v2 spec + plan** — confirmed scope below, ready to spec
-- [ ] Implement v2 changes
+(none)
 
 ## v2 Confirmed Scope
 
@@ -75,6 +74,8 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Done
 
+- [x] **v2 spec + plan** — fonts, colors, aurora, ribbon, glimpse section ✅
+- [x] Implement v2 changes ✅ (commit 5f518b8)
 - [x] Template reviewed + tech stack decided (Next.js 16.2.6, TypeScript, Tailwind CSS v4)
 - [x] Portfolio v1.0 — all sections built, reviewed, assembled (commit 14af21a)
 - [x] **Smart Terminal v1** — spec + plan + full implementation (commit ca81c90)
