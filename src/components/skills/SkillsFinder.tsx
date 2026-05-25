@@ -45,16 +45,28 @@ export default function SkillsFinder({ skills }: { skills: SkillItem[] }) {
         if (barRef.current) barRef.current.style.width = `${active.pct}%`
       })
     })
-  }, [activeIdx, view])
+  }, [activeIdx, view, active.pct])
 
   const bodyStyle = {
     opacity: animating ? 0 : 1,
-    transform: animating ? 'translateY(6px)' : 'none',
+    transform: animating ? 'translateY(8px)' : 'none',
     transition: 'opacity 0.15s ease, transform 0.15s ease',
   }
 
   return (
-    <div className="skills-finder">
+    <section id="skills" style={{ padding: '100px 60px' }}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+        <div className="section-label reveal">Capabilities</div>
+        <h2 className="reveal" style={{
+          fontFamily: 'var(--font-dm-serif), serif',
+          fontSize: 'clamp(2rem, 3.5vw, 3.2rem)',
+          lineHeight: 1.1,
+          letterSpacing: '-0.02em',
+          marginBottom: '48px',
+        }}>
+          What I Build
+        </h2>
+        <div className="skills-finder">
       {/* Titlebar */}
       <div className="sf-titlebar">
         <div className="sf-dots">
@@ -179,6 +191,8 @@ export default function SkillsFinder({ skills }: { skills: SkillItem[] }) {
           <span className="sf-st-text">Open to work</span>
         </div>
       </div>
-    </div>
+        </div>
+      </div>
+    </section>
   )
 }
