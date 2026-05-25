@@ -18,7 +18,7 @@ export default function Hero({ data }: { data: PortfolioData }) {
     if (!el || typeof window === 'undefined') return
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting && window.innerWidth > 480) {
+        if (!entry.isIntersecting && window.innerWidth > 900) {
           transitionTo('FLOATING')
         }
       },

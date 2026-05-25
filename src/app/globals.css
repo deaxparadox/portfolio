@@ -1037,8 +1037,8 @@ footer {
   }
 
   .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 50px;
+    grid-template-columns: 1fr !important;
+    gap: 50px !important;
   }
 
   section {
@@ -1189,8 +1189,9 @@ footer {
   .skills-grid { grid-template-columns: 1fr !important; }
 }
 
-/* Hide floating terminal on mobile — width:360px overflows 375px viewport */
-@media (max-width: 480px) {
+/* Hide floating terminal on mobile+tablet — hero is single-column, floating window confusing */
+/* On desktop (>900px) the floating terminal is useful; on mobile/tablet, use EMBEDDED state */
+@media (max-width: 900px) {
   .terminal-floating-viewport { display: none !important; }
 }
 

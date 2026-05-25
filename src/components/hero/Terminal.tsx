@@ -81,7 +81,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
   }, [setLines, lineIdRef])
 
   // Safe to call in event handlers — not during render
-  const isMobileViewport = () => typeof window !== 'undefined' && window.innerWidth <= 480
+  const isMobileViewport = () => typeof window !== 'undefined' && window.innerWidth <= 900
 
   useEffect(() => {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight

@@ -27,7 +27,7 @@ export default function TerminalMaximized() {
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               // On mobile: go to EMBEDDED (no floating window on small screens)
-              const target = typeof window !== 'undefined' && window.innerWidth <= 480
+              const target = typeof window !== 'undefined' && window.innerWidth <= 900
                 ? 'EMBEDDED' : 'FLOATING'
               transitionTo(target)
             }
