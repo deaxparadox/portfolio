@@ -1292,16 +1292,25 @@ footer {
 /* ── Ribbon marquee ── */
 .ribbon-wrap {
   position: relative; z-index: 1;
-  overflow: hidden; height: 116px;
+  overflow: hidden;
+  /* Taller to show both bands fully after rotation */
+  height: 160px;
   display: flex; align-items: center;
 }
 .ribbon-wrap::before, .ribbon-wrap::after {
   content: ''; position: absolute;
-  top: 0; bottom: 0; z-index: 2; width: 100px; pointer-events: none;
+  top: 0; bottom: 0; z-index: 2; width: 120px; pointer-events: none;
 }
 .ribbon-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg-dark), transparent); }
 .ribbon-wrap::after  { right: 0; background: linear-gradient(270deg, var(--bg-dark), transparent); }
-.ribbon-track { display: flex; flex-direction: column; transform: skewY(-4deg); margin: -14px 0; }
+.ribbon-track {
+  display: flex; flex-direction: column;
+  /* rotate(-1.5deg): left ~38px lower than right at 1440px — no text distortion unlike skewY */
+  transform: rotate(-1.5deg);
+  /* Wider than viewport so rotated edges don't show gaps */
+  width: calc(100% + 120px);
+  margin-left: -60px;
+}
 .ribbon-band  { display: flex; white-space: nowrap; overflow: hidden; padding: 10px 0; }
 .ribbon-band-top {
   background: linear-gradient(90deg, #a07800, var(--accent), #ffd84d, var(--accent), #a07800);
