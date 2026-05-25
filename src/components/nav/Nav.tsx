@@ -2,13 +2,22 @@
 import { useEffect, useState } from 'react'
 import type { PortfolioData } from '@/data/types'
 
-const NAV_IDS = ['skills', 'projects', 'experience', 'contact'] as const
+const NAV_IDS = ['skills', 'projects', 'glimpse', 'experience', 'contact'] as const
 
 const NAV_ICONS: Record<typeof NAV_IDS[number], string> = {
   skills:     '⚡',
   projects:   '◈',
+  glimpse:    '✦',
   experience: '◉',
   contact:    '⌥',
+}
+
+const NAV_LABELS: Record<typeof NAV_IDS[number], string> = {
+  skills:     'Skills',
+  projects:   'Projects',
+  glimpse:    'About',
+  experience: 'Experience',
+  contact:    'Contact',
 }
 
 export default function Nav({ data }: { data: Pick<PortfolioData, 'hero'> }) {
@@ -62,7 +71,7 @@ export default function Nav({ data }: { data: Pick<PortfolioData, 'hero'> }) {
                   textTransform: 'uppercase', transition: 'color 0.3s ease',
                 }}
               >
-                {id}
+                {NAV_LABELS[id]}
               </a>
             </li>
           ))}
@@ -94,7 +103,7 @@ export default function Nav({ data }: { data: Pick<PortfolioData, 'hero'> }) {
             <span className="bottom-nav-icon" aria-hidden="true">
               {NAV_ICONS[id]}
             </span>
-            <span className="bottom-nav-label">{id}</span>
+            <span className="bottom-nav-label">{NAV_LABELS[id]}</span>
           </a>
         ))}
       </nav>
