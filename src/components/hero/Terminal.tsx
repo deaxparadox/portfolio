@@ -241,6 +241,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     } else if (e.key === 'l' && e.ctrlKey) {
       e.preventDefault(); setLines([]); setInputBuf('')
     } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault() // prevent browser updating input value → stops onChange double-capture
       setInputBuf(p => p + e.key)
     }
   }
