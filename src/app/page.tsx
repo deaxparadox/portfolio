@@ -3,7 +3,7 @@ import Hero              from '@/components/hero/Hero'
 import Ribbon            from '@/components/ribbon/Ribbon'
 import SectionDivider    from '@/components/ui/SectionDivider'
 import StatsStrip        from '@/components/stats/StatsStrip'
-import SkillsSection     from '@/components/skills/SkillsSection'
+import SkillsFinder      from '@/components/skills/SkillsFinder'
 import ProjectsSection   from '@/components/projects/ProjectsSection'
 import GlimpseSection    from '@/components/glimpse/GlimpseSection'
 import ExperienceSection from '@/components/experience/ExperienceSection'
@@ -23,7 +23,7 @@ export default function Home() {
         <Ribbon />
         <SectionDivider />
         <StatsStrip       stats={data.stats} />
-        <SkillsSection    skills={data.skills} />
+        <SkillsFinder     skills={data.skills} />
         <SectionDivider />
         <ProjectsSection  projects={data.projects} />
         <SectionDivider />
