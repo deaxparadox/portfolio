@@ -68,10 +68,12 @@ export default function SkillsFinder({ skills }: { skills: SkillItem[] }) {
         </div>
         <div className="sf-view-pills">
           <button
+            type="button"
             className={`sf-pill${view === 'list' ? ' sf-pill-active' : ''}`}
             onClick={() => handleViewToggle('list')}
           >List</button>
           <button
+            type="button"
             className={`sf-pill${view === 'grid' ? ' sf-pill-active' : ''}`}
             onClick={() => handleViewToggle('grid')}
           >Grid</button>
