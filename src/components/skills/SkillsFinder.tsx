@@ -45,7 +45,7 @@ export default function SkillsFinder({ skills }: { skills: SkillItem[] }) {
         if (barRef.current) barRef.current.style.width = `${active.pct}%`
       })
     })
-  }, [activeIdx, view, active.pct])
+  }, [activeIdx, view])
 
   const bodyStyle = {
     opacity: animating ? 0 : 1,
@@ -88,7 +88,8 @@ export default function SkillsFinder({ skills }: { skills: SkillItem[] }) {
               {skills.map((skill, idx) => (
                 <div key={skill.name}>
                   {idx === 3 && <div className="sf-sb-divider" />}
-                  <div
+                  <button
+                    type="button"
                     className={`sf-sb-item${activeIdx === idx ? ' sf-sb-item-active' : ''}`}
                     onClick={() => handleSelect(idx)}
                   >
@@ -97,7 +98,7 @@ export default function SkillsFinder({ skills }: { skills: SkillItem[] }) {
                       <div className="sf-sb-name">{skill.name}</div>
                       <div className="sf-sb-kind">{skill.kind}</div>
                     </div>
-                  </div>
+                  </button>
                 </div>
               ))}
             </div>
@@ -105,14 +106,15 @@ export default function SkillsFinder({ skills }: { skills: SkillItem[] }) {
             {/* Tab row — shown on mobile only via CSS */}
             <div className="sf-tab-row">
               {skills.map((skill, idx) => (
-                <div
+                <button
                   key={skill.name}
+                  type="button"
                   className={`sf-tab${activeIdx === idx ? ' sf-tab-active' : ''}`}
                   onClick={() => handleSelect(idx)}
                 >
                   <span className="sf-tab-icon">{skill.icon}</span>
                   <span className="sf-tab-label">{TAB_LABELS[skill.name] ?? skill.name}</span>
-                </div>
+                </button>
               ))}
             </div>
 
