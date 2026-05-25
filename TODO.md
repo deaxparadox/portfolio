@@ -6,10 +6,18 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- [x] **Vercel deployment** — live ✅. Fix was: Framework Preset → Next.js.
-- [x] **Mobile responsiveness v1** — bottom nav (≤900px), terminal pill on mobile, 480px breakpoint, tablet 2-col skills, cursor hidden on touch ✅
-- Pending: PR `dev` → `main` after mobile responsiveness is done
-- Note: `src/` is the Next.js app (was `portfolio-app/`, renamed since repo = `portfolio`)
+- [ ] **v2 design analysis** — analyzing template vs current codebase, will discuss new sections + font/styling changes
+- Note: currently on `v2` branch
+
+## Branch Strategy
+
+| Branch | Purpose |
+|---|---|
+| `main` | stable production |
+| `dev` | completed v1 work (all mobile + terminal) |
+| `v1` | preserved snapshot of v1 — read-only reference |
+| `v2` | **active** — new sections, font changes, styling redesign |
+| `template1` | original template reference |
 
 ---
 
