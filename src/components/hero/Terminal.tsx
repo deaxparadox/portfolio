@@ -313,17 +313,35 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
         </div>
       </div>
 
+      {/* Hidden input — captures keyboard on desktop (keydown) and mobile (onChange).
+          Not controlled (no value prop) so mobile virtual keyboard can update it.
+          onChange handles mobile character input; keydown handles desktop + special keys. */}
       <input
         ref={inputRef}
         type="text"
         autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
         spellCheck={false}
         onKeyDown={handleKeyDown}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        onChange={() => {}}
-        value=""
-        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 1, height: 1 }}
+        onChange={(e) => {
+          // Mobile virtual keyboards fire input events, not keydown for regular chars.
+          // Capture the new character(s) and immediately clear the input.
+          const val = e.target.value
+          if (val && !isTyping && !isTransitioning) {
+            setInputBuf(prev => prev + val)
+            e.target.value = ''
+          } else {
+            e.target.value = ''
+          }
+        }}
+        style={{
+          position: 'absolute', opacity: 0,
+          // Wide+tall enough that mobile browsers show keyboard; pointer-events allow focus
+          width: '100%', height: '40px', bottom: 0, left: 0, pointerEvents: 'none',
+        }}
       />
     </div>
   )

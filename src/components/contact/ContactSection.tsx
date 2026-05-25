@@ -29,10 +29,11 @@ export default function ContactSection({ contact }: { contact: ContactData }) {
 
         <a href={`mailto:${contact.email}`} style={{
           fontFamily: 'var(--font-dm-serif), serif',
-          fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
+          fontSize: 'clamp(0.9rem, 4vw, 3rem)',
           color: 'var(--text-primary)', textDecoration: 'none',
           letterSpacing: '-0.02em', display: 'block',
           margin: '20px 0 50px', transition: 'color 0.3s ease',
+          wordBreak: 'break-all', overflowWrap: 'break-word',
         }}>
           {contact.email}
         </a>

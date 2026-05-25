@@ -2,13 +2,13 @@ import type { StatItem } from '@/data/types'
 
 export default function StatsStrip({ stats }: { stats: StatItem[] }) {
   return (
-    <div style={{
+    <div className="stats-strip" style={{
       borderTop: '1px solid rgba(232,200,74,0.08)',
       borderBottom: '1px solid rgba(232,200,74,0.08)',
       padding: '40px 60px', display: 'flex', justifyContent: 'center',
     }}>
       {stats.map((stat, i) => (
-        <div key={i} style={{
+        <div key={i} className="stat-item" style={{
           flex: 1, textAlign: 'center', padding: '0 40px', maxWidth: '220px',
           borderRight: i < stats.length - 1 ? '1px solid rgba(232,200,74,0.08)' : 'none',
         }}>
