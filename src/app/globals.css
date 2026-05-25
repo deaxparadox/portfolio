@@ -260,7 +260,7 @@ nav {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  display: grid;
+  display: grid !important;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
@@ -1337,8 +1337,8 @@ footer {
 
 /* ── Bento grid (Glimpse section) ── */
 .bento {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(12, 1fr) !important;
   gap: 16px;
 }
 .bc {
@@ -1364,12 +1364,12 @@ footer {
 }
 
 /* Bento cell grid positions */
-.bc-reads    { grid-column: 1 / 5;  grid-row: 1 / 2; }
-.bc-toolbox  { grid-column: 5 / 13; grid-row: 1 / 2; }
-.bc-github   { grid-column: 1 / 9;  grid-row: 2 / 3; }
-.bc-beyond   { grid-column: 9 / 13; grid-row: 2 / 3; }
-.bc-location { grid-column: 1 / 5;  grid-row: 3 / 4; }
-.bc-quote    { grid-column: 5 / 13; grid-row: 3 / 4; }
+.bc-reads    { grid-column: 1 / 5 !important;  grid-row: 1 / 2 !important; }
+.bc-toolbox  { grid-column: 5 / 13 !important; grid-row: 1 / 2 !important; }
+.bc-github   { grid-column: 1 / 9 !important;  grid-row: 2 / 3 !important; }
+.bc-beyond   { grid-column: 9 / 13 !important; grid-row: 2 / 3 !important; }
+.bc-location { grid-column: 1 / 5 !important;  grid-row: 3 / 4 !important; }
+.bc-quote    { grid-column: 5 / 13 !important; grid-row: 3 / 4 !important; }
 
 /* Toolbox pills */
 .tpill {
