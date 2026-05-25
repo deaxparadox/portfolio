@@ -1430,9 +1430,9 @@ footer {
 
 /* Bento mobile */
 @media (max-width: 900px) {
-  .bento { grid-template-columns: 1fr; }
+  .bento { grid-template-columns: 1fr !important; }
   .bc-reads,.bc-toolbox,.bc-github,.bc-beyond,.bc-location,.bc-quote {
-    grid-column: 1 / -1; grid-row: auto;
+    grid-column: 1 / -1 !important; grid-row: auto !important;
   }
 }
 
@@ -1445,7 +1445,7 @@ footer {
   /* Glimpse section padding */
   #glimpse { padding: 80px 40px !important; }
 
-  /* 2-col bento on tablet */
+  /* 2-col bento on tablet — overrides the 900px 1fr rule above */
   .bento { grid-template-columns: 1fr 1fr !important; }
 
   /* Reads: left col · Toolbox: full width */
@@ -1511,4 +1511,22 @@ footer {
 /* Hide month labels on mobile — too cramped with half-width heatmap */
 @media (max-width: 480px) {
   .hm-months { display: none !important; }
+}
+
+/* ── BentoReads: prevent text overflow ── */
+.bc-reads .book-quote {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+@media (max-width: 900px) {
+  /* Stack book cover + text vertically on tablet/mobile */
+  .bc-reads .book-inner { flex-direction: column !important; }
+  .bc-reads .book-cover-wrap { width: 100% !important; min-width: unset !important; }
+}
+
+/* ── Hobbies pills: flex-wrap on narrow screens ── */
+@media (max-width: 900px) {
+  .bc-beyond .hpill { font-size: 10px; padding: 5px 10px; }
 }
