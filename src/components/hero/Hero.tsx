@@ -12,7 +12,7 @@ export default function Hero({ data }: { data: PortfolioData }) {
   const { state, transitionTo } = useTerminal()
   const heroRef = useRef<HTMLElement>(null)
 
-  // Auto-detach: when hero fully scrolls out of viewport, float the terminal
+  // Auto-detach: when hero fully scrolls out of viewport on desktop, float the terminal
   useEffect(() => {
     const el = heroRef.current
     if (!el || typeof window === 'undefined') return
@@ -27,6 +27,17 @@ export default function Hero({ data }: { data: PortfolioData }) {
     obs.observe(el)
     return () => obs.disconnect()
   }, [transitionTo])
+
+  // Auto-reset: if viewport shrinks to ≤900px while terminal is FLOATING, reattach it
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const check = () => {
+      if (window.innerWidth <= 900 && state === 'FLOATING') transitionTo('EMBEDDED')
+    }
+    check()
+    window.addEventListener('resize', check, { passive: true })
+    return () => window.removeEventListener('resize', check)
+  }, [state, transitionTo])
 
   return (
     <section
