@@ -12,19 +12,20 @@
 }
 
 :root {
-  --accent: #e8c84a;
-  --accent-light: #f5e07a;
-  --accent-pale: #fdf3c0;
-  --accent-deep: #c9ad20;
-  --glass-bg: rgba(255, 240, 120, 0.07);
-  --glass-border: rgba(232, 200, 74, 0.25);
-  --glass-hover: rgba(255, 240, 120, 0.14);
-  --text-primary: #fef9e3;
-  --text-secondary: rgba(254, 249, 227, 0.6);
-  --text-muted: rgba(254, 249, 227, 0.35);
-  --bg-dark: #0a0900;
-  --bg-mid: #0f0e01;
-  --shadow-gold: 0 0 40px rgba(232, 200, 74, 0.12);
+  --accent: #f5c518;
+  --accent-light: #ffd84d;
+  --accent-pale: #fff3b0;
+  --accent-deep: #c49a00;
+  --amber: #e8900a;
+  --glass-bg: rgba(245, 197, 24, 0.055);
+  --glass-border: rgba(245, 197, 24, 0.18);
+  --glass-hover: rgba(245, 197, 24, 0.16);
+  --text-primary: #f0ead8;
+  --text-secondary: rgba(240, 234, 216, 0.52);
+  --text-muted: rgba(240, 234, 216, 0.35);
+  --bg-dark: #060500;
+  --bg-mid: #0d0b00;
+  --shadow-gold: 0 0 40px rgba(245, 197, 24, 0.18);
 }
 
 *, *::before, *::after {
@@ -37,6 +38,10 @@ html {
   scroll-behavior: smooth;
   overflow-x: clip; /* clip doesn't create new scroll context — preserves position:sticky */
 }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--accent-deep); border-radius: 4px; }
 
 body {
   font-family: var(--font-instrument-sans), sans-serif;

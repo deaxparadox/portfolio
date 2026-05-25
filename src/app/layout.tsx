@@ -1,5 +1,10 @@
 import type { Metadata } from 'next'
-import { DM_Serif_Display, JetBrains_Mono, Instrument_Sans } from 'next/font/google'
+import {
+  Rubik_Dirt,
+  DM_Mono,
+  Syne,
+  Cormorant_Garamond,
+} from 'next/font/google'
 import './globals.css'
 import CustomCursor from '@/components/ui/CustomCursor'
 import RevealInit   from '@/components/ui/RevealInit'
@@ -12,21 +17,29 @@ import type { PortfolioData } from '@/data/types'
 
 const data = portfolioData as PortfolioData
 
-const dmSerif = DM_Serif_Display({
+const rubikDirt = Rubik_Dirt({
   subsets: ['latin'],
   weight: ['400'],
-  style: ['normal', 'italic'],
-  variable: '--font-dm-serif',
+  variable: '--font-dm-serif', // same var name → all headings auto-update
 })
-const jetbrainsMono = JetBrains_Mono({
+
+const dmMono = DM_Mono({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
-  variable: '--font-jetbrains-mono',
+  variable: '--font-jetbrains-mono', // same var name → all mono auto-update
 })
-const instrumentSans = Instrument_Sans({
+
+const syne = Syne({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-instrument-sans',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-instrument-sans', // same var name → all body auto-update
+})
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant', // new — for quote cell
 })
 
 export const metadata: Metadata = {
@@ -41,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Inject accent color from portfolio.json as a CSS variable override */}
         <style>{`:root { --accent: ${data.theme.accentColor}; }`}</style>
       </head>
-      <body className={`${dmSerif.variable} ${jetbrainsMono.variable} ${instrumentSans.variable}`}>
+      <body className={`${rubikDirt.variable} ${dmMono.variable} ${syne.variable} ${cormorant.variable}`}>
         <FramerProvider>
           <TerminalProvider>
           <CustomCursor />
