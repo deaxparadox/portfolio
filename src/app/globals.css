@@ -965,6 +965,8 @@ section {
     transition: background 0.15s;
     background: none;
     border: none;
+    width: 100%;
+    text-align: left;
   }
   .sf-tab:hover { background: rgba(245, 197, 24, 0.05); }
   .sf-tab-active { background: rgba(245, 197, 24, 0.08); }
