@@ -196,5 +196,27 @@
         ""
       ]
     }
+  },
+  "glimpse": {
+    "reads": {
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "quote": "Tiny changes, remarkable results. This book shifted how I approach learning new tech — one small rep at a time."
+    },
+    "hobbies": [
+      { "label": "Gaming",      "icon": "🎮" },
+      { "label": "Web Series",  "icon": "📺" },
+      { "label": "Sleeping",    "icon": "😴" }
+    ],
+    "location": {
+      "city": "Noida",
+      "country": "India",
+      "pin": "NOIDA, IN",
+      "availability": "Open to Remote · On-site · Hybrid"
+    },
+    "quote": {
+      "text": "Make it work,\nmake it right,\nmake it fast.",
+      "author": "Kent Beck"
+    }
   }
 }

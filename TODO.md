@@ -6,7 +6,21 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- [ ] **v2 design analysis** — analyzing template vs current codebase, will discuss new sections + font/styling changes
+- [ ] **v2 spec + plan** — confirmed scope below, ready to spec
+- [ ] Implement v2 changes
+
+## v2 Confirmed Scope
+
+**Keep everything**: layout, terminal (fully interactive), sticky projects, slide-in experience, contact, all data.
+
+**Changes:**
+1. **Fonts** — Rubik Dirt (headings) · DM Mono (mono) · Syne (body/UI) · Cormorant Garamond (quotes)
+2. **Color** — `#f5c518` gold + `--gold-lt`, `--gold-dk`, `--amber` variants
+3. **Background** — aurora orbs (3 animated blobs) + floating particles (28)
+4. **Ribbon** — marquee scrolling band between Hero and Skills (tech names top, keywords bottom)
+5. **Glimpse section** — bento grid: Reads (Atomic Habits) · Toolbox · GitHub heatmap · Hobbies (Gaming, Web Series, Sleeping) · Location (Noida) · Quote ("Make it work, make it right, make it fast." — Kent Beck)
+6. **Section dividers** — thin gold gradient lines between sections
+7. **Nav** — add "About" → `#glimpse` link
 - Note: currently on `v2` branch
 
 ## Branch Strategy

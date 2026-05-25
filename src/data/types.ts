@@ -99,6 +99,36 @@ export interface TerminalData {
   commands: TerminalCommands
 }
 
+export interface GlimpseReads {
+  title: string
+  author: string
+  quote: string
+}
+
+export interface GlimpseHobby {
+  label: string
+  icon: string
+}
+
+export interface GlimpseLocation {
+  city: string
+  country: string
+  pin: string
+  availability: string
+}
+
+export interface GlimpseQuote {
+  text: string
+  author: string
+}
+
+export interface GlimpseData {
+  reads: GlimpseReads
+  hobbies: GlimpseHobby[]
+  location: GlimpseLocation
+  quote: GlimpseQuote
+}
+
 export interface PortfolioData {
   meta: PortfolioMeta
   theme: PortfolioTheme
@@ -110,4 +140,5 @@ export interface PortfolioData {
   contact: ContactData
   footer: FooterData
   terminal: TerminalData
+  glimpse: GlimpseData
 }
