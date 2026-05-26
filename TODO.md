@@ -21,22 +21,41 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ---
 
-## Planned Features (in order)
+## Planned Features (in priority order)
 
-### Subsystem 2 — Voice Agent Widget (LiveKit)
-- [ ] Spec: LiveKit voice agent frontend — dynamic config, portfolio navigation bridge
-- [ ] Implement voice agent widget
-- [ ] Blocked on: flagship backend token endpoint being ready (or mockable)
-- See: `docs/superpowers/specs/2026-05-22-portfolio-roadmap.md`
+### 1. Resume Mode (default view)
+- [ ] Spec + implement resume mode — stripped layout, no heavy animations, fast load
+- [ ] Default route redirects to resume mode (no param = resume mode)
+- [ ] Full experience accessible via Deax menu or URL param
+- [ ] Smooth Framer Motion transition between resume ↔ full view
 
-### Subsystem 3 — Chatbot Widget
-- [ ] Spec: text chatbot with portfolio navigation
-- [ ] Implement chatbot widget
-- [ ] Blocked on: Subsystem 2 complete (shares navigation bridge)
+### 2. Deax Button + Menu Shell
+- [ ] Persistent floating button bottom-right — "Deax" label with bounce animation
+- [ ] Menu above button: "Explore the full portfolio" / "Talk to Deax"
+- [ ] Mounted in root layout.tsx — persists across all views
+- [ ] Works as UI shell even before AI backend is wired
 
-### Subsystem 4 — Combined Mode (Voice + Chat)
-- [ ] Spec + implement combined LiveKit voice+chat interface
-- [ ] Blocked on: Subsystems 2 + 3 complete
+### 3. Chatbot in Resume Mode (text-only Deax)
+- [ ] Text-only chat widget in resume mode
+- [ ] Answers recruiter questions from portfolio.json + knowledge base
+- [ ] Same "Deax" persona as voice agent — text-only interface
+- [ ] Spec: chatbot widget, backend integration
+
+### 4. Projects Card Improvements
+- [ ] Review Nitish's design for new project cards
+- [ ] Keep sticky-stack layout — improve cards only
+- [ ] Spec + implement
+
+### 5. Experience Section Redesign
+- [ ] Review Nitish's design
+- [ ] Defer full redesign until 2nd experience entry exists
+- [ ] Design must look intentional with 1 entry, scale to 3+
+
+### 6. Voice Agent Tour (Deax full mode)
+- [ ] LiveKit voice + chat — Deax narrates portfolio tour
+- [ ] Mounted in root layout, narrates resume → full view transition
+- [ ] Blocked on: flagship backend token endpoint
+- [ ] See: `docs/superpowers/specs/2026-05-22-portfolio-roadmap.md`
 
 ---
 
