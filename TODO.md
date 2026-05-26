@@ -6,17 +6,17 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- Pending: push `v2` to Vercel, verify layout in browser
-- Note: currently on `v2` branch
+- Pending: push `dev` to Vercel, verify SkillsFinder + bento + ribbon in browser
+- Note: currently on `dev` branch (v2 merged in)
 
 ## Branch Strategy
 
 | Branch | Purpose |
 |---|---|
 | `main` | stable production |
-| `dev` | completed v1 (mobile + terminal + all fixes) |
+| `dev` | **active** — v2 merged in, SkillsFinder shipped (398c377) |
 | `v1` | preserved snapshot of v1 — read-only reference |
-| `v2` | **active** — new fonts, aurora, ribbon, glimpse section |
+| `v2` | complete — all changes merged into dev |
 | `template1` | original template reference |
 
 ---
@@ -61,7 +61,7 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [x] **Smart Terminal v1** — 3 states, mv navigation, command parser, WiFi placeholder, history persistence, focus UX
 - [x] **Mobile responsiveness v1** — bottom nav, terminal pill, 480px breakpoint, tablet 2-col skills
 - [x] **Vercel deployment** — live ✅. Fix: Framework Preset → Next.js
-- [x] **v2 design** ✅ (branch `v2`, latest commit 67c3f25)
+- [x] **v2 design** ✅
   - Fonts: Rubik Dirt · DM Mono · Syne · Cormorant Garamond
   - Gold palette: `#f5c518` + amber variant
   - Aurora orbs (3 animated) + floating particles (28)
@@ -71,3 +71,11 @@ Tracks in-progress work, backlog, and deferred decisions.
   - Nav "About" → #glimpse (desktop + bottom nav)
   - Bento grid: `!important` on all grid rules to override cascade
   - Responsive: tablet 2-col bento, mobile 1-col, BentoReads overflow fix, hobbies pills compact
+- [x] **SkillsFinder** ✅ (2026-05-25, commit 398c377)
+  - macOS Finder-styled skills section — List + Grid views
+  - List: sidebar (210px) + detail panel, animated proficiency bar, gold pill tags
+  - Grid: 3-col C2 gradient cards + T3 gold pill tags
+  - Mobile: horizontal scrollable icon tab row replaces sidebar
+  - Tablet: sidebar shrinks to 160px, reduced padding
+  - List↔Grid toggle with 150ms cross-fade
+  - 43 tests passing, build clean
