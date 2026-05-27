@@ -1035,7 +1035,7 @@ section {
 /* ── Project Cards — Magazine Split ── */
 
 .project-card {
-  background: rgba(245,197,24,0.055);
+  background: #0a0800;
   border: 1px solid rgba(245,197,24,0.16);
   border-radius: 20px;
   display: grid;
@@ -1157,6 +1157,7 @@ section {
 
 /* Right panel */
 .pc-right {
+  background: #0a0800;
   border-left: 1px solid rgba(245,197,24,0.12);
   position: relative;
   overflow: hidden;
