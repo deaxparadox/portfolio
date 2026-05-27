@@ -1200,13 +1200,9 @@ section {
   background: rgba(245,197,24,0.12);
   border: 1px solid rgba(245,197,24,0.25);
   color: #ffd84d;
-  animation: pc-float 4s ease-in-out infinite alternate;
+  transition: top 2s ease-in-out, left 2s ease-in-out;
 }
 
-@keyframes pc-float {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-6px); }
-}
 
 .pc-impact {
   position: absolute;

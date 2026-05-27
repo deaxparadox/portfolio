@@ -1,15 +1,10 @@
 import type { ProjectItem } from '@/data/types'
+import RoamingBadges from './RoamingBadges'
 
 const GRADIENTS = [
   'linear-gradient(135deg, rgba(245,197,24,0.13) 0%, rgba(232,144,10,0.07) 50%, rgba(6,5,0,0.3) 100%)',
   'linear-gradient(135deg, rgba(196,154,0,0.11) 0%, rgba(245,197,24,0.08) 50%, rgba(6,5,0,0.3) 100%)',
   'linear-gradient(135deg, rgba(232,144,10,0.13) 0%, rgba(255,216,77,0.07) 50%, rgba(6,5,0,0.3) 100%)',
-]
-
-const BADGE_POSITIONS = [
-  { top: '22%', left: '10%', delay: '0s' },
-  { top: '48%', left: '7%',  delay: '0.6s' },
-  { top: '70%', left: '18%', delay: '1.2s' },
 ]
 
 export default function ProjectCard({ project, index }: { project: ProjectItem; index: number }) {
@@ -20,7 +15,6 @@ export default function ProjectCard({ project, index }: { project: ProjectItem; 
 
   return (
     <div className="project-card">
-      {/* Left panel */}
       <div className="pc-left">
         <div>
           <div className="pc-top-row">
@@ -51,25 +45,10 @@ export default function ProjectCard({ project, index }: { project: ProjectItem; 
         </div>
       </div>
 
-      {/* Right panel */}
       <div className="pc-right">
         <div className="pc-visual" style={{ background: gradient }}>
           <div className="pc-glyph">{project.visual.glyph}</div>
-          <div className="pc-badge-container">
-            {floatingBadges.map((badge, i) => (
-              <span
-                key={badge}
-                className="pc-badge"
-                style={{
-                  top: BADGE_POSITIONS[i].top,
-                  left: BADGE_POSITIONS[i].left,
-                  animationDelay: BADGE_POSITIONS[i].delay,
-                }}
-              >
-                {badge}
-              </span>
-            ))}
-          </div>
+          <RoamingBadges badges={floatingBadges} />
           <div className="pc-impact">
             <span className="pc-impact-value">{impact.value}</span>
             <span className="pc-impact-label">{impact.label}</span>
