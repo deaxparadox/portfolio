@@ -6,34 +6,31 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- Pending: push `dev` to Vercel, verify SkillsFinder + bento + ribbon in browser
-- Note: currently on `dev` branch (v2 merged in)
+- Resume mode (v3 branch) — complete, pending merge to dev + Vercel push
+- Note: currently on `v3` branch
 
 ## Branch Strategy
 
 | Branch | Purpose |
 |---|---|
 | `main` | stable production |
-| `dev` | **active** — v2 merged in, SkillsFinder shipped (398c377) |
-| `v1` | preserved snapshot of v1 — read-only reference |
-| `v2` | complete — all changes merged into dev |
+| `dev` | v2 + SkillsFinder merged (398c377) |
+| `v1` | preserved snapshot — read-only reference |
+| `v2` | complete — merged into dev |
+| `v3` | **active** — resume mode + DeaxButton (e599645) |
 | `template1` | original template reference |
 
 ---
 
 ## Planned Features (in priority order)
 
-### 1. Resume Mode (default view)
-- [ ] Spec + implement resume mode — stripped layout, no heavy animations, fast load
-- [ ] Default route redirects to resume mode (no param = resume mode)
-- [ ] Full experience accessible via Deax menu or URL param
-- [ ] Smooth Framer Motion transition between resume ↔ full view
-
-### 2. Deax Button + Menu Shell
-- [ ] Persistent floating button bottom-right — "Deax" label with bounce animation
-- [ ] Menu above button: "Explore the full portfolio" / "Talk to Deax"
-- [ ] Mounted in root layout.tsx — persists across all views
-- [ ] Works as UI shell even before AI backend is wired
+### 1. Resume Mode + DeaxButton ✅ (v3 branch, e599645)
+- [x] `/?mode=resume` default (proxy.ts redirect)
+- [x] `/?mode=full` full experience
+- [x] ResumePortfolio — dark/light theme, CustomCursor, all sections
+- [x] DeaxButton — persistent floating, mode-switch, "Talk to Deax (soon)"
+- [ ] Merge v3 → dev
+- [ ] Push dev to Vercel, verify both modes in browser
 
 ### 3. Chatbot in Resume Mode (text-only Deax)
 - [ ] Text-only chat widget in resume mode
@@ -95,6 +92,12 @@ Tracks in-progress work, backlog, and deferred decisions.
   - List: sidebar (210px) + detail panel, animated proficiency bar, gold pill tags
   - Grid: 3-col C2 gradient cards + T3 gold pill tags
   - Mobile: horizontal scrollable icon tab row replaces sidebar
-  - Tablet: sidebar shrinks to 160px, reduced padding
-  - List↔Grid toggle with 150ms cross-fade
   - 43 tests passing, build clean
+- [x] **Resume Mode + DeaxButton** ✅ (2026-05-27, v3 branch, e599645)
+  - `/?mode=resume` (default via proxy.ts) — single column, dark/light theme
+  - `/?mode=full` — full v2 experience unchanged
+  - Sections: Hero (heatmap) · Social · Experience · Skills (terminal) · Projects · Contact · Footer
+  - CustomCursor in both modes, `*, *::before, *::after { cursor: none !important }` global
+  - DeaxButton: persistent floating bottom-right, mode-switch menu + "Talk to Deax (soon)"
+  - Light theme: `#fef9e0` cream bg, near-black text
+  - 58 tests passing, build clean
