@@ -24,8 +24,8 @@ export default function ResumeSkills({ T, skills }: Props) {
         </div>
         {skills.map(skill => (
           <div key={skill.name} style={{ marginBottom: 16, display: 'flex', flexWrap: 'wrap' }}>
-            <span style={{ color: T.gold, fontSize: 12, opacity: 0.65 }}>$ </span>
-            <span style={{ color: T.gold, fontSize: 12 }}>ls </span>
+            <span style={{ color: T.gold, fontSize: 12, opacity: 0.65 }}>$&nbsp;</span>
+            <span style={{ color: T.gold, fontSize: 12 }}>ls&nbsp;</span>
             <span style={{ color: T.dim, fontSize: 12 }}>{slug(skill.name)}/</span>
             <div style={{ width: '100%', height: 6 }} />
             <div style={{ paddingLeft: 20, display: 'flex', flexWrap: 'wrap', gap: '5px 18px' }}>

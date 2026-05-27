@@ -20,17 +20,33 @@ const DARK: ThemeTokens = {
   dotPattern: 'none', scrollThumb: '#c49a00',
 }
 
+// const LIGHT: ThemeTokens = {
+//   bg: '#c8980a', bgTerm: 'rgba(0,0,0,0.10)', nav: 'rgba(186,138,0,0.95)',
+//   txt: '#0a0800', dim: 'rgba(10,8,0,0.68)', dimLo: 'rgba(10,8,0,0.42)',
+//   gold: '#0f0c00', goldDk: 'rgba(10,8,0,0.55)', goldLt: '#1a1600',
+//   border: 'rgba(0,0,0,0.18)', borderHv: 'rgba(0,0,0,0.42)',
+//   dotPattern: `radial-gradient(circle, rgba(0,0,0,0.22) 1.5px, transparent 1.5px)`,
+//   dotSize: '18px 18px', scrollThumb: 'rgba(0,0,0,0.40)',
+// }
 const LIGHT: ThemeTokens = {
-  bg: '#c8980a', bgTerm: 'rgba(0,0,0,0.10)', nav: 'rgba(186,138,0,0.95)',
-  txt: '#0a0800', dim: 'rgba(10,8,0,0.68)', dimLo: 'rgba(10,8,0,0.42)',
-  gold: '#0f0c00', goldDk: 'rgba(10,8,0,0.55)', goldLt: '#1a1600',
-  border: 'rgba(0,0,0,0.18)', borderHv: 'rgba(0,0,0,0.42)',
-  dotPattern: `radial-gradient(circle, rgba(0,0,0,0.22) 1.5px, transparent 1.5px)`,
-  dotSize: '18px 18px', scrollThumb: 'rgba(0,0,0,0.40)',
+  bg: '#fef9e0',                          // ← was #c8980a
+  bgTerm: 'rgba(0,0,0,0.07)',
+  nav: 'rgba(254,249,220,0.95)',          // ← matches new bg
+  txt: '#0a0800',
+  dim: 'rgba(10,8,0,0.68)',
+  dimLo: 'rgba(10,8,0,0.42)',
+  gold: '#0f0c00',
+  goldDk: 'rgba(10,8,0,0.55)',
+  goldLt: '#1a1600',
+  border: 'rgba(0,0,0,0.14)',
+  borderHv: 'rgba(0,0,0,0.38)',
+  dotPattern: `radial-gradient(circle, rgba(0,0,0,0.18) 1.5px, transparent 1.5px)`,
+  dotSize: '18px 18px',
+  scrollThumb: 'rgba(0,0,0,0.35)',
 }
 
 function Divider({ T }: { T: ThemeTokens }) {
-  return <div style={{ height: 1, background: T.border, margin: '48px 0', transition: 'background .35s' }} />
+  return <div style={{ height: 1, background: T.border, margin: '12px 0', transition: 'background .35s' }} />
 }
 
 const col: React.CSSProperties = { maxWidth: 680, margin: '0 auto', padding: '0 28px' }

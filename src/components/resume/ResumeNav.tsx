@@ -22,7 +22,7 @@ export default function ResumeNav({ T }: Props) {
       transition: 'background .35s, border-color .35s',
     }}>
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontFamily: dirt, fontSize: 17, color: T.gold, letterSpacing: '-0.5px', lineHeight: 1 }}>NK</span>
+        <span style={{ fontFamily: dirt, fontSize: 17, color: T.gold, letterSpacing: '-0.5px', lineHeight: 1, paddingRight: "20px" }}>NK</span>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
           {NAV_LINKS.map(id => (
             <a key={id} href={`#${id}`} style={{
