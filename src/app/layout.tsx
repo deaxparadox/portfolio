@@ -1,3 +1,4 @@
+// src/app/layout.tsx
 import type { Metadata } from 'next'
 import {
   Rubik_Dirt,
@@ -6,14 +7,7 @@ import {
   Cormorant_Garamond,
 } from 'next/font/google'
 import './globals.css'
-import CustomCursor from '@/components/ui/CustomCursor'
-import RevealInit   from '@/components/ui/RevealInit'
-import AuroraBackground from '@/components/ui/AuroraBackground'
-import Particles from '@/components/ui/Particles'
-import FramerProvider from '@/components/ui/FramerProvider'
-import { TerminalProvider } from '@/context/TerminalContext'
-import TerminalFloating  from '@/components/terminal/TerminalFloating'
-import TerminalMaximized from '@/components/terminal/TerminalMaximized'
+import DeaxButton from '@/components/deax/DeaxButton'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/data/types'
 
@@ -22,26 +16,26 @@ const data = portfolioData as PortfolioData
 const rubikDirt = Rubik_Dirt({
   subsets: ['latin'],
   weight: ['400'],
-  variable: '--font-dm-serif', // same var name → all headings auto-update
+  variable: '--font-dm-serif',
 })
 
 const dmMono = DM_Mono({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
-  variable: '--font-jetbrains-mono', // same var name → all mono auto-update
+  variable: '--font-jetbrains-mono',
 })
 
 const syne = Syne({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-instrument-sans', // same var name → all body auto-update
+  variable: '--font-instrument-sans',
 })
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400'],
   style: ['normal', 'italic'],
-  variable: '--font-cormorant', // new — for quote cell
+  variable: '--font-cormorant',
 })
 
 export const metadata: Metadata = {
@@ -53,53 +47,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* Inject accent color from portfolio.json as a CSS variable override */}
         <style>{`:root { --accent: ${data.theme.accentColor}; }`}</style>
       </head>
       <body className={`${rubikDirt.variable} ${dmMono.variable} ${syne.variable} ${cormorant.variable}`}>
-        <FramerProvider>
-          <TerminalProvider>
-          <CustomCursor />
-          <RevealInit />
-          <AuroraBackground />
-          <Particles />
-
-          {/* Ambient radial gradient */}
-          <div
-            className="fixed inset-0 z-0"
-            style={{
-              background: `
-                radial-gradient(ellipse 60% 40% at 15% 20%, rgba(212,160,23,0.09) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 50% at 85% 70%, rgba(232,200,74,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 80% 60% at 50% 50%, rgba(10,9,0,0.95) 0%, transparent 100%)
-              `,
-            }}
-          />
-          {/* Fractal noise texture */}
-          <div
-            className="fixed inset-0 z-[1] pointer-events-none opacity-[0.03]"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            }}
-          />
-          {/* Grid lines */}
-          <div
-            className="fixed inset-0 z-[1] pointer-events-none"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(232,200,74,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(232,200,74,0.02) 1px, transparent 1px)
-              `,
-              backgroundSize: '80px 80px',
-            }}
-          />
-
-          <div className="relative z-[2]">{children}</div>
-          {/* Overlay terminal states — outside hero grid, always available */}
-          <TerminalFloating />
-          <TerminalMaximized />
-          </TerminalProvider>
-        </FramerProvider>
+        {children}
+        <DeaxButton />
       </body>
     </html>
   )
