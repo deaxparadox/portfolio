@@ -1,6 +1,7 @@
 // src/components/resume/ResumeExperience.tsx
 import type { ThemeTokens } from './types'
 import type { ExperienceItem } from '@/data/types'
+import ResumeSectionTitle from './ResumeSectionTitle'
 
 const mono = "'DM Mono', monospace"
 const sans = "'Syne', sans-serif"
@@ -10,7 +11,7 @@ interface Props { T: ThemeTokens; experience: ExperienceItem[] }
 export default function ResumeExperience({ T, experience }: Props) {
   return (
     <section id="experience">
-      <SectionTitle T={T}>Work Experience</SectionTitle>
+      <ResumeSectionTitle T={T}>Work Experience</ResumeSectionTitle>
       {experience.map(ex => (
         <div key={ex.company} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 20, flexWrap: 'wrap' }}>
           <div>
@@ -35,10 +36,3 @@ export default function ResumeExperience({ T, experience }: Props) {
   )
 }
 
-function SectionTitle({ children, T }: { children: string; T: ThemeTokens }) {
-  return (
-    <div style={{ fontFamily: mono, fontSize: 13, color: T.gold, letterSpacing: '0.06em', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
-      <span style={{ opacity: 0.55 }}>~</span><span>{children}</span><span style={{ opacity: 0.55 }}>~</span>
-    </div>
-  )
-}

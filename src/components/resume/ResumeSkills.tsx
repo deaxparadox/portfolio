@@ -1,6 +1,7 @@
 // src/components/resume/ResumeSkills.tsx
 import type { ThemeTokens } from './types'
 import type { SkillItem } from '@/data/types'
+import ResumeSectionTitle from './ResumeSectionTitle'
 
 const mono = "'DM Mono', monospace"
 
@@ -10,7 +11,7 @@ export default function ResumeSkills({ T, skills }: Props) {
   const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
   return (
     <section id="skills">
-      <SectionTitle T={T}>Stack I use</SectionTitle>
+      <ResumeSectionTitle T={T}>Stack I use</ResumeSectionTitle>
       <div style={{
         fontFamily: mono,
         background: T.bgTerm,
@@ -50,10 +51,3 @@ export default function ResumeSkills({ T, skills }: Props) {
   )
 }
 
-function SectionTitle({ children, T }: { children: string; T: ThemeTokens }) {
-  return (
-    <div style={{ fontFamily: mono, fontSize: 13, color: T.gold, letterSpacing: '0.06em', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
-      <span style={{ opacity: 0.55 }}>~</span><span>{children}</span><span style={{ opacity: 0.55 }}>~</span>
-    </div>
-  )
-}

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { ThemeTokens } from './types'
 import type { ContactData } from '@/data/types'
+import ResumeSectionTitle from './ResumeSectionTitle'
 
 const mono = "'DM Mono', monospace"
 const sans = "'Syne', sans-serif"
@@ -21,12 +22,13 @@ export default function ResumeContact({ T, contact }: Props) {
 
   return (
     <section id="contact">
-      <SectionTitle T={T}>Get in touch</SectionTitle>
+      <ResumeSectionTitle T={T}>Get in touch</ResumeSectionTitle>
       <p style={{ fontSize: 14, color: T.dim, lineHeight: 1.82, marginBottom: 24, maxWidth: 500, fontFamily: sans, transition: 'color .35s' }}>
         Open to backend engineering and AI projects.
         Whether it&apos;s a full-time role, a contract, or just a conversation — reach out.
       </p>
-      <div
+      <button
+        type="button"
         onClick={copyEmail}
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
@@ -46,15 +48,7 @@ export default function ResumeContact({ T, contact }: Props) {
         {!copied && (
           <span style={{ color: T.dimLo, fontSize: 10, letterSpacing: '0.06em' }}>click to copy</span>
         )}
-      </div>
+      </button>
     </section>
-  )
-}
-
-function SectionTitle({ children, T }: { children: string; T: ThemeTokens }) {
-  return (
-    <div style={{ fontFamily: mono, fontSize: 13, color: T.gold, letterSpacing: '0.06em', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
-      <span style={{ opacity: 0.55 }}>~</span><span>{children}</span><span style={{ opacity: 0.55 }}>~</span>
-    </div>
   )
 }

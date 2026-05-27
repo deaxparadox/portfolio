@@ -11,6 +11,7 @@ const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
 
 interface Props {
   T: ThemeTokens
+  isDark: boolean
   name: string
   role: string
   location: string
@@ -18,14 +19,14 @@ interface Props {
   tldr: string
 }
 
-export default function ResumeHero({ T, name, role, location, bio, tldr }: Props) {
+export default function ResumeHero({ T, isDark, name, role, location, bio, tldr }: Props) {
   const cells = useMemo(() => generateHeatmapCells(52 * 7), [])
   const heatLevels = [
-    T.bgTerm === 'rgba(245,197,24,0.04)' ? 'rgba(245,197,24,0.07)' : 'rgba(0,0,0,0.07)',
-    T.bgTerm === 'rgba(245,197,24,0.04)' ? 'rgba(245,197,24,0.24)' : 'rgba(0,0,0,0.22)',
-    T.bgTerm === 'rgba(245,197,24,0.04)' ? 'rgba(245,197,24,0.46)' : 'rgba(0,0,0,0.42)',
-    T.bgTerm === 'rgba(245,197,24,0.04)' ? 'rgba(245,197,24,0.70)' : 'rgba(0,0,0,0.66)',
-    T.bgTerm === 'rgba(245,197,24,0.04)' ? T.gold : 'rgba(0,0,0,0.90)',
+    isDark ? 'rgba(245,197,24,0.07)' : 'rgba(0,0,0,0.07)',
+    isDark ? 'rgba(245,197,24,0.24)' : 'rgba(0,0,0,0.22)',
+    isDark ? 'rgba(245,197,24,0.46)' : 'rgba(0,0,0,0.42)',
+    isDark ? 'rgba(245,197,24,0.70)' : 'rgba(0,0,0,0.66)',
+    isDark ? T.gold : 'rgba(0,0,0,0.90)',
   ]
 
   return (

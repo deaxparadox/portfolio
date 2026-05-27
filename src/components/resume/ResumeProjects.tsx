@@ -2,6 +2,7 @@
 import type { ThemeTokens } from './types'
 import type { ProjectItem } from '@/data/types'
 import ResumeLink from './ResumeLink'
+import ResumeSectionTitle from './ResumeSectionTitle'
 
 const mono = "'DM Mono', monospace"
 const dirt = "'Rubik Dirt', sans-serif"
@@ -12,7 +13,7 @@ interface Props { T: ThemeTokens; projects: ProjectItem[] }
 export default function ResumeProjects({ T, projects }: Props) {
   return (
     <section id="projects">
-      <SectionTitle T={T}>Things I&apos;ve built</SectionTitle>
+      <ResumeSectionTitle T={T}>Things I&apos;ve built</ResumeSectionTitle>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {projects.map((p, i) => (
           <div key={p.name} style={{
@@ -46,10 +47,3 @@ export default function ResumeProjects({ T, projects }: Props) {
   )
 }
 
-function SectionTitle({ children, T }: { children: string; T: ThemeTokens }) {
-  return (
-    <div style={{ fontFamily: mono, fontSize: 13, color: T.gold, letterSpacing: '0.06em', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
-      <span style={{ opacity: 0.55 }}>~</span><span>{children}</span><span style={{ opacity: 0.55 }}>~</span>
-    </div>
-  )
-}
