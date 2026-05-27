@@ -6,18 +6,18 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## In Progress
 
-- Resume mode (v3 branch) — complete, pending merge to dev + Vercel push
-- Note: currently on `v3` branch
+- Vercel live ✅ — both modes verified in production
+- Note: currently on `dev` branch
 
 ## Branch Strategy
 
 | Branch | Purpose |
 |---|---|
 | `main` | stable production |
-| `dev` | v2 + SkillsFinder merged (398c377) |
-| `v1` | preserved snapshot — read-only reference |
+| `dev` | **active** — v3 merged in (c2eb622) |
+| `v3` | complete — merged into dev |
 | `v2` | complete — merged into dev |
-| `v3` | **active** — resume mode + DeaxButton (e599645) |
+| `v1` | preserved snapshot — read-only reference |
 | `template1` | original template reference |
 
 ---
@@ -31,8 +31,8 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [x] DeaxButton — persistent floating, mode-switch, "Talk to Deax (soon)"
 - [x] Magazine split project cards — left panel + right gradient + roaming badges
 - [x] Roaming badges — JS transform-based, smooth drift every 3s
-- [ ] Merge v3 → dev
-- [ ] Push dev to Vercel, verify both modes + project cards in browser
+- [x] Merge v3 → dev ✅
+- [x] Push dev to Vercel — both modes verified live ✅
 
 ### 3. Chatbot in Resume Mode (text-only Deax)
 - [ ] Text-only chat widget in resume mode
