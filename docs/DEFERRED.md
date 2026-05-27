@@ -27,6 +27,14 @@ Design work that's complete but not yet implemented. Before building any UI sect
 
 **Selected design:** Option C — Magazine Split (implemented in v3 / full experience).
 
+### Roaming Badges (enhancement)
+
+**Design:** Tags from `project.tags` drift freely around the right panel using JS-driven random positions, smooth transitions, and light collision avoidance — replacing the static bob animation.
+
+**Why deferred:** Build the working magazine split cards first. Roaming logic is a polish layer on top, not part of the core card design.
+
+**Trigger to implement:** Magazine Split cards shipped and verified in browser.
+
 **Other options for reference:**
 
 | Option | Name | Notes |
