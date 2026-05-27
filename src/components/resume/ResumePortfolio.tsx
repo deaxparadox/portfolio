@@ -2,6 +2,7 @@
 import { useTheme, ThemeProvider } from './ThemeContext'
 import type { ThemeTokens } from './types'
 import type { PortfolioData } from '@/data/types'
+import CustomCursor from '@/components/ui/CustomCursor'
 import ResumeNav from './ResumeNav'
 import ResumeHero from './ResumeHero'
 import ResumeSocial from './ResumeSocial'
@@ -41,6 +42,7 @@ function ResumeInner({ data }: { data: PortfolioData }) {
 
   return (
     <>
+      <CustomCursor />
       <style>{`
         @keyframes rp-pulse { 0%,100%{opacity:1;box-shadow:0 0 8px #4ade80}50%{opacity:.35;box-shadow:0 0 3px #4ade80} }
         @keyframes rp-blink { 0%,100%{opacity:1}50%{opacity:0} }
