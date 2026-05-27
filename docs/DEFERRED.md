@@ -4,6 +4,25 @@ Design work that's complete but not yet implemented. Before building any UI sect
 
 ---
 
+## Project Cards — Hanging Nail Spring Animation
+
+**No design file** — concept described in session 2026-05-27.
+
+**Design:** Sticky-stack cards get a velocity-driven elastic entrance animation. As a card enters view, the top edge stretches left/right (skewX + horizontal scale, pivot from bottom). Releases back to normal with a spring overshoot — like a card hung on a nail that swings and settles. Faster scroll = more stretch. Reverse animation when scrolling back up.
+
+**Implementation approach:**
+- Scoped to full experience only (`FullExperienceShell` already has FramerProvider)
+- Use `useScroll` + `useVelocity` from Framer Motion to read scroll speed
+- Map velocity to `skewX` and `scaleX` values via `useTransform`
+- Spring physics for the settle/bounce (`useSpring` with low damping, low stiffness)
+- Each `.stack-item` gets a `motion.li` wrapper
+
+**Why deferred:** Polish animation — needs fresh session with careful tuning. Done poorly it nauseates; done well it's memorable. Deserves proper attention.
+
+**Trigger to implement:** After v3 merged and verified in Vercel. Standalone feature on a new branch.
+
+---
+
 ## Experience Section — Cinematic Dossier
 
 **File:** `docs/templates/experience-cinematic.jsx`
