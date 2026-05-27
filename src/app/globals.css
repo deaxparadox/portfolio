@@ -51,6 +51,11 @@ body {
   cursor: none;
 }
 
+/* Force-hide native cursor everywhere — custom cursor component handles it */
+*, *::before, *::after {
+  cursor: none !important;
+}
+
 /* ── Keyframe Animations ── */
 
 @keyframes navIn {
