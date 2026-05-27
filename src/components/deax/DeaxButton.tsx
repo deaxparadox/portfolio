@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const mono = "'DM Mono', monospace"
 
@@ -9,9 +9,8 @@ export default function DeaxButton() {
   const ref = useRef<HTMLDivElement>(null)
   const router = useRouter()
 
-  const mode = typeof window !== 'undefined'
-    ? new URLSearchParams(window.location.search).get('mode') ?? 'resume'
-    : 'resume'
+  const searchParams = useSearchParams()
+  const mode = searchParams.get('mode') ?? 'resume'
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

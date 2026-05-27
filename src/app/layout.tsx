@@ -6,6 +6,7 @@ import {
   Syne,
   Cormorant_Garamond,
 } from 'next/font/google'
+import { Suspense } from 'react'
 import './globals.css'
 import DeaxButton from '@/components/deax/DeaxButton'
 import portfolioData from '@/data/portfolio.json'
@@ -51,7 +52,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${rubikDirt.variable} ${dmMono.variable} ${syne.variable} ${cormorant.variable}`}>
         {children}
-        <DeaxButton />
+        <Suspense fallback={null}>
+          <DeaxButton />
+        </Suspense>
       </body>
     </html>
   )

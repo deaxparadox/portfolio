@@ -3,7 +3,7 @@ import ResumePortfolio from '@/components/resume/ResumePortfolio'
 import type { PortfolioData } from '@/data/types'
 
 const mockData = {
-  meta: { title: 'Test', description: 'Test desc' },
+  meta: { title: 'Test', description: 'Test desc', name: 'Nitish Kushwaha', role: 'Backend Engineer', location: 'Delhi, India' },
   theme: { accentColor: '#f5c518' },
   stats: [],
   skills: [

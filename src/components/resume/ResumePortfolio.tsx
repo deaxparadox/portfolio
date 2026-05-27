@@ -68,9 +68,9 @@ function ResumeInner({ data }: { data: PortfolioData }) {
           <ResumeHero
             T={T}
             isDark={isDark}
-            name="Nitish Kushwaha"
-            role="Backend Engineer"
-            location="Delhi, India"
+            name={data.meta.name}
+            role={data.meta.role}
+            location={data.meta.location}
             bio={[
               "Python developer with 3+ years building scalable APIs, AI agents, and real-time voice systems. Currently at Excellence Technologies — shipping LangGraph pipelines, LiveKit voice agents, and multi-cloud deployments.",
               "Proficient in Django, FastAPI, LangGraph, LangChain. Hands-on with AI workflows: RAG, multi-agent systems, document extraction pipelines. Voice infra via LiveKit and Twilio SIP.",

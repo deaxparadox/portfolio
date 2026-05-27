@@ -3,6 +3,7 @@ import DeaxButton from '@/components/deax/DeaxButton'
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn() }),
+  useSearchParams: () => ({ get: () => null }),
 }))
 
 describe('DeaxButton', () => {

@@ -3,6 +3,9 @@
 export interface PortfolioMeta {
   title: string
   description: string
+  name: string
+  role: string
+  location: string
 }
 
 export interface PortfolioTheme {
