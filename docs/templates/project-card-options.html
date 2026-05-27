@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Project Card Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060500;
+  --gold:#f5c518;--gold-lt:#ffd84d;--gold-dk:#c49a00;--amber:#e8900a;
+  --cream:#fff8e7;
+  --glass:rgba(245,197,24,0.055);--glass-md:rgba(245,197,24,0.10);
+  --border:rgba(245,197,24,0.16);--border-hv:rgba(245,197,24,0.45);
+  --glow:0 0 40px rgba(245,197,24,0.15);--glow-hv:0 0 80px rgba(245,197,24,0.3);
+  --txt:#f0ead8;--txt-dim:rgba(240,234,216,0.50);
+  --dirt:'Rubik Dirt',sans-serif;
+  --ui:'Syne',sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--txt);
+  font-family:var(--ui);line-height:1.6;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:200px;opacity:.35;
+}
+.au{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(120px)}
+.au1{width:600px;height:600px;background:radial-gradient(circle,#f5c518,transparent 70%);top:-200px;left:-200px;opacity:.08;animation:drift 20s ease-in-out infinite alternate}
+.au2{width:500px;height:500px;background:radial-gradient(circle,#e8900a,transparent 70%);bottom:-150px;right:-100px;opacity:.07;animation:drift 26s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(60px,40px)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* PAGE LAYOUT */
+.page{position:relative;z-index:1;padding:60px 60px 100px;max-width:1300px;margin:0 auto}
+.page-title{
+  text-align:center;margin-bottom:72px;
+}
+.page-title h1{font-family:var(--dirt);font-size:48px;color:var(--cream);letter-spacing:-1px;margin-bottom:10px}
+.page-title p{font-family:var(--mono);font-size:12px;color:var(--txt-dim);letter-spacing:.12em;text-transform:uppercase}
+
+/* OPTION BLOCK */
+.option-block{margin-bottom:100px}
+.option-label{
+  display:flex;align-items:center;gap:16px;margin-bottom:32px;
+}
+.opt-badge{
+  font-family:var(--dirt);font-size:56px;color:var(--gold);
+  line-height:1;letter-spacing:-1px;opacity:.35;
+}
+.opt-info{}
+.opt-name{font-family:var(--dirt);font-size:28px;color:var(--cream);letter-spacing:-0.5px;margin-bottom:4px}
+.opt-desc{font-family:var(--mono);font-size:11px;color:var(--txt-dim);letter-spacing:.1em}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(245,197,24,.25),transparent);margin-bottom:40px}
+
+/* tag pill */
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.05em;padding:4px 12px;border-radius:4px;background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);color:var(--gold-lt)}
+.badge-pill{font-family:var(--mono);font-size:10px;letter-spacing:.05em;padding:4px 14px;border-radius:20px;background:rgba(245,197,24,.14);border:1px solid rgba(245,197,24,.3);color:var(--gold-lt)}
+
+
+/* ══════════════════════════════════════
+   OPTION A — Case Study Editorial
+══════════════════════════════════════ */
+.optA-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+.card-a{
+  border-radius:20px;
+  padding:36px 32px 32px;
+  background:var(--glass);
+  backdrop-filter:blur(24px);
+  border:1px solid var(--border);
+  box-shadow:var(--glow),inset 0 1px 0 rgba(255,255,255,.04);
+  position:relative;overflow:hidden;
+  transition:transform .35s ease,border-color .3s,box-shadow .3s;
+  cursor:default;
+}
+.card-a:hover{transform:translateY(-8px);border-color:var(--border-hv);box-shadow:var(--glow-hv)}
+
+/* giant ghost number */
+.card-a-num{
+  position:absolute;bottom:-20px;right:-10px;
+  font-family:var(--dirt);font-size:140px;color:var(--gold);
+  opacity:.05;line-height:1;letter-spacing:-4px;pointer-events:none;
+  user-select:none;transition:opacity .3s;
+}
+.card-a:hover .card-a-num{opacity:.08}
+
+/* top strip */
+.card-a-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px;
+}
+.card-a-index{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.12em}
+.card-a-year{font-family:var(--mono);font-size:11px;color:var(--txt-dim);letter-spacing:.08em}
+
+/* title */
+.card-a-title{
+  font-family:var(--dirt);font-size:36px;color:var(--cream);
+  line-height:.95;letter-spacing:-1px;margin-bottom:16px;
+}
+
+/* impact callout */
+.card-a-impact{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.28);
+  border-radius:6px;padding:8px 14px;margin-bottom:18px;
+}
+.impact-num{font-family:var(--dirt);font-size:22px;color:var(--gold);line-height:1}
+.impact-label{font-family:var(--mono);font-size:10px;color:var(--txt-dim);letter-spacing:.08em;line-height:1.3}
+
+/* desc */
+.card-a-desc{font-size:13px;color:var(--txt-dim);line-height:1.7;margin-bottom:24px}
+.card-a-desc strong{color:var(--cream);font-weight:600}
+
+/* divider */
+.card-a-line{height:1px;background:var(--border);margin-bottom:20px}
+
+/* footer */
+.card-a-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.card-a-tags{display:flex;flex-wrap:wrap;gap:6px}
+.card-a-link{
+  font-family:var(--mono);font-size:10px;color:var(--gold);
+  text-decoration:none;letter-spacing:.08em;
+  display:flex;align-items:center;gap:4px;
+  opacity:0;transition:opacity .2s;
+}
+.card-a:hover .card-a-link{opacity:1}
+.card-a-link-arrow{transition:transform .2s}
+.card-a:hover .card-a-link-arrow{transform:translate(3px,-3px)}
+
+/* left accent bar */
+.card-a::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+  background:linear-gradient(180deg,var(--gold),var(--amber),transparent);
+  border-radius:20px 0 0 20px;
+  opacity:0;transition:opacity .3s;
+}
+.card-a:hover::before{opacity:1}
+
+
+/* ══════════════════════════════════════
+   OPTION B — Terminal / Code Editor
+══════════════════════════════════════ */
+.optB-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+.card-b{
+  border-radius:14px;overflow:hidden;
+  background:rgba(8,7,0,.85);
+  border:1px solid var(--border);
+  box-shadow:var(--glow),inset 0 1px 0 rgba(255,255,255,.03);
+  transition:transform .35s ease,border-color .3s,box-shadow .3s;
+  cursor:default;
+}
+.card-b:hover{transform:translateY(-8px);border-color:var(--border-hv);box-shadow:var(--glow-hv)}
+
+/* window tab bar */
+.card-b-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 16px;
+  background:rgba(18,14,0,.95);
+  border-bottom:1px solid var(--border);
+}
+.b-dots{display:flex;gap:6px}
+.b-dot{width:10px;height:10px;border-radius:50%}
+.b-dot.r{background:#ff5f57}.b-dot.y{background:var(--gold)}.b-dot.g{background:#28c840}
+.card-b-tab{
+  margin-left:8px;
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  background:rgba(245,197,24,.08);border:1px solid var(--border);
+  border-radius:4px 4px 0 0;padding:3px 12px;letter-spacing:.04em;
+}
+.card-b-tab .active-tab{color:var(--gold-lt)}
+.card-b-lang{margin-left:auto;font-family:var(--mono);font-size:9px;color:rgba(245,197,24,.3);letter-spacing:.1em;text-transform:uppercase}
+
+/* code body */
+.card-b-code{padding:24px 22px;font-family:var(--mono);font-size:12px;line-height:2}
+.ln{display:flex;gap:16px}
+.ln-num{color:rgba(245,197,24,.2);min-width:20px;text-align:right;user-select:none;font-size:11px}
+.ln-code{}
+.c-comment{color:rgba(245,197,24,.32)}
+.c-key{color:#c792ea}
+.c-str{color:#c3e88d}
+.c-fn{color:var(--gold-lt)}
+.c-var{color:#82aaff}
+.c-num{color:var(--gold)}
+.c-bracket{color:var(--txt-dim)}
+.c-plain{color:var(--txt-dim)}
+
+/* card-b impact */
+.card-b-impact{
+  margin:0 22px 0;
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;
+  background:rgba(245,197,24,.07);
+  border:1px solid rgba(245,197,24,.2);
+  border-radius:6px;
+}
+.bi-num{font-family:var(--dirt);font-size:20px;color:var(--gold)}
+.bi-lbl{font-family:var(--mono);font-size:10px;color:var(--txt-dim);letter-spacing:.06em}
+
+/* card-b footer */
+.card-b-footer{
+  padding:16px 22px 20px;
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+
+
+/* ══════════════════════════════════════
+   OPTION C — Magazine Split
+══════════════════════════════════════ */
+.optC-cards{display:flex;flex-direction:column;gap:20px}
+
+.card-c{
+  border-radius:20px;overflow:hidden;
+  background:var(--glass);
+  backdrop-filter:blur(24px);
+  border:1px solid var(--border);
+  box-shadow:var(--glow),inset 0 1px 0 rgba(255,255,255,.04);
+  display:grid;grid-template-columns:1fr 380px;
+  transition:border-color .3s,box-shadow .3s,transform .35s;
+  cursor:default;min-height:220px;
+}
+.card-c:hover{transform:translateY(-5px);border-color:var(--border-hv);box-shadow:var(--glow-hv)}
+
+/* left */
+.card-c-left{padding:40px 44px;display:flex;flex-direction:column;justify-content:space-between}
+.card-c-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.card-c-num{font-family:var(--dirt);font-size:72px;color:var(--gold);opacity:.18;line-height:.85;letter-spacing:-2px;user-select:none}
+.card-c-meta{}
+.card-c-eyebrow{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.card-c-title{font-family:var(--dirt);font-size:40px;color:var(--cream);line-height:.95;letter-spacing:-1px}
+.card-c-desc{font-size:14px;color:var(--txt-dim);line-height:1.75;max-width:400px;margin:16px 0 24px}
+.card-c-desc strong{color:var(--cream)}
+.card-c-bot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.card-c-tags{display:flex;flex-wrap:wrap;gap:6px}
+.card-c-link{
+  font-family:var(--mono);font-size:11px;color:var(--gold);
+  text-decoration:none;letter-spacing:.08em;
+  display:flex;align-items:center;gap:6px;
+  opacity:0;transition:opacity .2s,transform .2s;
+}
+.card-c:hover .card-c-link{opacity:1}
+
+/* right — visual panel */
+.card-c-right{
+  position:relative;overflow:hidden;
+  border-left:1px solid var(--border);
+}
+.card-c-visual{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+}
+/* unique gradient per card */
+.card-c:nth-child(1) .card-c-visual{background:linear-gradient(135deg,rgba(245,197,24,.12) 0%,rgba(232,144,10,.06) 50%,rgba(6,5,0,.3) 100%)}
+.card-c:nth-child(2) .card-c-visual{background:linear-gradient(135deg,rgba(196,154,0,.1) 0%,rgba(245,197,24,.08) 50%,rgba(6,5,0,.3) 100%)}
+.card-c:nth-child(3) .card-c-visual{background:linear-gradient(135deg,rgba(232,144,10,.12) 0%,rgba(255,216,77,.06) 50%,rgba(6,5,0,.3) 100%)}
+.visual-glyph{
+  font-size:96px;opacity:.2;
+  filter:drop-shadow(0 0 30px rgba(245,197,24,.5));
+  transition:opacity .3s,transform .3s;
+  user-select:none;
+}
+.card-c:hover .visual-glyph{opacity:.32;transform:scale(1.08)}
+/* floating badges */
+.visual-badges{
+  position:absolute;inset:0;pointer-events:none;
+}
+.vbadge{
+  position:absolute;
+  font-family:var(--mono);font-size:9px;letter-spacing:.06em;
+  padding:4px 10px;border-radius:20px;
+  background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.25);
+  color:var(--gold-lt);
+  animation:float-badge 4s ease-in-out infinite alternate;
+}
+@keyframes float-badge{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+.vbadge:nth-child(2){animation-delay:.5s}
+.vbadge:nth-child(3){animation-delay:1s}
+.vbadge:nth-child(4){animation-delay:1.5s}
+
+/* impact strip across card-c */
+.card-c-impact{
+  position:absolute;bottom:16px;right:16px;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.3);
+  border-radius:8px;padding:8px 14px;
+}
+.ci-num{font-family:var(--dirt);font-size:24px;color:var(--gold);line-height:1}
+.ci-lbl{font-family:var(--mono);font-size:9px;color:var(--txt-dim);letter-spacing:.07em;line-height:1.4}
+
+
+/* ══════════════════════════════════════
+   OPTION D — Receipt / Ticket
+══════════════════════════════════════ */
+.optD-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+
+.card-d{
+  border-radius:16px;overflow:hidden;
+  background:rgba(14,11,0,.82);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  box-shadow:var(--glow),inset 0 1px 0 rgba(255,255,255,.04);
+  transition:transform .35s ease,border-color .3s,box-shadow .3s;
+  cursor:default;position:relative;
+}
+.card-d:hover{transform:translateY(-8px) rotate(0.3deg);border-color:var(--border-hv);box-shadow:var(--glow-hv)}
+
+/* ticket header */
+.card-d-header{
+  padding:28px 28px 20px;
+  border-bottom:none;position:relative;
+}
+.card-d-header::after{
+  content:'';
+  position:absolute;bottom:-1px;left:0;right:0;height:1px;
+  background:repeating-linear-gradient(90deg,var(--border) 0px,var(--border) 8px,transparent 8px,transparent 14px);
+}
+.card-d-stub{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;
+}
+.card-d-stub-left{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase}
+.card-d-stub-right{font-family:var(--mono);font-size:10px;color:var(--txt-dim);letter-spacing:.08em}
+.card-d-title{
+  font-family:var(--dirt);font-size:36px;color:var(--cream);
+  line-height:.95;letter-spacing:-1px;margin-bottom:8px;
+}
+.card-d-sub{font-family:var(--mono);font-size:11px;color:var(--gold-dk);letter-spacing:.06em}
+
+/* perforated tear row */
+.card-d-tear{
+  display:flex;align-items:center;
+  padding:0 14px;position:relative;
+}
+.tear-circle-left,.tear-circle-right{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--border);
+  flex-shrink:0;
+  position:relative;z-index:1;
+}
+.tear-line{
+  flex:1;height:1px;
+  background:repeating-linear-gradient(90deg,rgba(245,197,24,.25) 0px,rgba(245,197,24,.25) 6px,transparent 6px,transparent 12px);
+  margin:0 -1px;
+}
+
+/* ticket body */
+.card-d-body{padding:20px 28px 24px}
+.card-d-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(245,197,24,.06)}
+.card-d-row:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.dr-key{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:4px}
+.dr-val{font-size:13px;font-weight:600;color:var(--cream);line-height:1.4}
+.dr-val.gold{font-family:var(--dirt);font-size:20px;color:var(--gold)}
+.card-d-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px}
+
+/* barcode strip */
+.card-d-barcode{
+  padding:14px 28px 20px;
+  border-top:none;position:relative;
+}
+.card-d-barcode::before{
+  content:'';
+  position:absolute;top:0px;left:0;right:0;height:1px;
+  background:repeating-linear-gradient(90deg,var(--border) 0px,var(--border) 8px,transparent 8px,transparent 14px);
+}
+.barcode-lines{
+  display:flex;gap:2px;align-items:stretch;height:36px;
+  opacity:.3;
+}
+.bar{background:var(--gold);border-radius:1px}
+.barcode-num{font-family:var(--mono);font-size:9px;color:rgba(245,197,24,.3);letter-spacing:.2em;text-align:center;margin-top:6px}
+
+/* "my pick" overlay */
+.pick-badge{
+  position:absolute;top:16px;right:16px;
+  font-family:var(--dirt);font-size:13px;
+  background:var(--gold);color:var(--bg);
+  padding:4px 12px;border-radius:4px;
+  box-shadow:0 0 20px rgba(245,197,24,.5);
+  letter-spacing:.02em;
+}
+</style>
+</head>
+<body>
+
+<div class="au au1"></div>
+<div class="au au2"></div>
+
+<div class="page">
+
+  <div class="page-title">
+    <h1>Project Card Concepts</h1>
+    <p>Click to interact · Hover to preview · Pick your favourite</p>
+  </div>
+
+  <!-- ══════════ OPTION A ══════════ -->
+  <div class="option-block">
+    <div class="option-label">
+      <div class="opt-badge">A</div>
+      <div class="opt-info">
+        <div class="opt-name">Case Study Editorial</div>
+        <div class="opt-desc">Ghost number · Impact callout · Left accent bar on hover</div>
+      </div>
+      <div class="pick-badge" style="position:static;margin-left:auto">My Pick ✦</div>
+    </div>
+    <div class="divider"></div>
+    <div class="optA-cards">
+
+      <!-- card 1 -->
+      <div class="card-a">
+        <div class="card-a-num">01</div>
+        <div class="card-a-top">
+          <div class="card-a-index">01 / Project</div>
+          <div class="card-a-year">2024</div>
+        </div>
+        <div class="card-a-title">Vgents</div>
+        <div class="card-a-impact">
+          <div class="impact-num">∞</div>
+          <div class="impact-label">Concurrent<br>Voice Sessions</div>
+        </div>
+        <div class="card-a-desc">
+          Real-time voice agent platform supporting <strong>multiple personas</strong>. Strict session isolation with single-use token auth and WebSocket low-latency interaction.
+        </div>
+        <div class="card-a-line"></div>
+        <div class="card-a-footer">
+          <div class="card-a-tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">LiveKit</span>
+            <span class="tag">Docker</span>
+          </div>
+          <a class="card-a-link" href="#">GitHub <span class="card-a-link-arrow">↗</span></a>
+        </div>
+      </div>
+
+      <!-- card 2 -->
+      <div class="card-a">
+        <div class="card-a-num">02</div>
+        <div class="card-a-top">
+          <div class="card-a-index">02 / Project</div>
+          <div class="card-a-year">2024</div>
+        </div>
+        <div class="card-a-title">NeuroWrite</div>
+        <div class="card-a-impact">
+          <div class="impact-num">60%</div>
+          <div class="impact-label">Processing<br>Time Saved</div>
+        </div>
+        <div class="card-a-desc">
+          AI-driven medical document pipeline with <strong>hybrid PDF extraction</strong>. AWS Textract for scanned docs, auto-generates formatted reports.
+        </div>
+        <div class="card-a-line"></div>
+        <div class="card-a-footer">
+          <div class="card-a-tags">
+            <span class="tag">Django</span>
+            <span class="tag">LangGraph</span>
+            <span class="tag">Textract</span>
+          </div>
+          <a class="card-a-link" href="#">GitHub <span class="card-a-link-arrow">↗</span></a>
+        </div>
+      </div>
+
+      <!-- card 3 -->
+      <div class="card-a">
+        <div class="card-a-num">03</div>
+        <div class="card-a-top">
+          <div class="card-a-index">03 / Project</div>
+          <div class="card-a-year">2024</div>
+        </div>
+        <div class="card-a-title">Aounder</div>
+        <div class="card-a-impact">
+          <div class="impact-num">3</div>
+          <div class="impact-label">Agent<br>Specialisations</div>
+        </div>
+        <div class="card-a-desc">
+          AI Co-Founder Assistant with <strong>LangGraph agents</strong> for brainstorming and validation. Real-time tracking via Redis + Django Channels.
+        </div>
+        <div class="card-a-line"></div>
+        <div class="card-a-footer">
+          <div class="card-a-tags">
+            <span class="tag">Django</span>
+            <span class="tag">LangGraph</span>
+            <span class="tag">Redis</span>
+          </div>
+          <a class="card-a-link" href="#">GitHub <span class="card-a-link-arrow">↗</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ OPTION B ══════════ -->
+  <div class="option-block">
+    <div class="option-label">
+      <div class="opt-badge">B</div>
+      <div class="opt-info">
+        <div class="opt-name">Terminal / Code Window</div>
+        <div class="opt-desc">Mac window chrome · Syntax highlighted code · Consistent OS theme</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="optB-cards">
+
+      <!-- card 1 -->
+      <div class="card-b">
+        <div class="card-b-bar">
+          <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+          <div class="card-b-tab"><span class="active-tab">vgents</span>.py</div>
+          <div class="card-b-lang">Python</div>
+        </div>
+        <div class="card-b-code">
+          <div class="ln"><span class="ln-num">1</span><span class="ln-code c-comment"># Real-time voice agent platform</span></div>
+          <div class="ln"><span class="ln-num">2</span><span class="ln-code"><span class="c-key">import</span> <span class="c-var">livekit</span>, <span class="c-var">fastapi</span></span></div>
+          <div class="ln"><span class="ln-num">3</span><span class="ln-code"></span></div>
+          <div class="ln"><span class="ln-num">4</span><span class="ln-code"><span class="c-fn">project</span> <span class="c-bracket">=</span> <span class="c-bracket">{</span></span></div>
+          <div class="ln"><span class="ln-num">5</span><span class="ln-code">&nbsp;&nbsp;<span class="c-str">"name"</span><span class="c-bracket">:</span> <span class="c-str">"Vgents"</span>,</span></div>
+          <div class="ln"><span class="ln-num">6</span><span class="ln-code">&nbsp;&nbsp;<span class="c-str">"sessions"</span><span class="c-bracket">:</span> <span class="c-str">"concurrent"</span>,</span></div>
+          <div class="ln"><span class="ln-num">7</span><span class="ln-code">&nbsp;&nbsp;<span class="c-str">"auth"</span><span class="c-bracket">:</span> <span class="c-str">"single-use-token"</span></span></div>
+          <div class="ln"><span class="ln-num">8</span><span class="ln-code"><span class="c-bracket">}</span></span></div>
+        </div>
+        <div class="card-b-impact">
+          <div class="bi-num">∞</div>
+          <div class="bi-lbl">Concurrent sessions<br>with full isolation</div>
+        </div>
+        <div class="card-b-footer">
+          <span class="tag">FastAPI</span><span class="tag">LiveKit</span><span class="tag">WebSockets</span><span class="tag">Docker</span>
+        </div>
+      </div>
+
+      <!-- card 2 -->
+      <div class="card-b">
+        <div class="card-b-bar">
+          <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+          <div class="card-b-tab"><span class="active-tab">neurowrite</span>.py</div>
+          <div class="card-b-lang">Python</div>
+        </div>
+        <div class="card-b-code">
+          <div class="ln"><span class="ln-num">1</span><span class="ln-code c-comment"># Medical document AI pipeline</span></div>
+          <div class="ln"><span class="ln-num">2</span><span class="ln-code"><span class="c-key">from</span> <span class="c-var">langgraph</span> <span class="c-key">import</span> <span class="c-fn">Agent</span></span></div>
+          <div class="ln"><span class="ln-num">3</span><span class="ln-code"></span></div>
+          <div class="ln"><span class="ln-num">4</span><span class="ln-code"><span class="c-fn">result</span> <span class="c-bracket">=</span> <span class="c-fn">extract</span><span class="c-bracket">(</span></span></div>
+          <div class="ln"><span class="ln-num">5</span><span class="ln-code">&nbsp;&nbsp;<span class="c-var">source</span><span class="c-bracket">=</span><span class="c-str">"assessment.pdf"</span>,</span></div>
+          <div class="ln"><span class="ln-num">6</span><span class="ln-code">&nbsp;&nbsp;<span class="c-var">method</span><span class="c-bracket">=</span><span class="c-str">"hybrid"</span>,</span></div>
+          <div class="ln"><span class="ln-num">7</span><span class="ln-code">&nbsp;&nbsp;<span class="c-var">speed_gain</span><span class="c-bracket">=</span><span class="c-num">0.60</span></span></div>
+          <div class="ln"><span class="ln-num">8</span><span class="ln-code"><span class="c-bracket">)</span></span></div>
+        </div>
+        <div class="card-b-impact">
+          <div class="bi-num">60%</div>
+          <div class="bi-lbl">Reduction in<br>processing time</div>
+        </div>
+        <div class="card-b-footer">
+          <span class="tag">Django</span><span class="tag">LangGraph</span><span class="tag">Textract</span>
+        </div>
+      </div>
+
+      <!-- card 3 -->
+      <div class="card-b">
+        <div class="card-b-bar">
+          <div class="b-dots"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div></div>
+          <div class="card-b-tab"><span class="active-tab">aounder</span>.py</div>
+          <div class="card-b-lang">Python</div>
+        </div>
+        <div class="card-b-code">
+          <div class="ln"><span class="ln-num">1</span><span class="ln-code c-comment"># AI co-founder assistant</span></div>
+          <div class="ln"><span class="ln-num">2</span><span class="ln-code"><span class="c-key">from</span> <span class="c-var">agents</span> <span class="c-key">import</span> <span class="c-fn">Mentor</span></span></div>
+          <div class="ln"><span class="ln-num">3</span><span class="ln-code"></span></div>
+          <div class="ln"><span class="ln-num">4</span><span class="ln-code"><span class="c-var">agents</span> <span class="c-bracket">=</span> <span class="c-bracket">[</span></span></div>
+          <div class="ln"><span class="ln-num">5</span><span class="ln-code">&nbsp;&nbsp;<span class="c-str">"brainstorm"</span>,</span></div>
+          <div class="ln"><span class="ln-num">6</span><span class="ln-code">&nbsp;&nbsp;<span class="c-str">"validate"</span>,</span></div>
+          <div class="ln"><span class="ln-num">7</span><span class="ln-code">&nbsp;&nbsp;<span class="c-str">"mentor"</span></span></div>
+          <div class="ln"><span class="ln-num">8</span><span class="ln-code"><span class="c-bracket">]</span></span></div>
+        </div>
+        <div class="card-b-impact">
+          <div class="bi-num">3</div>
+          <div class="bi-lbl">Specialised agent<br>types deployed</div>
+        </div>
+        <div class="card-b-footer">
+          <span class="tag">Django</span><span class="tag">LangGraph</span><span class="tag">Redis</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ OPTION C ══════════ -->
+  <div class="option-block">
+    <div class="option-label">
+      <div class="opt-badge">C</div>
+      <div class="opt-info">
+        <div class="opt-name">Magazine Split</div>
+        <div class="opt-desc">Asymmetric layout · Visual right panel · Floating animated badges</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="optC-cards">
+
+      <!-- card 1 -->
+      <div class="card-c">
+        <div class="card-c-left">
+          <div>
+            <div class="card-c-top">
+              <div class="card-c-meta">
+                <div class="card-c-eyebrow">01 / 2024</div>
+                <div class="card-c-title">Vgents</div>
+              </div>
+              <div class="card-c-num">01</div>
+            </div>
+            <div class="card-c-desc">Real-time voice agent platform supporting <strong>multiple personas</strong> and concurrent sessions. Strict session isolation with single-use token auth.</div>
+          </div>
+          <div class="card-c-bot">
+            <div class="card-c-tags">
+              <span class="tag">FastAPI</span><span class="tag">LiveKit</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span>
+            </div>
+            <a class="card-c-link" href="#">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="card-c-right">
+          <div class="card-c-visual">
+            <div class="visual-glyph">🎙️</div>
+            <div class="visual-badges">
+              <div class="vbadge" style="top:20%;left:12%">WebSocket</div>
+              <div class="vbadge" style="top:50%;left:8%;animation-delay:.7s">LiveKit</div>
+              <div class="vbadge" style="top:72%;left:20%;animation-delay:1.3s">Docker</div>
+            </div>
+            <div class="card-c-impact">
+              <div class="ci-num">∞</div>
+              <div class="ci-lbl">Concurrent<br>sessions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 2 -->
+      <div class="card-c">
+        <div class="card-c-left">
+          <div>
+            <div class="card-c-top">
+              <div class="card-c-meta">
+                <div class="card-c-eyebrow">02 / 2024</div>
+                <div class="card-c-title">NeuroWrite</div>
+              </div>
+              <div class="card-c-num">02</div>
+            </div>
+            <div class="card-c-desc">AI-driven medical document pipeline with <strong>hybrid PDF extraction</strong>. AWS Textract for scanned docs, auto-generates formatted reports instantly.</div>
+          </div>
+          <div class="card-c-bot">
+            <div class="card-c-tags">
+              <span class="tag">Django</span><span class="tag">LangGraph</span><span class="tag">Textract</span>
+            </div>
+            <a class="card-c-link" href="#">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="card-c-right">
+          <div class="card-c-visual">
+            <div class="visual-glyph">🧠</div>
+            <div class="visual-badges">
+              <div class="vbadge" style="top:18%;left:10%">LangGraph</div>
+              <div class="vbadge" style="top:48%;left:6%;animation-delay:.6s">RAG</div>
+              <div class="vbadge" style="top:70%;left:18%;animation-delay:1.2s">Textract</div>
+            </div>
+            <div class="card-c-impact">
+              <div class="ci-num">60%</div>
+              <div class="ci-lbl">Time<br>saved</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- card 3 -->
+      <div class="card-c">
+        <div class="card-c-left">
+          <div>
+            <div class="card-c-top">
+              <div class="card-c-meta">
+                <div class="card-c-eyebrow">03 / 2024</div>
+                <div class="card-c-title">Aounder</div>
+              </div>
+              <div class="card-c-num">03</div>
+            </div>
+            <div class="card-c-desc">AI Co-Founder Assistant with <strong>LangGraph multi-agents</strong> for brainstorming, validation, and mentorship with real-time WebSocket tracking.</div>
+          </div>
+          <div class="card-c-bot">
+            <div class="card-c-tags">
+              <span class="tag">Django</span><span class="tag">LangGraph</span><span class="tag">Redis</span>
+            </div>
+            <a class="card-c-link" href="#">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="card-c-right">
+          <div class="card-c-visual">
+            <div class="visual-glyph">⚡</div>
+            <div class="visual-badges">
+              <div class="vbadge" style="top:20%;left:10%">Agents</div>
+              <div class="vbadge" style="top:50%;left:8%;animation-delay:.8s">Redis</div>
+              <div class="vbadge" style="top:72%;left:16%;animation-delay:1.4s">Channels</div>
+            </div>
+            <div class="card-c-impact">
+              <div class="ci-num">3</div>
+              <div class="ci-lbl">Agent<br>types</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ OPTION D ══════════ -->
+  <div class="option-block">
+    <div class="option-label">
+      <div class="opt-badge">D</div>
+      <div class="opt-info">
+        <div class="opt-name">Receipt / Ticket</div>
+        <div class="opt-desc">Perforated tear line · Dotted stub · Barcode strip · Unique &amp; memorable</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="optD-cards">
+
+      <!-- card 1 -->
+      <div class="card-d">
+        <div class="card-d-header">
+          <div class="card-d-stub">
+            <div class="card-d-stub-left">Project #01</div>
+            <div class="card-d-stub-right">2024</div>
+          </div>
+          <div class="card-d-title">Vgents</div>
+          <div class="card-d-sub">Real-time Voice Platform</div>
+        </div>
+        <div class="card-d-tear">
+          <div class="tear-circle-left"></div>
+          <div class="tear-line"></div>
+          <div class="tear-circle-right"></div>
+        </div>
+        <div class="card-d-body">
+          <div class="card-d-row">
+            <div>
+              <div class="dr-key">Description</div>
+              <div class="dr-val" style="font-size:13px;font-weight:400;color:var(--txt-dim);line-height:1.6">Voice agent platform with persona isolation &amp; live WebSocket sessions.</div>
+            </div>
+          </div>
+          <div class="card-d-row">
+            <div>
+              <div class="dr-key">Impact</div>
+              <div class="dr-val gold">∞ Sessions</div>
+            </div>
+            <div style="text-align:right">
+              <div class="dr-key">Status</div>
+              <div class="dr-val" style="font-size:12px">✦ Deployed</div>
+            </div>
+          </div>
+          <div class="card-d-tags">
+            <span class="tag">FastAPI</span><span class="tag">LiveKit</span><span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="card-d-barcode">
+          <div class="barcode-lines" id="bc1"></div>
+          <div class="barcode-num">VGENTS-2024-LIVE</div>
+        </div>
+      </div>
+
+      <!-- card 2 -->
+      <div class="card-d">
+        <div class="card-d-header">
+          <div class="card-d-stub">
+            <div class="card-d-stub-left">Project #02</div>
+            <div class="card-d-stub-right">2024</div>
+          </div>
+          <div class="card-d-title">NeuroWrite</div>
+          <div class="card-d-sub">AI Medical Document Pipeline</div>
+        </div>
+        <div class="card-d-tear">
+          <div class="tear-circle-left"></div>
+          <div class="tear-line"></div>
+          <div class="tear-circle-right"></div>
+        </div>
+        <div class="card-d-body">
+          <div class="card-d-row">
+            <div>
+              <div class="dr-key">Description</div>
+              <div class="dr-val" style="font-size:13px;font-weight:400;color:var(--txt-dim);line-height:1.6">Hybrid PDF extraction pipeline with AI-generated medical report output.</div>
+            </div>
+          </div>
+          <div class="card-d-row">
+            <div>
+              <div class="dr-key">Impact</div>
+              <div class="dr-val gold">60% Faster</div>
+            </div>
+            <div style="text-align:right">
+              <div class="dr-key">Status</div>
+              <div class="dr-val" style="font-size:12px">✦ Deployed</div>
+            </div>
+          </div>
+          <div class="card-d-tags">
+            <span class="tag">Django</span><span class="tag">LangGraph</span><span class="tag">Textract</span>
+          </div>
+        </div>
+        <div class="card-d-barcode">
+          <div class="barcode-lines" id="bc2"></div>
+          <div class="barcode-num">NEUROWRITE-2024-AI</div>
+        </div>
+      </div>
+
+      <!-- card 3 -->
+      <div class="card-d">
+        <div class="card-d-header">
+          <div class="card-d-stub">
+            <div class="card-d-stub-left">Project #03</div>
+            <div class="card-d-stub-right">2024</div>
+          </div>
+          <div class="card-d-title">Aounder</div>
+          <div class="card-d-sub">AI Co-Founder Assistant</div>
+        </div>
+        <div class="card-d-tear">
+          <div class="tear-circle-left"></div>
+          <div class="tear-line"></div>
+          <div class="tear-circle-right"></div>
+        </div>
+        <div class="card-d-body">
+          <div class="card-d-row">
+            <div>
+              <div class="dr-key">Description</div>
+              <div class="dr-val" style="font-size:13px;font-weight:400;color:var(--txt-dim);line-height:1.6">Multi-agent LangGraph system for startup brainstorming and validation.</div>
+            </div>
+          </div>
+          <div class="card-d-row">
+            <div>
+              <div class="dr-key">Impact</div>
+              <div class="dr-val gold">3 Agents</div>
+            </div>
+            <div style="text-align:right">
+              <div class="dr-key">Status</div>
+              <div class="dr-val" style="font-size:12px">✦ Deployed</div>
+            </div>
+          </div>
+          <div class="card-d-tags">
+            <span class="tag">Django</span><span class="tag">LangGraph</span><span class="tag">Redis</span>
+          </div>
+        </div>
+        <div class="card-d-barcode">
+          <div class="barcode-lines" id="bc3"></div>
+          <div class="barcode-num">AOUNDER-2024-AGENT</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// generate barcodes
+['bc1','bc2','bc3'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  for (let i = 0; i < 48; i++) {
+    const b = document.createElement('div');
+    b.className = 'bar';
+    const w = Math.random() > 0.6 ? 3 : Math.random() > 0.4 ? 2 : 1;
+    b.style.cssText = `width:${w}px;flex-shrink:0`;
+    el.appendChild(b);
+  }
+});
+</script>
+</body>
+</html>

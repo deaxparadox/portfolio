@@ -44,9 +44,9 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [ ] Spec + implement
 
 ### 5. Experience Section Redesign
-- [ ] Review Nitish's design
-- [ ] Defer full redesign until 2nd experience entry exists
-- [ ] Design must look intentional with 1 entry, scale to 3+
+- [ ] Polish current slide-in card (impact metrics, typography)
+- [ ] Full cinematic redesign deferred — see `docs/DEFERRED.md`
+- [ ] Trigger: 2nd experience entry added to portfolio.json
 
 ### 6. Voice Agent Tour (Deax full mode)
 - [ ] LiveKit voice + chat — Deax narrates portfolio tour
