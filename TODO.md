@@ -24,13 +24,15 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Planned Features (in priority order)
 
-### 1. Resume Mode + DeaxButton ✅ (v3 branch, e599645)
+### 1. Resume Mode + DeaxButton + Project Cards ✅ (v3 branch, cc9b5bc)
 - [x] `/?mode=resume` default (proxy.ts redirect)
 - [x] `/?mode=full` full experience
 - [x] ResumePortfolio — dark/light theme, CustomCursor, all sections
 - [x] DeaxButton — persistent floating, mode-switch, "Talk to Deax (soon)"
+- [x] Magazine split project cards — left panel + right gradient + roaming badges
+- [x] Roaming badges — JS transform-based, smooth drift every 3s
 - [ ] Merge v3 → dev
-- [ ] Push dev to Vercel, verify both modes in browser
+- [ ] Push dev to Vercel, verify both modes + project cards in browser
 
 ### 3. Chatbot in Resume Mode (text-only Deax)
 - [ ] Text-only chat widget in resume mode
@@ -38,10 +40,10 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [ ] Same "Deax" persona as voice agent — text-only interface
 - [ ] Spec: chatbot widget, backend integration
 
-### 4. Projects Card Improvements
-- [ ] Review Nitish's design for new project cards
-- [ ] Keep sticky-stack layout — improve cards only
-- [ ] Spec + implement
+### 4. Projects Card Improvements ✅ (v3, cc9b5bc)
+- [x] Magazine split cards — 1fr 380px grid, gradient right panel
+- [x] Roaming badges — tags drift smoothly via CSS transform
+- [ ] Hanging nail spring animation — deferred, see docs/DEFERRED.md
 
 ### 5. Experience Section Redesign
 - [ ] Polish current slide-in card (impact metrics, typography)
