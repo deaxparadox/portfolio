@@ -1,21 +1,11 @@
 'use client'
 import { useMemo } from 'react'
+import { generateHeatmapCells } from '@/lib/heatmap'
 
 const MONTHS = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May']
-const WEIGHTS = [.35, .25, .2, .12, .08]
 
 export default function BentoHeatmap() {
-  const cells = useMemo(() => {
-    return Array.from({ length: 52 * 7 }, () => {
-      let acc = 0, lv = 0
-      const r = Math.random()
-      for (let j = 0; j < WEIGHTS.length; j++) {
-        acc += WEIGHTS[j]
-        if (r < acc) { lv = j; break }
-      }
-      return lv
-    })
-  }, [])
+  const cells = useMemo(() => generateHeatmapCells(52 * 7), [])
 
   return (
     <div className="bc bc-github">
