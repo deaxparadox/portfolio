@@ -39,7 +39,12 @@ export default function ProjectCard({ project, index }: { project: ProjectItem; 
             ))}
           </div>
           {project.links[0] && (
-            <a href={project.links[0].href} className="pc-link">
+            <a
+              href={project.links[0].href}
+              className="pc-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {project.links[0].label}
             </a>
           )}

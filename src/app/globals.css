@@ -1192,7 +1192,7 @@ section {
 .pc-badge {
   position: absolute;
   font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.06em;
   padding: 4px 10px;
   border-radius: 20px;
