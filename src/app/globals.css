@@ -1192,6 +1192,8 @@ section {
 
 .pc-badge {
   position: absolute;
+  top: 0;
+  left: 0;
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.06em;
@@ -1200,7 +1202,8 @@ section {
   background: rgba(245,197,24,0.12);
   border: 1px solid rgba(245,197,24,0.25);
   color: #ffd84d;
-  transition: top 2s ease-in-out, left 2s ease-in-out;
+  transition: transform 2s ease-in-out;
+  will-change: transform;
 }
 
 
