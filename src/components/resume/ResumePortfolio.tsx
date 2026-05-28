@@ -20,29 +20,20 @@ const DARK: ThemeTokens = {
   dotPattern: 'none', scrollThumb: '#c49a00',
 }
 
-// const LIGHT: ThemeTokens = {
-//   bg: '#c8980a', bgTerm: 'rgba(0,0,0,0.10)', nav: 'rgba(186,138,0,0.95)',
-//   txt: '#0a0800', dim: 'rgba(10,8,0,0.68)', dimLo: 'rgba(10,8,0,0.42)',
-//   gold: '#0f0c00', goldDk: 'rgba(10,8,0,0.55)', goldLt: '#1a1600',
-//   border: 'rgba(0,0,0,0.18)', borderHv: 'rgba(0,0,0,0.42)',
-//   dotPattern: `radial-gradient(circle, rgba(0,0,0,0.22) 1.5px, transparent 1.5px)`,
-//   dotSize: '18px 18px', scrollThumb: 'rgba(0,0,0,0.40)',
-// }
 const LIGHT: ThemeTokens = {
-  bg: '#fef9e0',                          // ← was #c8980a
-  bgTerm: 'rgba(0,0,0,0.07)',
-  nav: 'rgba(254,249,220,0.95)',          // ← matches new bg
+  bg: '#fdf6e3',
+  bgTerm: 'rgba(184,134,11,0.09)',
+  nav: 'rgba(253,246,227,0.97)',
   txt: '#0a0800',
-  dim: 'rgba(10,8,0,0.68)',
-  dimLo: 'rgba(10,8,0,0.42)',
-  gold: '#0f0c00',
-  goldDk: 'rgba(10,8,0,0.55)',
-  goldLt: '#1a1600',
-  border: 'rgba(0,0,0,0.14)',
-  borderHv: 'rgba(0,0,0,0.38)',
-  dotPattern: `radial-gradient(circle, rgba(0,0,0,0.18) 1.5px, transparent 1.5px)`,
-  dotSize: '18px 18px',
-  scrollThumb: 'rgba(0,0,0,0.35)',
+  dim: 'rgba(10,8,0,0.62)',
+  dimLo: 'rgba(10,8,0,0.38)',
+  gold: '#b8860b',
+  goldDk: '#8b6400',
+  goldLt: '#d4a017',
+  border: 'rgba(184,134,11,0.20)',
+  borderHv: 'rgba(184,134,11,0.50)',
+  dotPattern: 'none',
+  scrollThumb: 'rgba(184,134,11,0.40)',
 }
 
 function Divider({ T }: { T: ThemeTokens }) {
@@ -63,10 +54,13 @@ function ResumeInner({ data }: { data: PortfolioData }) {
         @keyframes rp-pulse { 0%,100%{opacity:1;box-shadow:0 0 8px #4ade80}50%{opacity:.35;box-shadow:0 0 3px #4ade80} }
         @keyframes rp-blink { 0%,100%{opacity:1}50%{opacity:0} }
         @keyframes rp-fadeIn { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none} }
+        @keyframes rp-orb1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(40px,-28px) scale(1.12)} }
+        @keyframes rp-orb2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-30px,32px) scale(0.90)} }
+        @keyframes rp-orb3 { 0%,100%{transform:translate(0,0)} 40%{transform:translate(18px,14px)} 80%{transform:translate(-12px,-16px)} }
         .resume-root ::-webkit-scrollbar{width:4px}
         .resume-root ::-webkit-scrollbar-track{background:${T.bg}}
         .resume-root ::-webkit-scrollbar-thumb{background:${T.scrollThumb};border-radius:4px}
-        ::selection{background:${isDark?'rgba(245,197,24,0.25)':'rgba(0,0,0,0.28)'};color:${T.txt}}
+        ::selection{background:${isDark?'rgba(245,197,24,0.25)':'rgba(184,134,11,0.22)'};color:${T.txt}}
       `}</style>
 
       <div
@@ -81,8 +75,16 @@ function ResumeInner({ data }: { data: PortfolioData }) {
           animation: 'rp-fadeIn .4s ease both',
         }}
       >
+        {/* Floating amber orbs — light mode only */}
+        {!isDark && <>
+          <div style={{ position:'fixed', inset:0, overflow:'hidden', pointerEvents:'none', zIndex:0 }}>
+            <div style={{ position:'absolute', width:420, height:380, borderRadius:'50%', background:'rgba(245,197,24,0.16)', filter:'blur(80px)', top:'-120px', right:'-60px', animation:'rp-orb1 9s ease-in-out infinite' }} />
+            <div style={{ position:'absolute', width:320, height:320, borderRadius:'50%', background:'rgba(184,134,11,0.12)', filter:'blur(70px)', bottom:'-80px', left:'-40px', animation:'rp-orb2 11s ease-in-out infinite' }} />
+            <div style={{ position:'absolute', width:260, height:260, borderRadius:'50%', background:'rgba(245,160,24,0.10)', filter:'blur(60px)', top:'40%', right:'20%', animation:'rp-orb3 14s ease-in-out infinite' }} />
+          </div>
+        </>}
         <ResumeNav T={T} />
-        <div style={col}>
+        <div style={{ ...col, position:'relative', zIndex:1 }}>
           <ResumeHero
             T={T}
             isDark={isDark}
