@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { IntroScreen } from '@/components/voice-tour/IntroScreen'
-import { VoiceTourProvider } from '@/components/voice-tour/VoiceTourContext'
+import { VoiceTourProvider, useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
 
 function wrap(ui: React.ReactNode) {
   return render(<VoiceTourProvider>{ui}</VoiceTourProvider>)
@@ -13,10 +13,19 @@ describe('IntroScreen', () => {
     expect(screen.getByRole('button', { name: /cancel/i })).toBeInTheDocument()
   })
 
-  it('cancel calls setPhase idle', () => {
-    wrap(<IntroScreen />)
+  it('cancel returns phase to idle', () => {
+    function PhaseReader() {
+      const { phase } = useVoiceTour()
+      return <span data-testid="phase">{phase}</span>
+    }
+    render(
+      <VoiceTourProvider>
+        <IntroScreen />
+        <PhaseReader />
+      </VoiceTourProvider>
+    )
     fireEvent.click(screen.getByRole('button', { name: /cancel/i }))
-    // No crash = cancel handler wired correctly
+    expect(screen.getByTestId('phase')).toHaveTextContent('idle')
   })
 
   it('shows error message when fetch fails', async () => {
@@ -33,5 +42,27 @@ describe('IntroScreen', () => {
     wrap(<IntroScreen />)
     fireEvent.click(screen.getByRole('button', { name: /start voice tour/i }))
     expect(screen.getByRole('button', { name: /starting/i })).toBeDisabled()
+  })
+
+  it('on success calls setPhase active', async () => {
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ token: 'test-token', ws_url: 'wss://test' }),
+    }) as jest.Mock
+
+    function PhaseReader() {
+      const { phase } = useVoiceTour()
+      return <span data-testid="phase">{phase}</span>
+    }
+    render(
+      <VoiceTourProvider>
+        <IntroScreen />
+        <PhaseReader />
+      </VoiceTourProvider>
+    )
+    fireEvent.click(screen.getByRole('button', { name: /start voice tour/i }))
+    await waitFor(() => {
+      expect(screen.getByTestId('phase')).toHaveTextContent('active')
+    })
   })
 })

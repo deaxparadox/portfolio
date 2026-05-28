@@ -25,6 +25,7 @@ export function IntroScreen() {
       setPhase('active')
     } catch {
       setError('Could not connect. Please try again.')
+    } finally {
       setLoading(false)
     }
   }
