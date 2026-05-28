@@ -9,6 +9,8 @@ import {
 import { Suspense } from 'react'
 import './globals.css'
 import DeaxButton from '@/components/deax/DeaxButton'
+import { VoiceTourProvider } from '@/components/voice-tour/VoiceTourContext'
+import { VoiceTourWidget } from '@/components/voice-tour/VoiceTourWidget'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/data/types'
 
@@ -51,10 +53,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style>{`:root { --accent: ${data.theme.accentColor}; }`}</style>
       </head>
       <body className={`${rubikDirt.variable} ${dmMono.variable} ${syne.variable} ${cormorant.variable}`}>
-        {children}
-        <Suspense fallback={null}>
-          <DeaxButton />
-        </Suspense>
+        <VoiceTourProvider>
+          {children}
+          <Suspense fallback={null}>
+            <DeaxButton />
+          </Suspense>
+          <VoiceTourWidget />
+        </VoiceTourProvider>
       </body>
     </html>
   )
