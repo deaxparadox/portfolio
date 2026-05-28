@@ -1962,3 +1962,12 @@ footer {
 @media (max-width: 900px) {
   .bc-beyond .hpill { font-size: 10px; padding: 5px 10px; }
 }
+
+/* ── Voice Tour Widget ── */
+.voice-tour-widget {
+  --vt-bg:       #0a0800;
+  --vt-border:   rgba(245, 197, 24, 0.22);
+  --vt-text:     #f5eddb;
+  --vt-text-dim: rgba(245, 197, 24, 0.40);
+  --vt-accent:   #f5c518;
+}
