@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
 
 const mono = "'DM Mono', monospace"
 
@@ -12,6 +13,8 @@ export default function DeaxButton() {
   const searchParams = useSearchParams()
   const mode = searchParams.get('mode') ?? 'resume'
 
+  const { phase, startTour } = useVoiceTour()
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
@@ -19,6 +22,9 @@ export default function DeaxButton() {
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [])
+
+  // Hide when tour is in progress — MinimizedPill takes our spot
+  if (phase === 'intro' || phase === 'active' || phase === 'minimized') return null
 
   return (
     <div
@@ -37,7 +43,7 @@ export default function DeaxButton() {
         }}>
           <button
             type="button"
-            onClick={() => { setOpen(false); router.push(mode === 'resume' ? '/?mode=full' : '/?mode=resume') }}
+            onClick={() => { setOpen(false); router.push('/?mode=full') }}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               width: '100%', padding: '10px 16px',
@@ -48,23 +54,50 @@ export default function DeaxButton() {
             onMouseEnter={e => { (e.currentTarget).style.background = 'rgba(245,197,24,0.07)' }}
             onMouseLeave={e => { (e.currentTarget).style.background = 'none' }}
           >
-            {mode === 'resume' ? 'Explore full portfolio' : 'Resume mode'}
+            Explore full portfolio
             <span style={{ color: '#f5c518', fontSize: 14 }}>→</span>
           </button>
 
-          <div style={{ height: 1, background: 'rgba(245,197,24,0.10)', margin: '4px 0' }} />
+          {mode === 'full' && (
+            <>
+              <div style={{ height: 1, background: 'rgba(245,197,24,0.10)', margin: '4px 0' }} />
+              <button
+                type="button"
+                onClick={() => { setOpen(false); router.push('/?mode=resume') }}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  width: '100%', padding: '10px 16px',
+                  fontFamily: mono, fontSize: 12, color: '#f5eddb',
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  letterSpacing: '0.04em', transition: 'background .15s',
+                }}
+                onMouseEnter={e => { (e.currentTarget).style.background = 'rgba(245,197,24,0.07)' }}
+                onMouseLeave={e => { (e.currentTarget).style.background = 'none' }}
+              >
+                Resume mode
+                <span style={{ color: '#f5c518', fontSize: 14 }}>→</span>
+              </button>
+            </>
+          )}
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', opacity: 0.45 }}>
-            <span style={{ fontFamily: mono, fontSize: 12, color: '#f5eddb', letterSpacing: '0.04em' }}>
+          {mode === 'full' && (
+            <button
+              type="button"
+              onClick={() => { setOpen(false); startTour() }}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                width: '100%', padding: '10px 16px',
+                fontFamily: mono, fontSize: 12, color: '#f5eddb',
+                background: 'none', border: 'none', cursor: 'pointer',
+                letterSpacing: '0.04em', transition: 'background .15s',
+              }}
+              onMouseEnter={e => { (e.currentTarget).style.background = 'rgba(245,197,24,0.07)' }}
+              onMouseLeave={e => { (e.currentTarget).style.background = 'none' }}
+            >
               Talk to Deax
-            </span>
-            <span style={{
-              fontFamily: mono, fontSize: 9, letterSpacing: '0.12em', textTransform: 'uppercase',
-              color: '#f5c518', background: 'rgba(245,197,24,0.12)',
-              border: '1px solid rgba(245,197,24,0.25)',
-              borderRadius: 3, padding: '2px 6px',
-            }}>soon</span>
-          </div>
+              <span style={{ color: '#f5c518', fontSize: 14 }}>🎙</span>
+            </button>
+          )}
         </div>
       )}
 
