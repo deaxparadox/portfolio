@@ -1,5 +1,6 @@
 'use client'
 import '@livekit/components-styles'
+import { useCallback, useEffect } from 'react'
 import { LiveKitRoom, RoomAudioRenderer } from '@livekit/components-react'
 import { useVoiceTour } from './VoiceTourContext'
 import { IntroScreen } from './IntroScreen'
@@ -9,6 +10,18 @@ import { DataChannelHandler } from './DataChannelHandler'
 
 export function VoiceTourWidgetInner() {
   const { phase, token, wsUrl, setPhase, reset } = useVoiceTour()
+
+  // Stable callback so DataChannelHandler's effect deps don't change every render
+  const handleEnd = useCallback(() => {
+    setPhase('ended')
+  }, [setPhase])
+
+  // Auto-reset when phase reaches 'ended' from any source (DataChannelHandler, ActivePanel, etc.)
+  useEffect(() => {
+    if (phase !== 'ended') return
+    const t = setTimeout(reset, 300)
+    return () => clearTimeout(t)
+  }, [phase, reset])
 
   if (phase === 'idle' || phase === 'ended') return null
 
@@ -27,10 +40,7 @@ export function VoiceTourWidgetInner() {
         >
           {/* Required — without this agent audio is received but never played through speakers */}
           <RoomAudioRenderer />
-          <DataChannelHandler onEnd={() => {
-            setPhase('ended')
-            setTimeout(reset, 300)
-          }} />
+          <DataChannelHandler onEnd={handleEnd} />
           <div style={{ display: phase === 'active' ? 'block' : 'none' }}>
             <ActivePanel />
           </div>

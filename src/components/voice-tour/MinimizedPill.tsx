@@ -19,21 +19,27 @@ export function MinimizedPill() {
     const el = labelRef.current
     if (!el) { setLabel(next); return }
 
+    let cancelled = false
+
     el.style.transition = 'transform 0.3s ease, opacity 0.3s ease'
     el.style.transform = 'translateY(-100%)'
     el.style.opacity = '0'
 
-    setTimeout(() => {
+    const t = setTimeout(() => {
+      if (cancelled) return
       setLabel(next)
       el.style.transition = 'none'
       el.style.transform = 'translateY(100%)'
       el.style.opacity = '0'
       requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (cancelled) return
         el.style.transition = 'transform 0.3s ease, opacity 0.3s ease'
         el.style.transform = 'translateY(0)'
         el.style.opacity = '1'
       }))
     }, 300)
+
+    return () => { cancelled = true; clearTimeout(t) }
   }, [isSpeaking]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
