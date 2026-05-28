@@ -4,6 +4,7 @@ import type { TerminalData } from '@/data/types'
 import { useTerminal } from '@/context/TerminalContext'
 import { parseCommand } from '@/lib/terminalParser'
 import { SECTIONS } from '@/lib/sections'
+import { useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
 
 function esc(s: string): string {
   return s
@@ -75,6 +76,8 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     lineIdRef,
     hasBooted, setHasBooted,
   } = useTerminal()
+
+  const { phase, startTour } = useVoiceTour()
 
   const addLine = useCallback((html: string) => {
     setLines(prev => [...prev, { id: ++lineIdRef.current, html }])
@@ -313,6 +316,35 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
           {!isTyping && <span className="t-caret" />}
         </div>
       </div>
+
+      {/* Voice tour footer — hidden once tour starts */}
+      {phase === 'idle' && (
+        <div
+          onClick={(e) => { e.stopPropagation(); startTour() }}
+          style={{
+            borderTop: '1px solid rgba(245,197,24,0.08)',
+            padding: '7px 14px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            cursor: 'pointer',
+            opacity: 0.55,
+            transition: 'opacity 0.2s',
+          }}
+          onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.opacity = '1' }}
+          onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.opacity = '0.55' }}
+        >
+          <span style={{ fontSize: 11 }}>🎙</span>
+          <span style={{
+            fontFamily: 'var(--font-jetbrains-mono), monospace',
+            fontSize: 10,
+            color: 'rgba(245,197,24,0.6)',
+            letterSpacing: '0.04em',
+          }}>
+            talk to deax instead →
+          </span>
+        </div>
+      )}
 
       {/* Hidden input — captures keyboard on desktop (keydown) and mobile (onChange).
           Not controlled (no value prop) so mobile virtual keyboard can update it.
