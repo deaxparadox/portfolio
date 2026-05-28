@@ -34,18 +34,18 @@ export function IntroScreen() {
     <div
       className="voice-tour-widget"
       style={{
-        background: 'var(--vt-bg)',
-        border: '1px solid var(--vt-border)',
+        background: '#0a0800',
+        border: '1px solid rgba(245,197,24,0.22)',
         borderRadius: 12,
         padding: '18px 20px',
         width: 260,
         fontFamily: mono,
       }}
     >
-      <div style={{ fontSize: 11, color: 'var(--vt-accent)', letterSpacing: '0.12em', marginBottom: 12 }}>
+      <div style={{ fontSize: 11, color: '#f5c518', letterSpacing: '0.12em', marginBottom: 12 }}>
         $ deax --voice-tour
       </div>
-      <div style={{ fontSize: 12, color: 'var(--vt-text)', marginBottom: 14, lineHeight: 1.6 }}>
+      <div style={{ fontSize: 12, color: '#f5eddb', marginBottom: 14, lineHeight: 1.6 }}>
         This tour uses your microphone. Deax will guide you through the portfolio.
       </div>
       {error && (
@@ -76,7 +76,7 @@ export function IntroScreen() {
           style={{
             background: 'none',
             border: 'none',
-            color: 'var(--vt-text-dim)',
+            color: 'rgba(245,197,24,0.40)',
             fontFamily: mono,
             fontSize: 11,
             cursor: 'pointer',

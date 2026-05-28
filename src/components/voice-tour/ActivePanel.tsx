@@ -22,19 +22,19 @@ export function ActivePanel() {
     <div
       className="voice-tour-widget"
       style={{
-        background: 'var(--vt-bg)',
-        border: '1px solid var(--vt-border)',
+        background: '#0a0800',
+        border: '1px solid rgba(245,197,24,0.22)',
         borderRadius: 12,
         padding: '16px 18px',
         width: 260,
         fontFamily: mono,
       }}
     >
-      <div style={{ fontSize: 11, color: 'var(--vt-accent)', letterSpacing: '0.12em', marginBottom: 12 }}>
+      <div style={{ fontSize: 11, color: '#f5c518', letterSpacing: '0.12em', marginBottom: 12 }}>
         $ deax --connect
       </div>
       <div style={{ height: 1, background: 'rgba(245,197,24,0.10)', marginBottom: 12 }} />
-      <div style={{ fontSize: 12, color: 'var(--vt-text)', marginBottom: 10 }}>
+      <div style={{ fontSize: 12, color: '#f5eddb', marginBottom: 10 }}>
         &gt; {label}
       </div>
       {isSpeaking && (
@@ -54,7 +54,7 @@ export function ActivePanel() {
             background: 'rgba(245,197,24,0.06)',
             border: '1px solid rgba(245,197,24,0.15)',
             borderRadius: 6,
-            color: 'var(--vt-text-dim)',
+            color: 'rgba(245,197,24,0.40)',
             fontFamily: mono,
             fontSize: 10,
             padding: '6px 4px',
@@ -72,7 +72,7 @@ export function ActivePanel() {
             background: 'rgba(245,197,24,0.06)',
             border: '1px solid rgba(245,197,24,0.15)',
             borderRadius: 6,
-            color: 'var(--vt-text-dim)',
+            color: 'rgba(245,197,24,0.40)',
             fontFamily: mono,
             fontSize: 10,
             padding: '6px 4px',

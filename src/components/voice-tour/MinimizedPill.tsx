@@ -68,7 +68,7 @@ export function MinimizedPill() {
       }}
     >
       <span style={{ fontSize: 14 }}>🎙</span>
-      <span style={{ overflow: 'hidden', height: 16, position: 'relative', display: 'inline-block', width: 52 }}>
+      <span style={{ overflow: 'hidden', height: 16, position: 'relative', display: 'inline-block', width: 64 }}>
         <span
           ref={labelRef}
           style={{ display: 'inline-block', transform: 'translateY(0)', opacity: 1 }}
