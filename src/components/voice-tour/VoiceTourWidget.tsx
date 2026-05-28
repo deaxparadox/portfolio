@@ -1,3 +1,4 @@
+'use client'
 import dynamic from 'next/dynamic'
 
 // Must be dynamic(ssr:false) — LiveKit uses browser-only WebRTC APIs
