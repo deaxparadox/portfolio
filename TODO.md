@@ -4,102 +4,88 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ---
 
-## In Progress
+## Current Status
 
-- Vercel live ✅ — both modes verified in production
-- Note: currently on `dev` branch
+- **Active branch:** `v4` (reviewing before merge)
+- **v4:** voice tour + light mode complete — 80 tests passing, build clean
+- **v5-chatbot:** chatbot frontend complete — 99 tests passing, build clean
+- **Vercel:** live on `dev` — v4/v5-chatbot pending merge
 
 ## Branch Strategy
 
-| Branch | Purpose |
-|---|---|
-| `main` | stable production |
-| `dev` | **active** — v3 merged in (c2eb622) |
-| `v3` | complete — merged into dev |
-| `v2` | complete — merged into dev |
-| `v1` | preserved snapshot — read-only reference |
-| `template1` | original template reference |
+| Branch | Status | Tests | Notes |
+|---|---|---|---|
+| `main` | stable production | — | |
+| `dev` | integration base | 80 | v3 merged in |
+| `v4` | **complete, not merged** | 80 | voice tour + light mode |
+| `v5-chatbot` | **complete, not merged** | 99 | chatbot on top of v4 |
+| `v3` | merged into dev | — | |
+| `v1` | frozen snapshot | — | |
+
+**Merge order:** v4 → dev first, then v5-chatbot → dev
 
 ---
 
-## Planned Features (in priority order)
+## Next Actions
 
-### 1. Resume Mode + DeaxButton + Project Cards ✅ (v3 branch, cc9b5bc)
+- [ ] Merge v4 → dev (`superpowers:finishing-a-development-branch`)
+- [ ] Merge v5-chatbot → dev (after v4 merged)
+- [ ] Set `NEXT_PUBLIC_VOICE_AGENT_URL` in Vercel env vars (get from interview-prep project)
+- [ ] Fix backend guardrail false positives — `interview-prep/backend/chat/prompts.py` (include last 2 messages as context in GUARDRAIL_PROMPT)
+
+---
+
+## Completed Features
+
+### Resume Mode + DeaxButton + Project Cards ✅ (v3 → dev)
 - [x] `/?mode=resume` default (proxy.ts redirect)
-- [x] `/?mode=full` full experience
-- [x] ResumePortfolio — dark/light theme, CustomCursor, all sections
-- [x] DeaxButton — persistent floating, mode-switch, "Talk to Deax (soon)"
-- [x] Magazine split project cards — left panel + right gradient + roaming badges
-- [x] Roaming badges — JS transform-based, smooth drift every 3s
-- [x] Merge v3 → dev ✅
-- [x] Push dev to Vercel — both modes verified live ✅
+- [x] ResumePortfolio — dark/light theme, all sections
+- [x] DeaxButton — persistent floating, mode-switch menu
+- [x] Magazine split project cards + roaming badges
+- [x] Merge v3 → dev ✅ · Vercel live ✅
 
-### 3. Chatbot in Resume Mode (text-only Deax)
-- [ ] Text-only chat widget in resume mode
-- [ ] Answers recruiter questions from portfolio.json + knowledge base
-- [ ] Same "Deax" persona as voice agent — text-only interface
-- [ ] Spec: chatbot widget, backend integration
+### Light Mode Improvements ✅ (v4, fe8120b)
+- [x] Amber color tokens: `gold: '#b8860b'`, `bg: '#fdf6e3'`
+- [x] Floating amber orbs CSS animation (mirrors dark mode aurora)
+- [x] All borders/accents amber-tinted — brand identity preserved in light mode
 
-### 4. Projects Card Improvements ✅ (v3, cc9b5bc)
-- [x] Magazine split cards — 1fr 380px grid, gradient right panel
-- [x] Roaming badges — tags drift smoothly via CSS transform
-- [ ] Hanging nail spring animation — deferred, see docs/DEFERRED.md
+### Voice Tour ✅ (v4, c39e3f9 + fixes)
+- [x] Full mode only (`/?mode=full`)
+- [x] 5-phase state machine: idle → intro → active ↔ minimized → ended
+- [x] FloatingWidget, ActivePanel, MinimizedPill (vertical roll Deax↔Talking)
+- [x] DataChannelHandler — section scroll + end_tour
+- [x] Terminal footer hint "talk to deax instead →"
+- [x] DeaxButton wired — "Talk to Deax", hides when tour active
+- [x] Build clean, 80 tests passing
 
-### 5. Experience Section Redesign
-- [ ] Polish current slide-in card (impact metrics, typography)
-- [ ] Full cinematic redesign deferred — see `docs/DEFERRED.md`
-- [ ] Trigger: 2nd experience entry added to portfolio.json
-
-### 6. Voice Agent Tour (Deax full mode)
-- [ ] LiveKit voice + chat — Deax narrates portfolio tour
-- [ ] Mounted in root layout, narrates resume → full view transition
-- [ ] Blocked on: flagship backend token endpoint
-- [ ] See: `docs/superpowers/specs/2026-05-22-portfolio-roadmap.md`
-
----
-
-## Backlog (UI / Polish)
-
-- [ ] **Smart Terminal mobile half-screen mode** — bottom sheet ~50% viewport, portfolio visible + scrollable behind
-- [ ] **Smart Terminal mobile floating** — floating top-right needs design pass on small screens
-- [ ] **Mobile hamburger nav** — Nav links hidden at <900px but no hamburger menu
-- [ ] **Additional experience entries** — Currently 1 card (Excellence Technologies)
-- [ ] **Resume PDF** — Link a hosted resume PDF to the contact "Resume.pdf" link
-- [ ] **Project case study pages** — Each card links to "#". Add `/projects/[slug]` later
-- [ ] **Open Graph / SEO metadata** — `og:image`, Twitter card, structured data
-- [ ] **Analytics** — Plausible or Vercel Analytics after deployment
-- [ ] **Framer Motion scroll animations** — Replace manual IntersectionObserver + rAF
+### Chatbot Frontend ✅ (v5-chatbot, 7cd4ae0 + fixes)
+- [x] `chatApi.ts` — createSession, streamMessage, VALID_SECTIONS, session_expired retry
+- [x] `ChatContext.tsx` — session lifecycle, in-flight promise guard, message state
+- [x] `ChatMessage.tsx` — user/assistant bubbles (YOU/DEAX)
+- [x] `ChatPanel.tsx` — message list, auto-scroll, streaming cursor ▊
+- [x] `ChatWidgetInner.tsx` + `ChatWidget.tsx` — floating panel, scroll fixed
+- [x] Both modes: "Chat with Deax" in DeaxButton menu
+- [x] Terminal inline streaming — bold commands, left-border block, t-caret thinking indicator
+- [x] DeaxButton: "Explore full portfolio" hidden in full mode
+- [x] Build clean, 99 tests passing
 
 ---
 
-## Done
+## Backlog (in priority order)
 
-- [x] Template reviewed + tech stack decided (Next.js 16.2.6, TypeScript, Tailwind CSS v4)
-- [x] Portfolio v1.0 — all sections built, reviewed, assembled
-- [x] **Smart Terminal v1** — 3 states, mv navigation, command parser, WiFi placeholder, history persistence, focus UX
-- [x] **Mobile responsiveness v1** — bottom nav, terminal pill, 480px breakpoint, tablet 2-col skills
-- [x] **Vercel deployment** — live ✅. Fix: Framework Preset → Next.js
-- [x] **v2 design** ✅
-  - Fonts: Rubik Dirt · DM Mono · Syne · Cormorant Garamond
-  - Gold palette: `#f5c518` + amber variant
-  - Aurora orbs (3 animated) + floating particles (28)
-  - Ribbon marquee — `rotate(-1.5deg)` tilt, left lower than right, both bands visible
-  - Section dividers between all sections
-  - Glimpse/About bento section (12-col): Atomic Habits · Toolbox · GitHub heatmap · Gaming/Web Series/Sleeping · Noida · Kent Beck quote
-  - Nav "About" → #glimpse (desktop + bottom nav)
-  - Bento grid: `!important` on all grid rules to override cascade
-  - Responsive: tablet 2-col bento, mobile 1-col, BentoReads overflow fix, hobbies pills compact
-- [x] **SkillsFinder** ✅ (2026-05-25, commit 398c377)
-  - macOS Finder-styled skills section — List + Grid views
-  - List: sidebar (210px) + detail panel, animated proficiency bar, gold pill tags
-  - Grid: 3-col C2 gradient cards + T3 gold pill tags
-  - Mobile: horizontal scrollable icon tab row replaces sidebar
-  - 43 tests passing, build clean
-- [x] **Resume Mode + DeaxButton** ✅ (2026-05-27, v3 branch, e599645)
-  - `/?mode=resume` (default via proxy.ts) — single column, dark/light theme
-  - `/?mode=full` — full v2 experience unchanged
-  - Sections: Hero (heatmap) · Social · Experience · Skills (terminal) · Projects · Contact · Footer
-  - CustomCursor in both modes, `*, *::before, *::after { cursor: none !important }` global
-  - DeaxButton: persistent floating bottom-right, mode-switch menu + "Talk to Deax (soon)"
-  - Light theme: `#fef9e0` cream bg, near-black text
-  - 58 tests passing, build clean
+### Experience Card Polish
+- [ ] Add impact metrics to current slide-in card (no redesign)
+- [ ] Full cinematic redesign deferred — needs 2nd experience entry (see `docs/DEFERRED.md`)
+
+### Hanging Nail Spring Animation
+- [ ] Deferred — see `docs/DEFERRED.md`
+- [ ] Trigger: fresh session after v4 verified
+
+### UI / Polish
+- [ ] **Smart Terminal mobile half-screen mode** — bottom sheet ~50% viewport
+- [ ] **Mobile hamburger nav** — Nav links hidden at <900px, no hamburger
+- [ ] **Resume PDF** — Host and link actual PDF
+- [ ] **Project case study pages** — `/projects/[slug]` (links currently "#")
+- [ ] **Open Graph / SEO metadata** — `og:image`, Twitter card
+- [ ] **Analytics** — Plausible or Vercel Analytics
+- [ ] **Additional experience entries** — 1 card currently (Excellence Technologies)
