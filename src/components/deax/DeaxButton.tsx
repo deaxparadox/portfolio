@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
 import { useChatContext } from '@/components/chat/ChatContext'
 
@@ -16,6 +16,9 @@ export default function DeaxButton() {
 
   const { phase, startTour } = useVoiceTour()
   const { isOpen: chatIsOpen, openChat } = useChatContext()
+
+  const pathname = usePathname()
+  if (pathname === '/nkos') return null
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

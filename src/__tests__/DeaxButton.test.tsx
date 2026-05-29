@@ -13,6 +13,7 @@ let mockMode = 'full'
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn() }),
   useSearchParams: () => ({ get: (k: string) => k === 'mode' ? mockMode : null }),
+  usePathname: () => '/',
 }))
 
 function wrap(ui: React.ReactNode) {
