@@ -5,6 +5,8 @@ import { useTerminal } from '@/context/TerminalContext'
 import { parseCommand } from '@/lib/terminalParser'
 import { SECTIONS } from '@/lib/sections'
 import { useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
+import { useChatContext } from '@/components/chat/ChatContext'
+import { streamMessage } from '@/components/chat/chatApi'
 
 function esc(s: string): string {
   return s
@@ -79,6 +81,11 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
 
   const { phase, startTour } = useVoiceTour()
 
+  const { ensureSession } = useChatContext()
+  // Stable ref so executeCommand's useCallback doesn't need ensureSession in its deps
+  const ensureSessionRef = useRef(ensureSession)
+  ensureSessionRef.current = ensureSession
+
   const addLine = useCallback((html: string) => {
     setLines(prev => [...prev, { id: ++lineIdRef.current, html }])
   }, [setLines, lineIdRef])
@@ -150,18 +157,52 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     }
 
     if (parsed.type === 'unknown') {
-      const errLines = [
-        `  ${red('unknown command: ')}${white(esc(input))}`,
-        `  ${dim('AI chat is not available yet. type ')}${cyan('help')}${dim(' for commands.')}`,
-        '',
-      ]
-      let i = 0
-      const next = () => {
-        if (i >= errLines.length) { setIsTyping(false); setTimeout(() => inputRef.current?.focus(), 50); return }
-        addLine(errLines[i++])
-        setTimeout(next, 60)
-      }
-      next()
+      // Echo the command first (same pattern as known commands)
+      addLine(gold('$ ') + `<span style="color:#a8d8ea">${esc(input)}</span>`)
+
+      // Add a streaming response line with a stable id
+      const streamId = ++lineIdRef.current
+      setLines(prev => [
+        ...prev,
+        { id: streamId, html: `${gold('deax')} <span style="color:rgba(245,237,219,0.4)">></span> ` },
+      ])
+      setIsTyping(true)
+
+      ensureSessionRef.current().then(tid => {
+        return streamMessage(input, tid, {
+          onToken(content) {
+            setLines(prev => prev.map(l =>
+              l.id === streamId
+                ? { ...l, html: l.html + esc(content) }
+                : l
+            ))
+          },
+          onScroll(section) {
+            document.querySelector('#' + section)?.scrollIntoView({ behavior: 'smooth' })
+          },
+          onDone() {
+            setIsTyping(false)
+            setTimeout(() => inputRef.current?.focus(), 50)
+          },
+          onError() {
+            setLines(prev => prev.map(l =>
+              l.id === streamId
+                ? { ...l, html: l.html + `<span style="color:#ff6b6b">connection error — try again</span>` }
+                : l
+            ))
+            setIsTyping(false)
+            setTimeout(() => inputRef.current?.focus(), 50)
+          },
+        })
+      }).catch(() => {
+        setLines(prev => prev.map(l =>
+          l.id === streamId
+            ? { ...l, html: l.html + `<span style="color:#ff6b6b">could not connect</span>` }
+            : l
+        ))
+        setIsTyping(false)
+        setTimeout(() => inputRef.current?.focus(), 50)
+      })
       return
     }
 
