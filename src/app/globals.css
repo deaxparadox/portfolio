@@ -1971,3 +1971,6 @@ footer {
   --vt-text-dim: rgba(245, 197, 24, 0.40);
   --vt-accent:   #f5c518;
 }
+
+/* ── Chat Widget ── */
+@keyframes chat-blink { 0%,100%{opacity:1} 50%{opacity:0} }
