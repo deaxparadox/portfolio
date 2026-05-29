@@ -1,5 +1,6 @@
 import { render, screen, act, waitFor } from '@testing-library/react'
 import { ChatProvider, useChatContext } from '@/components/chat/ChatContext'
+import { streamMessage } from '@/components/chat/chatApi'
 
 jest.mock('@/components/chat/chatApi', () => ({
   createSession: jest.fn().mockResolvedValue('mock-thread-id'),
@@ -47,7 +48,7 @@ describe('ChatContext', () => {
   it('closeChat sets isOpen false', async () => {
     wrap(<Probe />)
     await act(async () => { screen.getByText('open').click() })
-    act(() => { screen.getByText('close').click() })
+    await act(async () => { screen.getByText('close').click() })
     expect(screen.getByTestId('isOpen')).toHaveTextContent('false')
   })
 
@@ -63,5 +64,25 @@ describe('ChatContext', () => {
     await waitFor(() => {
       expect(screen.getByTestId('isStreaming')).toHaveTextContent('false')
     })
+  })
+
+  it('retries on session_expired — shows error if retry also fails', async () => {
+    const { streamMessage: mockStream } = jest.requireMock('@/components/chat/chatApi')
+    mockStream.mockImplementationOnce((_msg: string, _tid: string, cb: { onError: (s: string) => void }) => {
+      cb.onError('session_expired')
+      return Promise.resolve()
+    }).mockImplementationOnce((_msg: string, _tid: string, cb: { onError: (s: string) => void }) => {
+      cb.onError('server_error')
+      return Promise.resolve()
+    })
+
+    wrap(<Probe />)
+    await act(async () => { screen.getByText('send').click() })
+
+    await waitFor(() => {
+      expect(screen.getByTestId('isStreaming')).toHaveTextContent('false')
+    })
+    // After failed retry, assistant message should have error content
+    expect(screen.getByTestId('msgCount')).toHaveTextContent('2')
   })
 })
