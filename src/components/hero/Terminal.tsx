@@ -157,10 +157,8 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     }
 
     if (parsed.type === 'unknown') {
-      // Echo the command first (same pattern as known commands)
-      addLine(gold('$ ') + `<span style="color:#a8d8ea">${esc(input)}</span>`)
-
       // Add a streaming response line with a stable id
+      // Note: handleKeyDown already echoes the command before calling executeCommand
       const streamId = ++lineIdRef.current
       setLines(prev => [
         ...prev,
