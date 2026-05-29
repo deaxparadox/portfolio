@@ -13,11 +13,13 @@ export function IntroScreen() {
     setLoading(true)
     setError(null)
     try {
-      const base = process.env.NEXT_PUBLIC_VOICE_AGENT_URL ?? ''
+      const base = process.env.NEXT_PUBLIC_VOICE_AGENT_URL
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
+      if (!base || !projectId) throw new Error('NEXT_PUBLIC_VOICE_AGENT_URL or NEXT_PUBLIC_PROJECT_ID is not configured')
       const res = await fetch(`${base}/api/voice-tour/token/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ project_id: 'portfolio' }),
+        body: JSON.stringify({ project_id: projectId }),
       })
       if (!res.ok) throw new Error('token fetch failed')
       const data = await res.json()

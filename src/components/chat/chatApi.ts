@@ -1,14 +1,20 @@
-const BASE_URL = process.env.NEXT_PUBLIC_VOICE_AGENT_URL ?? ''
+function getEnv(key: string): string {
+  const val = process.env[key]
+  if (!val) throw new Error(`${key} is not configured`)
+  return val
+}
 
 const VALID_SECTIONS = new Set([
   'hero', 'skills', 'projects', 'glimpse', 'experience', 'contact',
 ])
 
 export async function createSession(): Promise<string> {
-  const res = await fetch(`${BASE_URL}/api/chat/session/`, {
+  const base = getEnv('NEXT_PUBLIC_VOICE_AGENT_URL')
+  const projectId = getEnv('NEXT_PUBLIC_PROJECT_ID')
+  const res = await fetch(`${base}/api/chat/session/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ project_id: 'portfolio' }),
+    body: JSON.stringify({ project_id: projectId }),
   })
   if (!res.ok) throw new Error('session_create_failed')
   const data = await res.json()
@@ -27,9 +33,10 @@ export async function streamMessage(
   threadId: string,
   callbacks: StreamCallbacks,
 ): Promise<void> {
+  const base = getEnv('NEXT_PUBLIC_VOICE_AGENT_URL')
   let res: Response
   try {
-    res = await fetch(`${BASE_URL}/api/chat/message/`, {
+    res = await fetch(`${base}/api/chat/message/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message, thread_id: threadId }),

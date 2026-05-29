@@ -2,6 +2,11 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { IntroScreen } from '@/components/voice-tour/IntroScreen'
 import { VoiceTourProvider, useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
 
+beforeAll(() => {
+  process.env.NEXT_PUBLIC_VOICE_AGENT_URL = 'http://localhost:8027'
+  process.env.NEXT_PUBLIC_PROJECT_ID = 'portfolio'
+})
+
 function wrap(ui: React.ReactNode) {
   return render(<VoiceTourProvider>{ui}</VoiceTourProvider>)
 }

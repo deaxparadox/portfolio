@@ -1,5 +1,10 @@
 import { createSession, streamMessage } from '@/components/chat/chatApi'
 
+beforeAll(() => {
+  process.env.NEXT_PUBLIC_VOICE_AGENT_URL = 'http://localhost:8027'
+  process.env.NEXT_PUBLIC_PROJECT_ID = 'portfolio'
+})
+
 function makeStream(events: object[]) {
   const encoder = new TextEncoder()
   const chunks = events.map(e => encoder.encode(`data: ${JSON.stringify(e)}\n\n`))
