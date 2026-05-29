@@ -1,6 +1,7 @@
 'use client'
 import { useReducer, useCallback } from 'react'
 import { osReducer, INITIAL_OS_STATE } from './types'
+import { NKOSBoot } from './NKOSBoot'
 
 export function NKOSDesktop() {
   const [state, dispatch] = useReducer(osReducer, INITIAL_OS_STATE)
@@ -8,13 +9,9 @@ export function NKOSDesktop() {
 
   return (
     <div className="nkos-root">
-      {state.screen === 'boot' && (
-        <div className="nk-screen active nk-boot" onClick={bootDone}>
-          <div style={{ color: 'var(--accent)', fontSize: 20 }}>NK-OS booting… (click to skip)</div>
-        </div>
-      )}
+      {state.screen === 'boot' && <NKOSBoot onDone={bootDone} />}
       {state.screen === 'desktop' && (
-        <div style={{ color: 'white', padding: 20 }}>Desktop ready. screen={state.screen}</div>
+        <div style={{ color: 'white', padding: 20 }}>Desktop coming soon… screen={state.screen}</div>
       )}
     </div>
   )
