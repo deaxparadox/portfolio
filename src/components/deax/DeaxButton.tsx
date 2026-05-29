@@ -43,22 +43,24 @@ export default function DeaxButton() {
           boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
           minWidth: 220,
         }}>
-          <button
-            type="button"
-            onClick={() => { setOpen(false); router.push('/?mode=full') }}
-            style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              width: '100%', padding: '10px 16px',
-              fontFamily: mono, fontSize: 12, color: '#f5eddb',
-              background: 'none', border: 'none', cursor: 'pointer',
-              letterSpacing: '0.04em', transition: 'background .15s',
-            }}
-            onMouseEnter={e => { (e.currentTarget).style.background = 'rgba(245,197,24,0.07)' }}
-            onMouseLeave={e => { (e.currentTarget).style.background = 'none' }}
-          >
-            Explore full portfolio
-            <span style={{ color: '#f5c518', fontSize: 14 }}>→</span>
-          </button>
+          {mode === 'resume' && (
+            <button
+              type="button"
+              onClick={() => { setOpen(false); router.push('/?mode=full') }}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                width: '100%', padding: '10px 16px',
+                fontFamily: mono, fontSize: 12, color: '#f5eddb',
+                background: 'none', border: 'none', cursor: 'pointer',
+                letterSpacing: '0.04em', transition: 'background .15s',
+              }}
+              onMouseEnter={e => { (e.currentTarget).style.background = 'rgba(245,197,24,0.07)' }}
+              onMouseLeave={e => { (e.currentTarget).style.background = 'none' }}
+            >
+              Explore full portfolio
+              <span style={{ color: '#f5c518', fontSize: 14 }}>→</span>
+            </button>
+          )}
 
           {mode === 'full' && (
             <>

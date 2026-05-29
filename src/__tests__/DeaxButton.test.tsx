@@ -39,6 +39,19 @@ describe('DeaxButton', () => {
   it('shows menu on click', () => {
     wrap(<DeaxButton />)
     fireEvent.click(screen.getByRole('button', { name: /deax/i }))
+    expect(screen.getByText(/Resume mode/i)).toBeInTheDocument()
+  })
+
+  it('Explore full portfolio absent in full mode', () => {
+    wrap(<DeaxButton />)
+    fireEvent.click(screen.getByRole('button', { name: /deax/i }))
+    expect(screen.queryByText(/Explore full portfolio/i)).not.toBeInTheDocument()
+  })
+
+  it('Explore full portfolio visible in resume mode', () => {
+    mockMode = 'resume'
+    wrap(<DeaxButton />)
+    fireEvent.click(screen.getByRole('button', { name: /deax/i }))
     expect(screen.getByText(/Explore full portfolio/i)).toBeInTheDocument()
   })
 
