@@ -11,6 +11,8 @@ import './globals.css'
 import DeaxButton from '@/components/deax/DeaxButton'
 import { VoiceTourProvider } from '@/components/voice-tour/VoiceTourContext'
 import { VoiceTourWidget } from '@/components/voice-tour/VoiceTourWidget'
+import { ChatProvider } from '@/components/chat/ChatContext'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/data/types'
 
@@ -54,11 +56,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${rubikDirt.variable} ${dmMono.variable} ${syne.variable} ${cormorant.variable}`}>
         <VoiceTourProvider>
-          {children}
-          <Suspense fallback={null}>
-            <DeaxButton />
-          </Suspense>
-          <VoiceTourWidget />
+          <ChatProvider>
+            {children}
+            <Suspense fallback={null}>
+              <DeaxButton />
+            </Suspense>
+            <VoiceTourWidget />
+            <ChatWidget />
+          </ChatProvider>
         </VoiceTourProvider>
       </body>
     </html>
