@@ -157,35 +157,48 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     }
 
     if (parsed.type === 'unknown') {
-      // Add a streaming response line with a stable id
-      // Note: handleKeyDown already echoes the command before calling executeCommand
+      // Blank line before response + streaming line with left-border padding block
+      const blankBeforeId = ++lineIdRef.current
       const streamId = ++lineIdRef.current
+
+      // Reusable prefix for this response block
+      const deaxPrefix = `<span style="display:inline-block;width:100%;padding-left:12px;border-left:2px solid rgba(245,197,24,0.22);box-sizing:border-box">${gold('deax')} <span style="color:rgba(245,237,219,0.45)">›</span> `
+
       setLines(prev => [
         ...prev,
-        { id: streamId, html: `${gold('deax')} <span style="color:rgba(245,237,219,0.4)">></span> ` },
+        { id: blankBeforeId, html: '' },
+        // Show blinking cursor while waiting for first token
+        { id: streamId, html: deaxPrefix + '<span class="t-caret"></span>' },
       ])
       setIsTyping(true)
 
+      let firstToken = true
       ensureSessionRef.current().then(tid => {
         return streamMessage(input, tid, {
           onToken(content) {
-            setLines(prev => prev.map(l =>
-              l.id === streamId
-                ? { ...l, html: l.html + esc(content) }
-                : l
-            ))
+            setLines(prev => prev.map(l => {
+              if (l.id !== streamId) return l
+              if (firstToken) {
+                firstToken = false
+                // Replace waiting cursor with first real token
+                return { ...l, html: deaxPrefix + esc(content) }
+              }
+              return { ...l, html: l.html + esc(content) }
+            }))
           },
           onScroll(section) {
             document.querySelector('#' + section)?.scrollIntoView({ behavior: 'smooth' })
           },
           onDone() {
+            // Blank line after response for breathing room
+            setLines(prev => [...prev, { id: ++lineIdRef.current, html: '' }])
             setIsTyping(false)
             setTimeout(() => inputRef.current?.focus(), 50)
           },
           onError() {
             setLines(prev => prev.map(l =>
               l.id === streamId
-                ? { ...l, html: l.html + `<span style="color:#ff6b6b">connection error — try again</span>` }
+                ? { ...l, html: deaxPrefix + `<span style="color:#ff6b6b">connection error — try again</span>` }
                 : l
             ))
             setIsTyping(false)
@@ -195,7 +208,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
       }).catch(() => {
         setLines(prev => prev.map(l =>
           l.id === streamId
-            ? { ...l, html: l.html + `<span style="color:#ff6b6b">could not connect</span>` }
+            ? { ...l, html: deaxPrefix + `<span style="color:#ff6b6b">could not connect</span>` }
             : l
         ))
         setIsTyping(false)
@@ -244,7 +257,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
       )
       setTimeout(() => {
         setInputBuf('')
-        addLine(gold('$ ') + `<span style="color:#a8d8ea">help</span>`)
+        addLine(gold('$ ') + `<span style="color:#a8d8ea;font-weight:600">help</span>`)
         executeCommand('help')
       }, 600 + chars.length * 100 + 350)
     }, 900)
@@ -274,7 +287,7 @@ export default function Terminal({ data, maximized = false }: TerminalProps) {
     if (isTyping || isTransitioning) return
     if (e.key === 'Enter') {
       const cmd = inputBuf
-      addLine(gold('$ ') + `<span style="color:#a8d8ea">${esc(cmd)}</span>`)
+      addLine(gold('$ ') + `<span style="color:#a8d8ea;font-weight:600">${esc(cmd)}</span>`)
       setInputBuf('')
       executeCommand(cmd)
     } else if (e.key === 'Backspace') {
