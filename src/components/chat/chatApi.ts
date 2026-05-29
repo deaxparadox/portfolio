@@ -1,7 +1,6 @@
-function getEnv(key: string): string {
-  const val = process.env[key]
-  if (!val) throw new Error(`${key} is not configured`)
-  return val
+function requireEnv(name: string, value: string | undefined): string {
+  if (!value) throw new Error(`${name} is not configured`)
+  return value
 }
 
 const VALID_SECTIONS = new Set([
@@ -9,8 +8,8 @@ const VALID_SECTIONS = new Set([
 ])
 
 export async function createSession(): Promise<string> {
-  const base = getEnv('NEXT_PUBLIC_VOICE_AGENT_URL')
-  const projectId = getEnv('NEXT_PUBLIC_PROJECT_ID')
+  const base = requireEnv('NEXT_PUBLIC_VOICE_AGENT_URL', process.env.NEXT_PUBLIC_VOICE_AGENT_URL)
+  const projectId = requireEnv('NEXT_PUBLIC_PROJECT_ID', process.env.NEXT_PUBLIC_PROJECT_ID)
   const res = await fetch(`${base}/api/chat/session/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +32,7 @@ export async function streamMessage(
   threadId: string,
   callbacks: StreamCallbacks,
 ): Promise<void> {
-  const base = getEnv('NEXT_PUBLIC_VOICE_AGENT_URL')
+  const base = requireEnv('NEXT_PUBLIC_VOICE_AGENT_URL', process.env.NEXT_PUBLIC_VOICE_AGENT_URL)
   let res: Response
   try {
     res = await fetch(`${base}/api/chat/message/`, {

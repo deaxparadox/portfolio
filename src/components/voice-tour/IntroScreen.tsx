@@ -15,7 +15,8 @@ export function IntroScreen() {
     try {
       const base = process.env.NEXT_PUBLIC_VOICE_AGENT_URL
       const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
-      if (!base || !projectId) throw new Error('NEXT_PUBLIC_VOICE_AGENT_URL or NEXT_PUBLIC_PROJECT_ID is not configured')
+      if (!base) throw new Error('NEXT_PUBLIC_VOICE_AGENT_URL is not configured')
+      if (!projectId) throw new Error('NEXT_PUBLIC_PROJECT_ID is not configured')
       const res = await fetch(`${base}/api/voice-tour/token/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
