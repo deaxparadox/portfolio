@@ -6,10 +6,11 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Current Status
 
-- **Active branch:** `v4` (reviewing before merge)
-- **v4:** voice tour + light mode complete — 80 tests passing, build clean
-- **v5-chatbot:** chatbot frontend complete — 99 tests passing, build clean
-- **Vercel:** live on `dev` — v4/v5-chatbot pending merge
+- **Active branch:** `v6-data` (latest)
+- **v4:** voice tour + light mode — 80 tests
+- **v5-chatbot:** chatbot frontend — 99 tests
+- **v6-data:** real project data — 99 tests ← current
+- **Vercel:** live on `dev` — all branches pending merge
 
 ## Branch Strategy
 
@@ -18,6 +19,8 @@ Tracks in-progress work, backlog, and deferred decisions.
 | `main` | stable production | — | |
 | `dev` | integration base | 80 | v3 merged in |
 | `v4` | **complete, not merged** | 80 | voice tour + light mode |
+| `v5-chatbot` | **complete, not merged** | 99 | chatbot frontend |
+| `v6-data` | **complete, not merged** | 99 | ← CURRENT: real project data |
 | `v5-chatbot` | **complete, not merged** | 99 | chatbot on top of v4 |
 | `v3` | merged into dev | — | |
 | `v1` | frozen snapshot | — | |
@@ -30,6 +33,7 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 - [ ] Merge v4 → dev (`superpowers:finishing-a-development-branch`)
 - [ ] Merge v5-chatbot → dev (after v4 merged)
+- [ ] Merge v6-data → dev (after v5-chatbot merged)
 - [ ] Set `NEXT_PUBLIC_VOICE_AGENT_URL` in Vercel env vars (get from interview-prep project)
 - [ ] Fix backend guardrail false positives — `interview-prep/backend/chat/prompts.py` (include last 2 messages as context in GUARDRAIL_PROMPT)
 
@@ -57,6 +61,13 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [x] Terminal footer hint "talk to deax instead →"
 - [x] DeaxButton wired — "Talk to Deax", hides when tour active
 - [x] Build clean, 80 tests passing
+
+### Portfolio Data ✅ (v6-data, 7844d82)
+- [x] 5 real client projects (VoiceOps AI, LexCall, Founder's Lab, Trajectry, StructureIQ)
+- [x] Skills updated: added Gemini, OpenAI Realtime, ElevenLabs, Pinecone
+- [x] Stats: "7 Products Shipped" replaces "1+ Year Professional"
+- [x] Terminal commands updated for all 5 projects
+- [x] Project analysis docs: `/home/lap-68/Documents/gt-dp/project-analysis/`
 
 ### Chatbot Frontend ✅ (v5-chatbot, 7cd4ae0 + fixes)
 - [x] `chatApi.ts` — createSession, streamMessage, VALID_SECTIONS, session_expired retry
