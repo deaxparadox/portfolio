@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Nitish Kushwaha — Backend & AI Engineer",
-    "description": "Python Backend Developer building scalable APIs, AI agents, and real-time voice systems with Django, FastAPI, and LangGraph.",
+    "description": "Python Backend Developer building production AI systems — multi-tenant voice agents, LangGraph pipelines, and full-stack applications deployed across AWS, Azure, and GCP.",
     "name": "Nitish Kushwaha",
     "role": "Backend Engineer",
     "location": "Delhi, India"
@@ -14,13 +14,13 @@
     "badge": "Available for work",
     "titleLines": ["Backend", "& AI", "Engineer"],
     "titleAccentLine": 1,
-    "subtitle": "Python Backend Developer with 3+ years of Linux and cloud experience, building scalable APIs, AI agents, and real-time voice systems with Django, FastAPI, and LangGraph.",
+    "subtitle": "Python Backend Developer with 3+ years building production AI systems — multi-tenant voice agents, LangGraph pipelines, and real-time applications deployed across AWS, Azure, and GCP.",
     "ctaPrimary": { "label": "View Projects →", "href": "#projects" },
     "ctaSecondary": { "label": "Let's Talk", "href": "#contact" }
   },
   "stats": [
     { "value": "3+", "label": "Years Experience" },
-    { "value": "1+", "label": "Year Professional" },
+    { "value": "7", "label": "Products Shipped" },
     { "value": "60%", "label": "Automation Boost" },
     { "value": "3", "label": "Cloud Platforms" }
   ],
@@ -29,40 +29,40 @@
       "icon": "⚡",
       "name": "AI & GenAI",
       "kind": "Agents · RAG · LLMs",
-      "pct": 92,
-      "description": "LLM-driven workflows, document pipelines, and intelligent agents. Prompt engineering from few-shot to iterative refinement.",
-      "tags": ["LangGraph", "LangChain", "OpenAI", "RAG", "Prompt Engineering"]
+      "pct": 93,
+      "description": "Production LangGraph multi-agent systems, RAG pipelines, and LLM-driven workflows. Hands-on with GPT-4o, Gemini 2.5, and OpenAI Realtime across 7 shipped products.",
+      "tags": ["LangGraph", "LangChain", "OpenAI", "Gemini", "RAG", "Prompt Engineering"]
     },
     {
       "icon": "🐍",
       "name": "Backend APIs",
       "kind": "Framework / REST / Python",
       "pct": 90,
-      "description": "RESTful APIs built for scale with authentication, caching, and clean architecture using Python frameworks.",
+      "description": "RESTful and async APIs built for scale — multi-tenant architectures, RBAC, background processing, and clean service-layer separation.",
       "tags": ["FastAPI", "Django", "DRF", "Flask", "REST"]
     },
     {
       "icon": "🎙️",
       "name": "Voice & Realtime",
       "kind": "Realtime / Voice / WebSocket",
-      "pct": 85,
-      "description": "Real-time voice agents with session isolation, SIP telephony integration, and WebSocket-based low-latency communication.",
-      "tags": ["LiveKit", "Twilio SIP", "WebSockets", "Django Channels"]
+      "pct": 88,
+      "description": "Production voice agents handling inbound/outbound PSTN calls, appointment booking, and real-time transcription. SIP telephony, session isolation, and sub-200ms latency.",
+      "tags": ["LiveKit", "OpenAI Realtime", "ElevenLabs", "Twilio SIP", "WebSockets"]
     },
     {
       "icon": "🗄️",
       "name": "Databases",
       "kind": "Data / Storage / Caching",
       "pct": 87,
-      "description": "Schema design, query optimisation, and picking the right store — from relational to vector to in-memory.",
-      "tags": ["PostgreSQL", "Redis", "Snowflake", "Supabase", "SQLite"]
+      "description": "Schema design and query optimisation across relational, vector, and in-memory stores. Supabase RLS, Pinecone embeddings, and Redis pub/sub in production.",
+      "tags": ["PostgreSQL", "Redis", "Pinecone", "Supabase", "Snowflake"]
     },
     {
       "icon": "☁️",
       "name": "DevOps & Cloud",
       "kind": "Cloud / Infra / Containers",
       "pct": 82,
-      "description": "Containerised deployments across AWS, Azure, and GCP. Nginx reverse proxy, SSL, and Linux server management.",
+      "description": "Containerised deployments across AWS, Azure, and GCP. Nginx reverse proxy, SSL, Docker Compose orchestration, and Linux server management.",
       "tags": ["Docker", "Nginx", "AWS", "Azure", "GCP", "Linux"]
     },
     {
@@ -70,50 +70,78 @@
       "name": "Frontend & Tools",
       "kind": "Frontend / Automation / Testing",
       "pct": 75,
-      "description": "Full-stack capable — building interfaces and integrating tooling when the backend story requires it.",
-      "tags": ["Next.js", "TypeScript", "TailwindCSS", "Git", "Selenium"]
+      "description": "Full-stack capable — Next.js dashboards, React SPAs, and TypeScript when the backend story requires a complete product.",
+      "tags": ["Next.js", "React", "TypeScript", "TailwindCSS", "Git"]
     }
   ],
   "projects": [
     {
-      "year": "2024",
-      "name": "Vgents",
-      "description": "Real-time voice agent platform supporting multiple personas and concurrent user sessions using LiveKit. Strict session isolation with secure single-use token auth and WebSocket-based low-latency interaction.",
-      "tags": ["FastAPI", "LiveKit", "Docker", "PostgreSQL", "Next.js"],
-      "links": [{ "label": "GitHub →", "href": "#" }],
+      "year": "2025",
+      "name": "VoiceOps AI",
+      "description": "Production multi-tenant AI voice agent SaaS. Businesses deploy AI receptionists that handle inbound and outbound PSTN calls, book appointments in real time, and sync with Google Calendar. 14 API routers, 60+ endpoints, 3 Stripe billing plans, 3 APScheduler jobs for reminders, reschedule offers, and no-show follow-ups.",
+      "tags": ["FastAPI", "LiveKit", "OpenAI Realtime", "Twilio SIP", "Supabase", "Stripe"],
+      "links": [{ "label": "Private →", "href": "#" }],
       "visual": {
-        "glyph": "🎙️",
+        "glyph": "📞",
         "stats": [
-          { "value": "Real-time", "label": "Voice Streaming", "fill": 90 },
-          { "value": "Isolated", "label": "Session Security", "fill": 95 }
+          { "value": "60+", "label": "API Endpoints", "fill": 92 },
+          { "value": "Multi", "label": "Tenant SaaS", "fill": 95 }
+        ]
+      }
+    },
+    {
+      "year": "2025",
+      "name": "LexCall",
+      "description": "AI phone management system for a law firm. ElevenLabs AI answers inbound calls, collects caller information through natural conversation, classifies call type, and auto-generates a branded intake PDF emailed to the firm. Staff dashboard with call recordings, transcripts, and daily analytics. Live at phone.manninglaw.chat.",
+      "tags": ["FastAPI", "ElevenLabs", "PostgreSQL", "Azure AD", "ReportLab"],
+      "links": [{ "label": "Live →", "href": "https://phone.manninglaw.chat" }],
+      "visual": {
+        "glyph": "⚖️",
+        "stats": [
+          { "value": "Auto", "label": "PDF Intake Forms", "fill": 90 },
+          { "value": "Live", "label": "Production", "fill": 100 }
         ]
       }
     },
     {
       "year": "2024",
-      "name": "NeuroWrite",
-      "description": "AI-driven document pipeline extracting structured medical insights from assessment reports. Hybrid extraction — AWS Textract for image-based PDFs, standard libraries for text. Auto-generates formatted medical reports.",
-      "tags": ["Django", "LangGraph", "AWS Textract", "Python"],
-      "links": [{ "label": "GitHub →", "href": "#" }],
-      "visual": {
-        "glyph": "🧠",
-        "stats": [
-          { "value": "60%", "label": "Processing Time Saved", "fill": 60 },
-          { "value": "Hybrid", "label": "PDF Extraction", "fill": 85 }
-        ]
-      }
-    },
-    {
-      "year": "2024",
-      "name": "Aounder",
-      "description": "AI-powered Co-Founder Assistant with LangGraph agents for idea brainstorming, validation, and startup mentorship. Async processing with Django Channels, real-time agent tracking via Redis.",
-      "tags": ["Django", "LangGraph", "Channels", "Docker", "Redis"],
-      "links": [{ "label": "GitHub →", "href": "#" }],
+      "name": "Founder's Lab",
+      "description": "Multi-agent AI co-founder assistant embedded in a live Bubble.io SaaS platform. LangGraph agents validate business ideas, generate 7-step entrepreneurship roadmaps, run market research via DuckDuckGo, find experts via Google Places, and generate logo concepts with DALL-E 3. Real users, real traction.",
+      "tags": ["Django", "LangGraph", "OpenAI", "Pinecone", "DALL-E 3", "Redis"],
+      "links": [{ "label": "Private →", "href": "#" }],
       "visual": {
         "glyph": "🚀",
         "stats": [
-          { "value": "3", "label": "Agent Types", "fill": 75 },
-          { "value": "WS", "label": "Real-time Tracking", "fill": 88 }
+          { "value": "7", "label": "Agent Steps", "fill": 78 },
+          { "value": "60K", "label": "Tokens/User", "fill": 85 }
+        ]
+      }
+    },
+    {
+      "year": "2025",
+      "name": "Trajectry",
+      "description": "AI-powered career intelligence platform. Candidates upload their CV and complete a voice interview with Akira, an AI agent. They're matched against 414K jobs and ~6,500 companies by fit score, discover hiring-team contacts via Apollo, and track their full outreach pipeline. LangGraph workflow v3, hexagonal architecture.",
+      "tags": ["FastAPI", "LangGraph", "Gemini", "LiveKit", "Supabase", "Next.js"],
+      "links": [{ "label": "Private →", "href": "#" }],
+      "visual": {
+        "glyph": "🎯",
+        "stats": [
+          { "value": "414K", "label": "Jobs Indexed", "fill": 95 },
+          { "value": "v3", "label": "LangGraph Flow", "fill": 82 }
+        ]
+      }
+    },
+    {
+      "year": "2025",
+      "name": "StructureIQ",
+      "description": "AI construction document analyzer for structural engineers. Ingests multi-hundred-page PDFs, classifies pages by type (framing, foundation, schedules, hardware), extracts specs via GPT-4o text and vision, deduplicates hardware callouts, and generates a branded report. Handles 5 title block formats from different engineering firms.",
+      "tags": ["FastAPI", "GPT-4o Vision", "PostgreSQL", "Next.js", "ReportLab"],
+      "links": [{ "label": "Private →", "href": "#" }],
+      "visual": {
+        "glyph": "🏗️",
+        "stats": [
+          { "value": "167", "label": "Page PDFs", "fill": 88 },
+          { "value": "~$0.28", "label": "Per Document", "fill": 70 }
         ]
       }
     }
@@ -124,7 +152,7 @@
       "role": "Python Developer",
       "company": "Excellence Technologies",
       "location": "Gurugram, IN",
-      "description": "Built e-commerce APIs with Django REST Framework, Redis caching, and LangGraph AI agents automating document pipelines. Implemented voice workflows with LiveKit and Twilio SIP. Deployed across AWS, Azure, and GCP with Nginx and SSL."
+      "description": "Building production AI systems: multi-tenant voice agent SaaS with LiveKit and OpenAI Realtime API, LangGraph document pipelines, and e-commerce APIs with Django REST Framework and Redis caching. Deployed across AWS, Azure, and GCP with Docker and Nginx."
     }
   ],
   "contact": {
@@ -142,7 +170,7 @@
   },
   "terminal": {
     "intro": [
-      "  nitish-kushwaha portfolio v1.0.0",
+      "  nitish-kushwaha portfolio v2.0.0",
       "  type a command and press enter",
       ""
     ],
@@ -152,25 +180,25 @@
         "  Nitish Kushwaha  //  Backend & AI Engineer",
         "",
         "  Based in     Gurugram, Haryana, India",
-        "  Focus        AI agents, voice systems & scalable APIs",
-        "  Exp          3+ years Linux & cloud · 1+ year professional",
-        "  Stack        Python, Django, FastAPI, LangGraph, LiveKit",
+        "  Focus        Production AI systems · voice agents · LangGraph",
+        "  Exp          3+ years Linux & cloud · 7 products shipped",
+        "  Stack        Python, FastAPI, Django, LangGraph, LiveKit",
         "  Status       Available for new projects",
         ""
       ],
       "skills": [
         "",
         "  AI & GenAI",
-        "  LangGraph  LangChain  OpenAI  RAG  Prompt Engineering  Pinecone",
+        "  LangGraph  LangChain  OpenAI  Gemini  RAG  Prompt Engineering  Pinecone",
         "",
         "  Backend",
         "  FastAPI  Django  DRF  Flask  REST  WebSockets",
         "",
         "  Voice & Realtime",
-        "  LiveKit  Twilio SIP  Django Channels",
+        "  LiveKit  OpenAI Realtime  ElevenLabs  Twilio SIP",
         "",
         "  Databases",
-        "  PostgreSQL  Redis  Snowflake  Supabase  SQLite",
+        "  PostgreSQL  Redis  Pinecone  Supabase  Snowflake",
         "",
         "  DevOps & Cloud",
         "  Docker  Nginx  AWS  Azure  GCP  Linux  SSL/TLS",
@@ -178,25 +206,33 @@
       ],
       "projects": [
         "",
-        "  01  Vgents",
-        "  Real-time voice agents · LiveKit · concurrent sessions",
-        "  FastAPI · Docker · PostgreSQL · Next.js",
+        "  01  VoiceOps AI",
+        "  Multi-tenant AI voice agent SaaS · 60+ endpoints · PSTN calls",
+        "  FastAPI · LiveKit · OpenAI Realtime · Twilio SIP · Supabase · Stripe",
         "",
-        "  02  NeuroWrite",
-        "  AI document pipeline · 60% time saved · medical reports",
-        "  Django · LangGraph · AWS Textract",
+        "  02  LexCall",
+        "  AI phone system for law firm · intake PDF · live at manninglaw.chat",
+        "  FastAPI · ElevenLabs · PostgreSQL · Azure AD",
         "",
-        "  03  Aounder",
-        "  AI Co-Founder Assistant · 3 agent types · real-time WS",
-        "  Django · LangGraph · Channels · Docker · Redis",
+        "  03  Founder's Lab",
+        "  Multi-agent co-founder AI · 7-step roadmap · DuckDuckGo + DALL-E 3",
+        "  Django · LangGraph · OpenAI · Pinecone · Redis",
+        "",
+        "  04  Trajectry",
+        "  Career intelligence platform · 414K jobs · AI voice interview",
+        "  FastAPI · LangGraph · Gemini · LiveKit · Supabase",
+        "",
+        "  05  StructureIQ",
+        "  AI construction doc analyzer · GPT-4o Vision · 167-page PDFs",
+        "  FastAPI · GPT-4o · PostgreSQL · Next.js · ReportLab",
         ""
       ],
       "experience": [
         "",
         "  Excellence Technologies  Jan 2025 - Present",
         "  Python Developer · Gurugram",
-        "  e-commerce APIs · LangGraph agents · LiveKit voice",
-        "  Snowflake · AWS · Azure · GCP · Nginx",
+        "  Voice agents · LangGraph pipelines · e-commerce APIs",
+        "  LiveKit · OpenAI Realtime · AWS · Azure · GCP · Nginx",
         ""
       ],
       "contact": [
