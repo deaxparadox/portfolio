@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
+import { useChatContext } from '@/components/chat/ChatContext'
 
 const mono = "'DM Mono', monospace"
 
@@ -14,6 +15,7 @@ export default function DeaxButton() {
   const mode = searchParams.get('mode') ?? 'resume'
 
   const { phase, startTour } = useVoiceTour()
+  const { isOpen: chatIsOpen, openChat } = useChatContext()
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -24,7 +26,7 @@ export default function DeaxButton() {
   }, [])
 
   // Hide when tour is in progress — MinimizedPill takes our spot
-  if (phase === 'intro' || phase === 'active' || phase === 'minimized') return null
+  if (phase === 'intro' || phase === 'active' || phase === 'minimized' || chatIsOpen) return null
 
   return (
     <div
@@ -79,6 +81,26 @@ export default function DeaxButton() {
               </button>
             </>
           )}
+
+          <div style={{ height: 1, background: 'rgba(245,197,24,0.10)', margin: '4px 0' }} />
+          <button
+            type="button"
+            onClick={() => { setOpen(false); openChat() }}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              width: '100%', padding: '10px 16px',
+              fontFamily: mono, fontSize: 12, color: '#f5eddb',
+              background: 'none', border: 'none', cursor: 'pointer',
+              letterSpacing: '0.04em', transition: 'background .15s',
+              opacity: (phase !== 'idle' && phase !== 'ended') ? 0.4 : 1,
+              pointerEvents: (phase !== 'idle' && phase !== 'ended') ? 'none' : 'auto',
+            }}
+            onMouseEnter={e => { if (phase === 'idle' || phase === 'ended') (e.currentTarget).style.background = 'rgba(245,197,24,0.07)' }}
+            onMouseLeave={e => { (e.currentTarget).style.background = 'none' }}
+          >
+            Chat with Deax
+            <span style={{ color: '#f5c518', fontSize: 14 }}>💬</span>
+          </button>
 
           {mode === 'full' && (
             <button

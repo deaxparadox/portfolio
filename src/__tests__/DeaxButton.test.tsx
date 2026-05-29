@@ -1,18 +1,26 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { useEffect } from 'react'
 import DeaxButton from '@/components/deax/DeaxButton'
 import { VoiceTourProvider, useVoiceTour } from '@/components/voice-tour/VoiceTourContext'
+import { ChatProvider, useChatContext } from '@/components/chat/ChatContext'
 
-// Mutable mock — lets individual tests set a different mode
+jest.mock('@/components/chat/chatApi', () => ({
+  createSession: jest.fn().mockResolvedValue('mock-tid'),
+  streamMessage: jest.fn(),
+}))
+
 let mockMode = 'full'
-
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn() }),
   useSearchParams: () => ({ get: (k: string) => k === 'mode' ? mockMode : null }),
 }))
 
 function wrap(ui: React.ReactNode) {
-  return render(<VoiceTourProvider>{ui}</VoiceTourProvider>)
+  return render(
+    <VoiceTourProvider>
+      <ChatProvider>{ui}</ChatProvider>
+    </VoiceTourProvider>
+  )
 }
 
 beforeEach(() => { mockMode = 'full' })
@@ -40,6 +48,19 @@ describe('DeaxButton', () => {
     expect(screen.getByText(/Talk to Deax/i)).toBeInTheDocument()
   })
 
+  it('shows Chat with Deax in full mode', () => {
+    wrap(<DeaxButton />)
+    fireEvent.click(screen.getByRole('button', { name: /deax/i }))
+    expect(screen.getByText(/Chat with Deax/i)).toBeInTheDocument()
+  })
+
+  it('shows Chat with Deax in resume mode', () => {
+    mockMode = 'resume'
+    wrap(<DeaxButton />)
+    fireEvent.click(screen.getByRole('button', { name: /deax/i }))
+    expect(screen.getByText(/Chat with Deax/i)).toBeInTheDocument()
+  })
+
   it('closes menu on second click', () => {
     wrap(<DeaxButton />)
     const btn = screen.getByRole('button', { name: /deax/i })
@@ -61,7 +82,19 @@ describe('DeaxButton', () => {
       useEffect(() => { setPhase('active') }, [])
       return <DeaxButton />
     }
-    render(<VoiceTourProvider><ActivePhaseWrapper /></VoiceTourProvider>)
+    render(<VoiceTourProvider><ChatProvider><ActivePhaseWrapper /></ChatProvider></VoiceTourProvider>)
     expect(screen.queryByRole('button', { name: /deax menu/i })).not.toBeInTheDocument()
+  })
+
+  it('DeaxButton returns null when chat is open', async () => {
+    function ChatOpenWrapper() {
+      const { openChat } = useChatContext()
+      useEffect(() => { openChat() }, [])
+      return <DeaxButton />
+    }
+    render(<VoiceTourProvider><ChatProvider><ChatOpenWrapper /></ChatProvider></VoiceTourProvider>)
+    await waitFor(() => {
+      expect(screen.queryByRole('button', { name: /deax menu/i })).not.toBeInTheDocument()
+    })
   })
 })
