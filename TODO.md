@@ -84,19 +84,26 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Backlog (in priority order)
 
+### After Merge — Unblock AI Features
+- [ ] **Set `NEXT_PUBLIC_VOICE_AGENT_URL` in Vercel** — get URL from interview-prep project; unblocks voice tour + chatbot in production
+- [ ] **Fix backend guardrail** — `interview-prep/backend/chat/prompts.py`: include last 2 user messages as context in `GUARDRAIL_PROMPT`; currently blocks legit questions like "what are his achievements?"
+
+### Content
+- [ ] **Resume PDF** — Host actual PDF, replace `#` in `portfolio.json` contact.socials
+- [ ] **Additional experience entries** — 1 card currently (Excellence Technologies); trigger for cinematic redesign when 2nd entry added
+
 ### Experience Card Polish
 - [ ] Add impact metrics to current slide-in card (no redesign)
 - [ ] Full cinematic redesign deferred — needs 2nd experience entry (see `docs/DEFERRED.md`)
 
-### Hanging Nail Spring Animation
-- [ ] Deferred — see `docs/DEFERRED.md`
-- [ ] Trigger: fresh session after v4 verified
+### SEO / Discoverability
+- [ ] **Open Graph / SEO metadata** — `og:image`, Twitter card, structured data
+- [ ] **Analytics** — Plausible or Vercel Analytics
 
 ### UI / Polish
 - [ ] **Smart Terminal mobile half-screen mode** — bottom sheet ~50% viewport
 - [ ] **Mobile hamburger nav** — Nav links hidden at <900px, no hamburger
-- [ ] **Resume PDF** — Host and link actual PDF
 - [ ] **Project case study pages** — `/projects/[slug]` (links currently "#")
-- [ ] **Open Graph / SEO metadata** — `og:image`, Twitter card
-- [ ] **Analytics** — Plausible or Vercel Analytics
-- [ ] **Additional experience entries** — 1 card currently (Excellence Technologies)
+
+### Deferred Animations
+- [ ] **Hanging Nail Spring Animation** — see `docs/DEFERRED.md`, fresh session after v4 verified
