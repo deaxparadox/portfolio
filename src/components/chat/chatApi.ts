@@ -8,7 +8,7 @@ export async function createSession(): Promise<string> {
   const res = await fetch(`${BASE_URL}/api/chat/session/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: '{}',
+    body: JSON.stringify({ project_id: 'portfolio' }),
   })
   if (!res.ok) throw new Error('session_create_failed')
   const data = await res.json()
