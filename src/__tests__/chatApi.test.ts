@@ -80,4 +80,13 @@ describe('streamMessage', () => {
     })
     expect(onDone).toHaveBeenCalledTimes(1)
   })
+
+  it('fires onError with network_error on fetch rejection', async () => {
+    global.fetch = jest.fn().mockRejectedValue(new Error('Failed to fetch')) as jest.Mock
+    const onError = jest.fn()
+    await streamMessage('hi', 'tid', {
+      onToken: jest.fn(), onScroll: jest.fn(), onDone: jest.fn(), onError,
+    })
+    expect(onError).toHaveBeenCalledWith('network_error')
+  })
 })

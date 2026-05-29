@@ -42,7 +42,8 @@ export async function streamMessage(
   if (res.status === 400) { callbacks.onError('session_expired'); return }
   if (!res.ok) { callbacks.onError('server_error'); return }
 
-  const reader = res.body!.getReader()
+  if (!res.body) { callbacks.onError('network_error'); return }
+  const reader = res.body.getReader()
   const decoder = new TextDecoder()
   let buffer = ''
 
