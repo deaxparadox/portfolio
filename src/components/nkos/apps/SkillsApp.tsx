@@ -1,8 +1,4 @@
 'use client'
-// Renders the SkillsFinder widget directly — skips the full-page <section> wrapper
-// (which has inline padding:100px that can't be overridden by CSS).
-// Also drops sf-dots (redundant KDE traffic lights inside NK-OS window).
-
 import { useState, useRef, useEffect } from 'react'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/data/types'
@@ -10,144 +6,116 @@ import type { PortfolioData } from '@/data/types'
 const data = portfolioData as PortfolioData
 const skills = data.skills
 
-const TAB_LABELS: Record<string, string> = {
-  'AI & GenAI': 'AI',
-  'Backend APIs': 'Backend',
-  'Voice & Realtime': 'Voice',
-  'Databases': 'Data',
-  'DevOps & Cloud': 'Cloud',
-  'Frontend & Tools': 'Frontend',
-}
+const mono = 'var(--nk-mono, monospace)'
+const font = 'var(--nk-font, sans-serif)'
 
 export function SkillsApp() {
-  const [activeIdx, setActiveIdx] = useState(0)
-  const [view, setView] = useState<'list' | 'grid'>('list')
-  const [animating, setAnimating] = useState(false)
+  const [active, setActive] = useState(0)
   const barRef = useRef<HTMLDivElement>(null)
-  const active = skills[activeIdx]
-
-  const handleSelect = (idx: number) => {
-    if (idx === activeIdx) return
-    setAnimating(true)
-    setTimeout(() => { setActiveIdx(idx); setAnimating(false) }, 150)
-  }
-
-  const handleViewToggle = (v: 'list' | 'grid') => {
-    if (v === view) return
-    setAnimating(true)
-    setTimeout(() => { setView(v); setAnimating(false) }, 150)
-  }
+  const skill = skills[active]
 
   useEffect(() => {
     if (!barRef.current) return
     barRef.current.style.width = '0'
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      if (barRef.current) barRef.current.style.width = `${active.pct}%`
+      if (barRef.current) barRef.current.style.width = `${skill.pct}%`
     }))
-  }, [activeIdx, view, active.pct])
-
-  const bodyStyle = {
-    opacity: animating ? 0 : 1,
-    transform: animating ? 'translateY(8px)' : 'none',
-    transition: 'opacity 0.15s ease, transform 0.15s ease',
-    // Override the hardcoded height:480px from globals.css sf-body rule
-    height: 'auto',
-    flex: 1,
-    minHeight: 0,
-  }
+  }, [active, skill.pct])
 
   return (
-    <div className="skills-finder" style={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 0, boxShadow: 'none', border: 'none' }}>
-      {/* Titlebar — sf-dots omitted (NK-OS window already has close/min/max) */}
-      <div className="sf-titlebar">
-        <div className="sf-title-mid">
-          <span className="sf-title-text">📂 Skills &amp; Capabilities</span>
-          <em className="sf-title-count">— {skills.length} items</em>
+    <div style={{ display: 'flex', height: '100%', background: 'var(--win-bg)', fontFamily: font }}>
+
+      {/* Sidebar */}
+      <div style={{
+        width: 220, flexShrink: 0, borderRight: '1px solid rgba(245,197,24,0.12)',
+        overflowY: 'auto', padding: '8px 0',
+      }}>
+        <div style={{ padding: '6px 14px 10px', fontSize: 10, color: 'rgba(245,197,24,0.45)', letterSpacing: '0.14em', fontFamily: mono }}>
+          ALL SKILLS
         </div>
-        <div className="sf-view-pills">
-          <button type="button" className={`sf-pill${view === 'list' ? ' sf-pill-active' : ''}`} onClick={() => handleViewToggle('list')}>List</button>
-          <button type="button" className={`sf-pill${view === 'grid' ? ' sf-pill-active' : ''}`} onClick={() => handleViewToggle('grid')}>Grid</button>
-        </div>
+        {skills.map((s, i) => (
+          <button
+            key={s.name}
+            type="button"
+            onClick={() => setActive(i)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              width: '100%', padding: '10px 14px', border: 'none',
+              background: i === active ? 'rgba(245,197,24,0.12)' : 'transparent',
+              borderLeft: `2px solid ${i === active ? '#f5c518' : 'transparent'}`,
+              cursor: 'pointer', textAlign: 'left', transition: 'background .12s',
+              fontFamily: font,
+            }}
+          >
+            <span style={{ fontSize: 20, flexShrink: 0 }}>{s.icon}</span>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 500, color: i === active ? '#f5c518' : 'var(--text)' }}>
+                {s.name}
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--text-dim)', marginTop: 1, lineHeight: 1.4 }}>
+                {s.kind}
+              </div>
+            </div>
+          </button>
+        ))}
       </div>
 
-      {/* Body */}
-      <div className="sf-body" style={bodyStyle}>
-        {view === 'list' ? (
-          <>
-            <div className="sf-sidebar">
-              <div className="sf-sb-label">All Skills</div>
-              {skills.map((skill, idx) => (
-                <div key={skill.name}>
-                  {idx === 3 && <div className="sf-sb-divider" />}
-                  <button
-                    type="button"
-                    className={`sf-sb-item${activeIdx === idx ? ' sf-sb-item-active' : ''}`}
-                    onClick={() => handleSelect(idx)}
-                  >
-                    <div className="sf-sb-icon">{skill.icon}</div>
-                    <div className="sf-sb-text">
-                      <div className="sf-sb-name">{skill.name}</div>
-                      <div className="sf-sb-kind">{skill.kind}</div>
-                    </div>
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <div className="sf-tab-row">
-              {skills.map((skill, idx) => (
-                <button key={skill.name} type="button" className={`sf-tab${activeIdx === idx ? ' sf-tab-active' : ''}`} onClick={() => handleSelect(idx)}>
-                  <span className="sf-tab-icon">{skill.icon}</span>
-                  <span className="sf-tab-label">{TAB_LABELS[skill.name] ?? skill.name}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="sf-detail">
-              <div className="sf-detail-header">
-                <div className="sf-detail-icon">{active.icon}</div>
-                <div>
-                  <div className="sf-detail-name">{active.name}</div>
-                  <div className="sf-detail-kind">{active.kind}</div>
-                </div>
-              </div>
-              <p className="sf-detail-desc">{active.description}</p>
-              <div className="sf-prof-row">
-                <span className="sf-prof-label">Proficiency</span>
-                <div className="sf-prof-track"><div className="sf-prof-fill" ref={barRef} /></div>
-                <span className="sf-prof-pct">{active.pct}%</span>
-              </div>
-              <div className="sf-tags">
-                {active.tags.map(tag => <span key={tag} className="sf-tag">{tag}</span>)}
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="sf-grid">
-            {skills.map(skill => (
-              <div key={skill.name} className="sf-card">
-                <span className="sf-card-icon">{skill.icon}</span>
-                <div className="sf-card-name">{skill.name}</div>
-                <div className="sf-card-kind">{skill.kind}</div>
-                <div className="sf-card-bar-row">
-                  <div className="sf-card-bar-track"><div className="sf-card-bar-fill" style={{ width: `${skill.pct}%` }} /></div>
-                  <span className="sf-card-pct">{skill.pct}%</span>
-                </div>
-                <div className="sf-tags">
-                  {skill.tags.map(tag => <span key={tag} className="sf-tag">{tag}</span>)}
-                </div>
-              </div>
-            ))}
+      {/* Detail */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{
+            width: 56, height: 56, borderRadius: 14, flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 26, background: 'rgba(245,197,24,0.09)',
+            border: '1px solid rgba(245,197,24,0.22)',
+          }}>
+            {skill.icon}
           </div>
-        )}
-      </div>
+          <div>
+            <div style={{ fontSize: 18, fontWeight: 600, color: 'var(--text)', lineHeight: 1.2, fontFamily: mono }}>
+              {skill.name}
+            </div>
+            <div style={{ fontSize: 11, color: 'rgba(245,197,24,0.60)', letterSpacing: '0.08em', marginTop: 4, fontFamily: mono }}>
+              {skill.kind.split(' · ').map(k => k.toUpperCase()).join(' · ')}
+            </div>
+          </div>
+        </div>
 
-      {/* Status bar */}
-      <div className="sf-statusbar">
-        <span className="sf-st-left">{activeIdx + 1} of {skills.length} selected — {active.name}</span>
-        <div className="sf-st-right">
-          <span className="sf-st-dot" />
-          <span className="sf-st-text">Open to work</span>
+        {/* Description */}
+        <p style={{ fontSize: 12, color: 'var(--text-dim)', lineHeight: 1.75, margin: 0 }}>
+          {skill.description}
+        </p>
+
+        {/* Proficiency */}
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <span style={{ fontSize: 10, color: 'rgba(245,197,24,0.50)', letterSpacing: '0.12em', fontFamily: mono }}>
+              PROFICIENCY
+            </span>
+            <span style={{ fontSize: 16, fontWeight: 700, color: '#f5c518', fontFamily: mono }}>
+              {skill.pct}%
+            </span>
+          </div>
+          <div style={{ height: 4, background: 'rgba(245,197,24,0.12)', borderRadius: 2, overflow: 'hidden' }}>
+            <div
+              ref={barRef}
+              style={{ height: '100%', background: 'linear-gradient(90deg,#c49a00,#f5c518)', borderRadius: 2, width: 0, transition: 'width 0.6s cubic-bezier(.4,0,.2,1)' }}
+            />
+          </div>
+        </div>
+
+        {/* Tags */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {skill.tags.map(tag => (
+            <span key={tag} style={{
+              fontSize: 11, padding: '3px 10px', borderRadius: 20, fontFamily: mono,
+              background: 'rgba(245,197,24,0.10)', color: '#f5c518',
+              border: '1px solid rgba(245,197,24,0.22)',
+            }}>
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
     </div>
