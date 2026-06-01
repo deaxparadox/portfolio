@@ -563,46 +563,8 @@
 /* ── SKILLS APP ── */
 .nk-skills { width: 100%; height: 100%; overflow: hidden; display: flex; flex-direction: column; }
 
-/* Override SkillsFinder's full-page section wrapper when inside NK-OS window.
-   SkillsFinder was built as a full-page portfolio section (padding:100px, h2 heading,
-   sf-body height:480px). These overrides strip it to a compact window component. */
-.nkos-root section#skills {
-  padding: 0 !important;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.nkos-root section#skills > div {
-  max-width: 100% !important;
-  margin: 0 !important;
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-/* Hide the "Capabilities" label + "What I Build" heading — not needed in a window */
-.nkos-root section#skills .section-label,
-.nkos-root section#skills h2 {
-  display: none !important;
-}
-.nkos-root .skills-finder {
-  max-width: 100% !important;
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-/* Override the hardcoded height:480px on sf-body — let it fill the window */
-.nkos-root .sf-body {
-  height: auto !important;
-  flex: 1 !important;
-  min-height: 0 !important;
-}
-/* Hide SkillsFinder's own decorative traffic lights — NK-OS window already has controls */
-.nkos-root .sf-dots { display: none !important; }
-/* Align detail content to top instead of center — avoids empty bottom gap */
-.nkos-root .sf-detail { justify-content: flex-start !important; padding: 28px 36px !important; }
+/* Tighten SkillsFinder detail panel padding — original 48px is too large in a compact window */
+.nkos-root .sf-detail { padding: 28px 36px !important; }
 
 /* scrollbars */
 .nkos-root ::-webkit-scrollbar { width: 4px; height: 4px; }
