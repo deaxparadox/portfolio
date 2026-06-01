@@ -19,7 +19,7 @@ Design work that's complete but not yet implemented. Before building any UI sect
 
 **Why deferred:** Polish animation — needs fresh session with careful tuning. Done poorly it nauseates; done well it's memorable. Deserves proper attention.
 
-**Trigger to implement:** After v3 merged and verified in Vercel. Standalone feature on a new branch.
+**Trigger to implement:** v3 already merged. Build as standalone branch after all current branches (v4→v8-nkm) are merged into dev.
 
 ---
 
@@ -58,10 +58,10 @@ Design work that's complete but not yet implemented. Before building any UI sect
 
 ---
 
-## Voice Agent Tour (Deax full mode)
+## Voice Agent Tour (Deax full mode) ✅ Implemented
 
-**No design file yet** — spec in `docs/superpowers/specs/2026-05-22-portfolio-roadmap.md`
+**Spec:** `docs/superpowers/specs/2026-05-28-voice-tour-frontend-design.md`
+**Branch:** v4 (merged into dev pending)
+**Backend:** interview-prep project — LiveKit token endpoint live
 
-**Why deferred:** Blocked on flagship backend LiveKit token endpoint. Full voice + chat narrated tour is the most complex feature in the roadmap.
-
-**Trigger to implement:** Backend token API available (or mockable).
+Implemented: boot → intro → active ↔ minimized → ended state machine. Terminal footer hint, MinimizedPill (vertical roll Deax↔Talking), DataChannelHandler for section scroll. Full mode only (`/?mode=full`).
