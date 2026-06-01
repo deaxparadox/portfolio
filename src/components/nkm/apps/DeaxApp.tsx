@@ -1,1 +1,12 @@
-export function DeaxApp() { return <div style={{color:'white',padding:20}}>Deax</div> }
+'use client'
+import { ChatPanel } from '@/components/chat/ChatPanel'
+
+export function DeaxApp() {
+  return (
+    <div className="nkm-deax">
+      <div className="nkm-deax-body">
+        <ChatPanel />
+      </div>
+    </div>
+  )
+}
