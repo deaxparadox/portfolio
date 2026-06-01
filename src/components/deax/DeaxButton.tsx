@@ -18,7 +18,6 @@ export default function DeaxButton() {
   const { isOpen: chatIsOpen, openChat } = useChatContext()
 
   const pathname = usePathname()
-  if (pathname === '/nkos') return null
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -28,7 +27,8 @@ export default function DeaxButton() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  // Hide when tour is in progress — MinimizedPill takes our spot
+  // All hooks must be called before any early return
+  if (pathname === '/nkos') return null
   if (phase === 'intro' || phase === 'active' || phase === 'minimized' || chatIsOpen) return null
 
   return (
