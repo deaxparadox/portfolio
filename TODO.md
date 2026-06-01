@@ -6,11 +6,12 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Current Status
 
-- **Active branch:** `v7-nkos` · latest: `fdc20b2`
-- **v4:** voice tour + light mode (amber + orbs) — 80 tests
+- **Active branch:** `v8-nkm` · latest: `829b49d`
+- **v4:** voice tour + light mode — 80 tests
 - **v5-chatbot:** chatbot frontend — 99 tests
 - **v6-data:** real project data + env fixes — 99 tests
-- **v7-nkos:** NK-OS desktop at /nkos — 99 tests ← current
+- **v7-nkos:** NK-OS desktop at /nkos — 99 tests
+- **v8-nkm:** NK-M mobile OS at /nkm — 99 tests ← current
 - **Vercel:** live on `dev` — all branches pending merge
 
 ## Branch Strategy
@@ -22,10 +23,11 @@ Tracks in-progress work, backlog, and deferred decisions.
 | `v4` | complete, not merged | 80 | voice tour + light mode |
 | `v5-chatbot` | complete, not merged | 99 | chatbot frontend |
 | `v6-data` | complete, not merged | 99 | data + env fixes |
-| `v7-nkos` | **complete, not merged** | 99 | ← CURRENT: NK-OS |
+| `v7-nkos` | complete, not merged | 99 | NK-OS desktop |
+| `v8-nkm` | **complete, not merged** | 99 | ← CURRENT: NK-M mobile |
 | `v3` | merged into dev | — | |
 
-**Merge order:** v4 → v5-chatbot → v6-data → v7-nkos → dev
+**Merge order:** v4 → v5-chatbot → v6-data → v7-nkos → v8-nkm → dev
 
 ---
 
@@ -35,6 +37,7 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [ ] Merge v5-chatbot → dev (after v4 merged)
 - [ ] Merge v6-data → dev (after v5-chatbot merged)
 - [ ] Merge v7-nkos → dev (after v6-data merged)
+- [ ] Merge v8-nkm → dev (after v7-nkos merged)
 - [ ] Set `NEXT_PUBLIC_VOICE_AGENT_URL` + `NEXT_PUBLIC_PROJECT_ID=portfolio` in Vercel env vars
 - [ ] Fix backend guardrail false positives — `interview-prep/backend/chat/prompts.py` (include last 2 messages as context in GUARDRAIL_PROMPT)
 
@@ -98,6 +101,21 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [x] DeaxButton "NK-OS 🖥️" entry point from any portfolio page
 - [x] Fixed: DeaxButton hooks order (usePathname early return was before useEffect)
 - [x] Fixed: SkillsApp rebuilt from scratch — SkillsFinder has inline styles, can't be adapted
+- [x] 99 tests passing
+
+### NK-M ✅ (v8-nkm, 829b49d)
+- [x] Plasma Mobile-inspired OS at `/nkm` — mobile/tablet only (≤1024px)
+- [x] Gold accent, Oxanium + Noto Sans + Noto Mono fonts, isolated nkm.css
+- [x] Boot screen (3.6s progress bar, tap to skip)
+- [x] Lock screen — Oxanium clock, portfolio notifs, swipe-up to unlock
+- [x] Home screen — 4-col icon grid, page dots, bottom dock
+- [x] Status bar, notification panel (8 quick tiles + sliders), power menu (bottom sheet)
+- [x] App drawer — swipe-up gesture, search
+- [x] 6 full-screen apps: Terminal (+ Deax AI + quick-key toolbar), About, Projects, Skills (accordion), Contact, Deax
+- [x] Desktop blocker (>1024px) with links to /nkos + /
+- [x] Shutdown → spinner → poweroff → power button to reboot
+- [x] Home bar — tap=back, triple-tap=power menu
+- [x] DeaxButton "NK-M 📱" in both modes, hides on /nkm
 - [x] 99 tests passing
 
 ### Bugs Fixed This Session
