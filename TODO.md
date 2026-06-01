@@ -6,10 +6,11 @@ Tracks in-progress work, backlog, and deferred decisions.
 
 ## Current Status
 
-- **Active branch:** `v6-data` · latest: `fb3423b`
-- **v4:** voice tour + light mode — 80 tests
+- **Active branch:** `v7-nkos` · latest: `fdc20b2`
+- **v4:** voice tour + light mode (amber + orbs) — 80 tests
 - **v5-chatbot:** chatbot frontend — 99 tests
-- **v6-data:** real data + env fixes — 99 tests ← current
+- **v6-data:** real project data + env fixes — 99 tests
+- **v7-nkos:** NK-OS desktop at /nkos — 99 tests ← current
 - **Vercel:** live on `dev` — all branches pending merge
 
 ## Branch Strategy
@@ -18,13 +19,13 @@ Tracks in-progress work, backlog, and deferred decisions.
 |---|---|---|---|
 | `main` | stable production | — | |
 | `dev` | integration base | 80 | v3 merged in |
-| `v4` | **complete, not merged** | 80 | voice tour + light mode |
-| `v5-chatbot` | **complete, not merged** | 99 | chatbot frontend |
-| `v6-data` | **complete, not merged** | 99 | ← CURRENT: data + env fixes |
+| `v4` | complete, not merged | 80 | voice tour + light mode |
+| `v5-chatbot` | complete, not merged | 99 | chatbot frontend |
+| `v6-data` | complete, not merged | 99 | data + env fixes |
+| `v7-nkos` | **complete, not merged** | 99 | ← CURRENT: NK-OS |
 | `v3` | merged into dev | — | |
-| `v1` | frozen snapshot | — | |
 
-**Merge order:** v4 → dev first, then v5-chatbot → dev
+**Merge order:** v4 → v5-chatbot → v6-data → v7-nkos → dev
 
 ---
 
@@ -33,6 +34,7 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [ ] Merge v4 → dev (`superpowers:finishing-a-development-branch`)
 - [ ] Merge v5-chatbot → dev (after v4 merged)
 - [ ] Merge v6-data → dev (after v5-chatbot merged)
+- [ ] Merge v7-nkos → dev (after v6-data merged)
 - [ ] Set `NEXT_PUBLIC_VOICE_AGENT_URL` + `NEXT_PUBLIC_PROJECT_ID=portfolio` in Vercel env vars
 - [ ] Fix backend guardrail false positives — `interview-prep/backend/chat/prompts.py` (include last 2 messages as context in GUARDRAIL_PROMPT)
 
@@ -80,6 +82,29 @@ Tracks in-progress work, backlog, and deferred decisions.
 - [x] Terminal inline streaming — bold commands, left-border block, t-caret thinking indicator
 - [x] DeaxButton: "Explore full portfolio" hidden in full mode
 - [x] Build clean, 99 tests passing
+
+### NK-OS ✅ (v7-nkos, fdc20b2)
+- [x] Full KDE Plasma-inspired desktop OS at `/nkos`
+- [x] Gold accent theme — isolated `nkos.css`, cursor override
+- [x] Boot screen (3.4s gold animation, click to skip)
+- [x] Animated canvas wallpaper — stars, nebula, 4 variants, F5 to cycle
+- [x] Window system — drag, resize, minimize, maximize, focus
+- [x] Taskbar — launcher, open apps, clock
+- [x] App launcher — search + All/Portfolio/System categories
+- [x] Right-click context menu
+- [x] 6 apps: Terminal (portfolio cmds + Deax AI), About (heatmap), Projects (file mgr), Skills (native), Contact, Deax
+- [x] Shutdown/poweroff sequence
+- [x] Mobile fallback message
+- [x] DeaxButton "NK-OS 🖥️" entry point from any portfolio page
+- [x] Fixed: DeaxButton hooks order (usePathname early return was before useEffect)
+- [x] Fixed: SkillsApp rebuilt from scratch — SkillsFinder has inline styles, can't be adapted
+- [x] 99 tests passing
+
+### Bugs Fixed This Session
+- [x] `getEnv()` dynamic `process.env[key]` → Next.js doesn't inline → chat "could not connect"
+- [x] CSS `!important` can't override inline styles → rebuilt SkillsApp from scratch
+- [x] React hooks order: `usePathname` return before `useEffect` → hydration mismatch
+- [x] Chat widget not scrollable → flex chain `display:flex + minHeight:0` fix
 
 ---
 
