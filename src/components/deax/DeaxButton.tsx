@@ -28,7 +28,7 @@ export default function DeaxButton() {
   }, [])
 
   // All hooks must be called before any early return
-  if (pathname === '/nkos') return null
+  if (pathname === '/nkos' || pathname === '/nkm') return null
   if (phase === 'intro' || phase === 'active' || phase === 'minimized' || chatIsOpen) return null
 
   return (
@@ -103,6 +103,24 @@ export default function DeaxButton() {
           >
             NK-OS
             <span style={{ color: '#f5c518', fontSize: 12, fontFamily: mono }}>🖥️</span>
+          </button>
+
+          <div style={{ height: 1, background: 'rgba(245,197,24,0.10)', margin: '4px 0' }} />
+          <button
+            type="button"
+            onClick={() => { setOpen(false); router.push('/nkm') }}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              width: '100%', padding: '10px 16px',
+              fontFamily: mono, fontSize: 12, color: '#f5eddb',
+              background: 'none', border: 'none', cursor: 'pointer',
+              letterSpacing: '0.04em', transition: 'background .15s',
+            }}
+            onMouseEnter={e => { (e.currentTarget).style.background = 'rgba(245,197,24,0.07)' }}
+            onMouseLeave={e => { (e.currentTarget).style.background = 'none' }}
+          >
+            NK-M
+            <span style={{ color: '#f5c518', fontSize: 12, fontFamily: mono }}>📱</span>
           </button>
 
           <div style={{ height: 1, background: 'rgba(245,197,24,0.10)', margin: '4px 0' }} />
