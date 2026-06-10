@@ -250,20 +250,43 @@ Shared visual language:
 - Token fetch → LiveKit room join → data channel active
 - `ssr: false` dynamic import on `OpenMicStage` (LiveKit requires browser APIs)
 
+### Data Channel Encoding
+
+```typescript
+// Parser in OpenMicDataChannel.tsx
+const text = new TextDecoder().decode(message.payload)
+const msg = JSON.parse(text) as DataChannelMessage
+
+// Topic to subscribe to:
+const OPEN_MIC_TOPIC = 'open-mic-events'
+```
+
+Backend uses `json.dumps({...}).encode()` → UTF-8 bytes on topic `open-mic-events`.
+
 ### Agent State → Frontend Mapping
 
 Backend sends agent state via data channel. Frontend maps to Deax animation:
 
 ```typescript
-// Incoming data channel message shape
 type DataChannelMessage =
   | { type: 'agent_state'; state: 'listening' | 'thinking' | 'speaking' }
   | { type: 'action'; action: 'show_section'; section: ActiveSection }
   | { type: 'action'; action: 'hide_section' }
+  | { type: 'action'; action: 'end_show' }
   | { type: 'emotion'; state: DeaxEmotion }
 ```
 
-This protocol must be agreed between frontend and backend. Backend sends all four message types. Frontend handles all four.
+### Session End Handling
+
+- Frontend listens for `{type: 'action', action: 'end_show'}` → transitions to `ended` phase
+- `onDisconnected` LiveKit event fires shortly after — treat as **cleanup only**, not the phase trigger
+- On `ended`: fade out Deax, LED screen off, return to landing overlay
+
+### Initial Emotion State
+
+- Avatar initializes to `neutral` + `idle` animation on session start
+- No `set_emotion` is emitted before the session — first emotion fires within ~1 second as Deax's opening line is generated
+- `session.generate_reply()` triggers the opening immediately on session start — frontend will see the first `agent_state: speaking` + emotion very quickly after connection
 
 ---
 
