@@ -387,13 +387,20 @@ Links to `/open-mic`. Positioned in the menu after the existing NK-OS and NK-M e
 
 ---
 
+## Resolved Decisions (from backend session, 2026-06-10)
+
+1. **Data channel topic:** `open-mic-events` — separate from existing `tour-navigation` to prevent cross-contamination if both experiences are active simultaneously.
+2. **Token endpoint:** `POST /api/open-mic/token/` — no `project_id` in request body. Endpoint implies the project. Frontend sends empty POST.
+3. **LiveKit room name format:** `open-mic-{uuid}` — namespaced per-session to avoid collision with voice tour rooms.
+4. **Emotion signaling:** Tool approach (`set_emotion()` LLM tool) — fire-and-forget, no await, so no added latency. LLM has explicit control over timing (emits before the response it reflects).
+5. **Backend implementation path:** Option A — new `OpenMicTokenView` passing `project_id='open-mic'` hardcoded. New `OpenMicAssistant` in `agent/src/tools/open_mic/assistant.py`. Character sheet prompt in `agent/prompts/open-mic.md`. One line in `ASSISTANT_REGISTRY`.
+
 ## Open Questions
 
 1. **RPM Avatar GLB** — Nitish creates the Deax avatar at readyplayerme.com. During dev, use any placeholder RPM GLB.
-2. **Backend endpoint name** — `/api/open-mic/token/` is the proposed name. Backend team to confirm.
-3. **Mixamo animation files** — need to be downloaded, retargeted to RPM skeleton, and committed to repo as GLB/FBX assets.
-4. **Voice selection** — backend team to pick OpenAI Realtime voice for Deax. Recommend: `shimmer` or `onyx` (confident, not robotic).
-5. **Experience card on main portfolio** — should `/open-mic` be linked from the main portfolio hero as a third "experience" option alongside NK-OS and NK-M? Not in this spec — flag for future.
+2. **Mixamo animation files** — need to be downloaded, retargeted to RPM skeleton, and committed to repo as GLB/FBX assets.
+3. **Voice selection** — backend team to pick OpenAI Realtime voice for Deax. Recommend: `shimmer` or `onyx` (confident, not robotic).
+4. **Experience card on main portfolio** — should `/open-mic` be linked from the main portfolio hero as a third "experience" option alongside NK-OS and NK-M? Not in this spec — flag for future.
 
 ---
 
