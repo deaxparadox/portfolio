@@ -6,8 +6,8 @@ import type { PortfolioData, ProjectItem } from '@/data/types'
 const data = portfolioData as PortfolioData
 
 const PROJECT_ICONS: Record<string, string> = {
-  'VoiceOps AI': '📞', 'LexCall': '⚖️',
-  "Founder's Lab": '🚀', 'Trajectry': '🎯', 'StructureIQ': '🏗️',
+  'Staffmind': '📞', 'LexCall': '⚖️',
+  "Founder's Lab": '🚀', 'VoxCraft / ReactCraft': '🎬', 'HireIQ': '🎯', 'StructureIQ': '🏗️',
 }
 
 export function ProjectsApp() {

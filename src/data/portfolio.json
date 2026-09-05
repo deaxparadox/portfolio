@@ -31,7 +31,7 @@
       "kind": "Agents · RAG · LLMs",
       "pct": 93,
       "description": "Production LangGraph multi-agent systems, RAG pipelines, and LLM-driven workflows. Hands-on with GPT-4o, Gemini 2.5, and OpenAI Realtime across 7 shipped products.",
-      "tags": ["LangGraph", "LangChain", "OpenAI", "Gemini", "RAG", "Prompt Engineering"]
+      "tags": ["LangGraph", "LangChain", "OpenAI", "Gemini", "RAG", "Prompt Engineering", "PyTorch", "Whisper"]
     },
     {
       "icon": "🐍",
@@ -47,7 +47,7 @@
       "kind": "Realtime / Voice / WebSocket",
       "pct": 88,
       "description": "Production voice agents handling inbound/outbound PSTN calls, appointment booking, and real-time transcription. SIP telephony, session isolation, and sub-200ms latency.",
-      "tags": ["LiveKit", "OpenAI Realtime", "ElevenLabs", "Twilio SIP", "WebSockets"]
+      "tags": ["LiveKit", "OpenAI Realtime", "ElevenLabs", "Twilio SIP", "WebSockets", "HeyGen"]
     },
     {
       "icon": "🗄️",
@@ -77,15 +77,57 @@
   "projects": [
     {
       "year": "2025",
-      "name": "VoiceOps AI",
-      "description": "Production multi-tenant AI voice agent SaaS. Businesses deploy AI receptionists that handle inbound and outbound PSTN calls, book appointments in real time, and sync with Google Calendar. 14 API routers, 60+ endpoints, 3 Stripe billing plans, 3 APScheduler jobs for reminders, reschedule offers, and no-show follow-ups.",
-      "tags": ["FastAPI", "LiveKit", "OpenAI Realtime", "Twilio SIP", "Supabase", "Stripe"],
+      "name": "Staffmind",
+      "description": "Multi-tenant AI voice agent SaaS with two live products on one backend: a PSTN receptionist that answers calls, books appointments, and syncs Google Calendar in real time, plus \"Remi\" — an avatar-fronted AI executive assistant that manages Gmail and calendar by voice. Two businesses live in production.",
+      "tags": ["FastAPI", "LiveKit", "OpenAI Realtime", "Twilio SIP", "Supabase", "HeyGen"],
       "links": [{ "label": "Private →", "href": "#" }],
       "visual": {
         "glyph": "📞",
         "stats": [
-          { "value": "60+", "label": "API Endpoints", "fill": 92 },
+          { "value": "2", "label": "Businesses Live", "fill": 90 },
           { "value": "Multi", "label": "Tenant SaaS", "fill": 95 }
+        ]
+      }
+    },
+    {
+      "year": "2024",
+      "name": "Founder's Lab",
+      "description": "Multi-agent AI co-founder assistant embedded in a client's no-code startup platform. Two independent LangGraph state machines validate business ideas, generate 7-step entrepreneurship roadmaps, run live market research, and generate logo concepts with DALL-E 3.",
+      "tags": ["Django", "LangGraph", "OpenAI", "Pinecone", "DALL-E 3", "Redis"],
+      "links": [{ "label": "Private →", "href": "#" }],
+      "visual": {
+        "glyph": "🚀",
+        "stats": [
+          { "value": "7", "label": "Agent Steps", "fill": 78 },
+          { "value": "60K", "label": "Tokens/User", "fill": 85 }
+        ]
+      }
+    },
+    {
+      "year": "2025",
+      "name": "VoxCraft / ReactCraft",
+      "description": "Client engagement exploring full automation of short-form video. VoxCraft is a self-hosted voice-cloning service with a custom PyTorch wrapper caching per-voice XTTS conditioning embeddings; ReactCraft auto-generates reaction-video commentary — Whisper transcription, GPT-4 scripting, MoviePy caption overlay.",
+      "tags": ["FastAPI", "PyTorch", "Whisper", "GPT-4", "ElevenLabs", "MoviePy"],
+      "links": [{ "label": "Private →", "href": "#" }],
+      "visual": {
+        "glyph": "🎬",
+        "stats": [
+          { "value": "Custom", "label": "PyTorch Wrapper", "fill": 85 },
+          { "value": "Solo", "label": "R&D Build", "fill": 70 }
+        ]
+      }
+    },
+    {
+      "year": "2025",
+      "name": "StructureIQ",
+      "description": "AI construction document analyzer for structural engineers. Ingests 50–170+ page PDFs, classifies pages across five firm-specific title-block formats, and extracts hardware, lumber, and concrete specs via GPT-4o Vision and Gemini — enforcing \"return empty over guessed\" at temperature=0.",
+      "tags": ["FastAPI", "GPT-4o Vision", "Gemini", "PostgreSQL", "Next.js"],
+      "links": [{ "label": "Private →", "href": "#" }],
+      "visual": {
+        "glyph": "🏗️",
+        "stats": [
+          { "value": "167", "label": "Page PDFs", "fill": 88 },
+          { "value": "~$0.28", "label": "Per Document", "fill": 70 }
         ]
       }
     },
@@ -104,44 +146,16 @@
       }
     },
     {
-      "year": "2024",
-      "name": "Founder's Lab",
-      "description": "Multi-agent AI co-founder assistant embedded in a live Bubble.io SaaS platform. LangGraph agents validate business ideas, generate 7-step entrepreneurship roadmaps, run market research via DuckDuckGo, find experts via Google Places, and generate logo concepts with DALL-E 3. Real users, real traction.",
-      "tags": ["Django", "LangGraph", "OpenAI", "Pinecone", "DALL-E 3", "Redis"],
-      "links": [{ "label": "Private →", "href": "#" }],
-      "visual": {
-        "glyph": "🚀",
-        "stats": [
-          { "value": "7", "label": "Agent Steps", "fill": 78 },
-          { "value": "60K", "label": "Tokens/User", "fill": 85 }
-        ]
-      }
-    },
-    {
       "year": "2025",
-      "name": "Trajectry",
-      "description": "AI-powered career intelligence platform. Candidates upload their CV and complete a voice interview with Akira, an AI agent. They're matched against 414K jobs and ~6,500 companies by fit score, discover hiring-team contacts via Apollo, and track their full outreach pipeline. LangGraph workflow v3, hexagonal architecture.",
+      "name": "HireIQ",
+      "description": "AI-driven career discovery platform with voice-driven onboarding — Akira for candidates, Arika for employers — backed by a deterministic OntologyCache and KnowledgeGraph for term/skill matching. Matches against ~414K jobs and ~6,500 companies, surfaces real hiring-team contacts, and tracks outreach end to end.",
       "tags": ["FastAPI", "LangGraph", "Gemini", "LiveKit", "Supabase", "Next.js"],
       "links": [{ "label": "Private →", "href": "#" }],
       "visual": {
         "glyph": "🎯",
         "stats": [
           { "value": "414K", "label": "Jobs Indexed", "fill": 95 },
-          { "value": "v3", "label": "LangGraph Flow", "fill": 82 }
-        ]
-      }
-    },
-    {
-      "year": "2025",
-      "name": "StructureIQ",
-      "description": "AI construction document analyzer for structural engineers. Ingests multi-hundred-page PDFs, classifies pages by type (framing, foundation, schedules, hardware), extracts specs via GPT-4o text and vision, deduplicates hardware callouts, and generates a branded report. Handles 5 title block formats from different engineering firms.",
-      "tags": ["FastAPI", "GPT-4o Vision", "PostgreSQL", "Next.js", "ReportLab"],
-      "links": [{ "label": "Private →", "href": "#" }],
-      "visual": {
-        "glyph": "🏗️",
-        "stats": [
-          { "value": "167", "label": "Page PDFs", "fill": 88 },
-          { "value": "~$0.28", "label": "Per Document", "fill": 70 }
+          { "value": "7", "label": "Workflow Nodes", "fill": 82 }
         ]
       }
     }
@@ -206,25 +220,29 @@
       ],
       "projects": [
         "",
-        "  01  VoiceOps AI",
-        "  Multi-tenant AI voice agent SaaS · 60+ endpoints · PSTN calls",
-        "  FastAPI · LiveKit · OpenAI Realtime · Twilio SIP · Supabase · Stripe",
+        "  01  Staffmind",
+        "  Multi-tenant AI voice agent SaaS · PSTN receptionist + AI exec assistant",
+        "  FastAPI · LiveKit · OpenAI Realtime · Twilio SIP · Supabase · HeyGen",
         "",
-        "  02  LexCall",
-        "  AI phone system for law firm · intake PDF · live at manninglaw.chat",
-        "  FastAPI · ElevenLabs · PostgreSQL · Azure AD",
-        "",
-        "  03  Founder's Lab",
+        "  02  Founder's Lab",
         "  Multi-agent co-founder AI · 7-step roadmap · DuckDuckGo + DALL-E 3",
         "  Django · LangGraph · OpenAI · Pinecone · Redis",
         "",
-        "  04  Trajectry",
-        "  Career intelligence platform · 414K jobs · AI voice interview",
-        "  FastAPI · LangGraph · Gemini · LiveKit · Supabase",
+        "  03  VoxCraft / ReactCraft",
+        "  Voice-cloning + reaction-video pipeline · custom PyTorch XTTS wrapper",
+        "  PyTorch · Whisper · GPT-4 · ElevenLabs · MoviePy",
         "",
-        "  05  StructureIQ",
-        "  AI construction doc analyzer · GPT-4o Vision · 167-page PDFs",
-        "  FastAPI · GPT-4o · PostgreSQL · Next.js · ReportLab",
+        "  04  StructureIQ",
+        "  AI construction doc analyzer · GPT-4o Vision + Gemini · 167-page PDFs",
+        "  FastAPI · GPT-4o · Gemini · PostgreSQL · Next.js",
+        "",
+        "  05  LexCall",
+        "  AI phone system for law firm · intake PDF · live at manninglaw.chat",
+        "  FastAPI · ElevenLabs · PostgreSQL · Azure AD",
+        "",
+        "  06  HireIQ",
+        "  AI career discovery platform · 414K jobs · Akira + Arika voice agents",
+        "  FastAPI · LangGraph · Gemini · LiveKit · Supabase",
         ""
       ],
       "experience": [

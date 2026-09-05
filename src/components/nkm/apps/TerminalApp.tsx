@@ -66,11 +66,12 @@ export function TerminalApp() {
         break
       case 'projects':
         addLine('')
-        ;[['VoiceOps AI','Multi-tenant voice SaaS · LiveKit · 60+ endpoints'],
-          ['LexCall','Law firm AI phone · ElevenLabs · live'],
+        ;[['Staffmind','Multi-tenant voice SaaS · LiveKit · PSTN + AI exec assistant'],
           ["Founder's Lab",'LangGraph co-founder AI · Bubble.io'],
-          ['Trajectry','Career platform · 414K jobs · Gemini'],
-          ['StructureIQ','Construction PDF · GPT-4o Vision']
+          ['VoxCraft / ReactCraft','Voice-cloning + reaction pipeline · PyTorch XTTS'],
+          ['StructureIQ','Construction PDF · GPT-4o Vision + Gemini'],
+          ['LexCall','Law firm AI phone · ElevenLabs · live'],
+          ['HireIQ','Career platform · 414K jobs · Gemini']
         ].forEach(([n,d]) => { addLine(`  ${gold(n)}`); addLine(`  ${dim(d)}`); addLine('') })
         break
       case 'contact':

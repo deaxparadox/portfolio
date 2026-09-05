@@ -104,11 +104,12 @@ export function TerminalApp({ winId }: Props) {
       case 'projects':
         addLine('')
         ;[
-          ['01  VoiceOps AI',    'Multi-tenant AI voice SaaS · 60+ endpoints · live customers'],
-          ['02  LexCall',        'AI phone system for law firm · live at manninglaw.chat'],
-          ["03  Founder's Lab",  'LangGraph co-founder AI · Bubble.io · real users'],
-          ['04  Trajectry',      'Career intelligence platform · 414K jobs · Gemini + LiveKit'],
-          ['05  StructureIQ',    'AI construction PDF analyzer · GPT-4o Vision · 167 pages'],
+          ['01  Staffmind',              'Multi-tenant AI voice SaaS · PSTN receptionist + AI exec assistant'],
+          ["02  Founder's Lab",          'LangGraph co-founder AI · Bubble.io · real users'],
+          ['03  VoxCraft / ReactCraft',  'Voice-cloning + reaction-video pipeline · custom PyTorch XTTS wrapper'],
+          ['04  StructureIQ',            'AI construction PDF analyzer · GPT-4o Vision + Gemini · 167 pages'],
+          ['05  LexCall',                'AI phone system for law firm · live at manninglaw.chat'],
+          ['06  HireIQ',                 'AI career discovery platform · 414K jobs · Gemini + LiveKit'],
         ].forEach(([n, d]) => {
           addLine(`  ${gold(n)}`)
           addLine(`  ${dim(d)}`)

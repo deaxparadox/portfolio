@@ -13,19 +13,21 @@ const CATEGORIES = [
 ]
 
 const PROJECT_CAT: Record<string, string> = {
-  'VoiceOps AI':   'voice',
-  'LexCall':       'voice',
-  "Founder's Lab": 'agents',
-  'Trajectry':     'agents',
-  'StructureIQ':   'document',
+  'Staffmind':             'voice',
+  'LexCall':               'voice',
+  "Founder's Lab":         'agents',
+  'VoxCraft / ReactCraft': 'voice',
+  'HireIQ':                'agents',
+  'StructureIQ':           'document',
 }
 
 const PROJECT_ICONS: Record<string, string> = {
-  'VoiceOps AI':   '📞',
-  'LexCall':       '⚖️',
-  "Founder's Lab": '🚀',
-  'Trajectry':     '🎯',
-  'StructureIQ':   '🏗️',
+  'Staffmind':             '📞',
+  'LexCall':               '⚖️',
+  "Founder's Lab":         '🚀',
+  'VoxCraft / ReactCraft': '🎬',
+  'HireIQ':                '🎯',
+  'StructureIQ':           '🏗️',
 }
 
 export function ProjectsApp() {
